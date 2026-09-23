@@ -1,0 +1,2928 @@
+/* =============================================================
+   GENETIK BLEU SALON - MAIN STYLESHEET
+   =============================================================
+
+   This ONE CSS file styles all three HTML pages:
+   - index.html
+   - services.html
+   - registration.html
+
+   The design is inspired by the elegant, editorial salon website
+   shown in your screenshots, but it is written as an original layout
+   for Genetik Bleu Salon.
+
+   -------------------------------------------------------------
+   QUICK CUSTOMIZATION GUIDE
+   -------------------------------------------------------------
+   1. COLORS:
+      Change the variables inside :root below.
+
+   2. HERO PHOTO:
+      Search this file for "HERO PHOTO" and change the image URL.
+
+   3. FONTS:
+      This version uses dependable built-in fonts so it works immediately.
+      You can later add a Google Font or premium font if desired.
+
+   4. SPACING / WIDTHS:
+      Most main sections use max-width: 1200px so content stays polished
+      on very large screens.
+   ============================================================= */
+
+
+/* =============================================================
+   1) GLOBAL COLOR + SIZE VARIABLES
+   ============================================================= */
+:root {
+  /* Warm neutral background similar to an upscale editorial salon site. */
+  --cream: #f3eee6;
+
+  /* Light cream used for cards/sections. */
+  --soft-cream: #faf7f1;
+
+  /* Main dark background. */
+  --charcoal: #1d1a19;
+
+  /* Slightly lighter dark brown/charcoal. */
+  --brown: #342e2a;
+
+  /* "Bleu" accent color for branding. */
+  --bleu: #6f8098;
+
+  /* Darker blue used for hover states. */
+  --bleu-dark: #53657c;
+
+  /* Standard dark text. */
+  --ink: #26211f;
+
+  /* Muted paragraph color. */
+  --muted: #6e6762;
+
+  /* White/cream text used on dark areas. */
+  --light-text: #f7f3ed;
+
+  /* Thin border color. */
+  --line: rgba(38, 33, 31, 0.15);
+
+  /* Reusable page width. */
+  --content-width: 1200px;
+
+  /* Reusable subtle shadow. */
+  --shadow: 0 18px 45px rgba(0, 0, 0, 0.12);
+}
+
+
+/* =============================================================
+   2) BASIC RESET / GLOBAL ELEMENTS
+   ============================================================= */
+
+/* Makes padding and borders count inside width calculations. */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Smooth scrolling when clicking an anchor link like #booking. */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--soft-cream);
+  color: var(--ink);
+
+  /* Clean sans-serif body font.
+     You can replace this later with another font if desired. */
+  font-family: "Helvetica Neue", Arial, sans-serif;
+
+  line-height: 1.6;
+}
+
+/* Prevent images from overflowing their containers. */
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* Remove the default underline; custom hover states are added later. */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Consistent button font. */
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+/* Makes focus states visible for keyboard users. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid rgba(111, 128, 152, 0.5);
+  outline-offset: 3px;
+}
+
+/* Reusable section spacing. */
+.section {
+  padding: 96px 6vw;
+}
+
+
+/* =============================================================
+   3) TYPOGRAPHY
+   ============================================================= */
+
+/* A more editorial serif font for headings.
+   Georgia is built into most computers and requires no external download. */
+h1,
+h2,
+h3,
+.brand {
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 500;
+  line-height: 1.08;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  font-size: clamp(3.2rem, 7vw, 7rem);
+  letter-spacing: -0.045em;
+}
+
+h2 {
+  font-size: clamp(2.25rem, 4.5vw, 4.6rem);
+  letter-spacing: -0.035em;
+}
+
+h3 {
+  font-size: 1.6rem;
+}
+
+p {
+  font-size: 1.02rem;
+}
+
+.eyebrow {
+  margin-bottom: 16px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.text-link {
+  display: inline-block;
+  margin-top: 10px;
+  color: var(--bleu-dark);
+  font-weight: 700;
+  border-bottom: 1px solid currentColor;
+}
+
+.text-link:hover {
+  color: var(--charcoal);
+}
+
+
+/* =============================================================
+   4) HEADER / NAVIGATION
+   ============================================================= */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  background: rgba(243, 238, 230, 0.97);
+  border-bottom: 1px solid rgba(38, 33, 31, 0.08);
+  backdrop-filter: blur(10px);
+}
+
+.nav-container {
+  width: min(var(--content-width), 92vw);
+  min-height: 88px;
+  margin: 0 auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+/* LOGO SIZE:
+   Increase/decrease the width below after you add the real logo. */
+.brand-logo {
+  width: 190px;
+  max-height: 58px;
+  object-fit: contain;
+  object-position: left center;
+}
+
+.main-nav {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.main-nav a {
+  position: relative;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+/* Elegant underline for standard navigation links. */
+.main-nav a:not(.nav-cta)::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+
+  width: 0;
+  height: 1px;
+
+  background: var(--ink);
+  transition: width 0.25s ease;
+}
+
+.main-nav a:hover::after,
+.main-nav a.active::after {
+  width: 100%;
+}
+
+/* Special call-to-action button in the navigation. */
+.nav-cta {
+  padding: 12px 16px;
+  color: var(--light-text);
+  background: var(--charcoal);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.nav-cta:hover {
+  background: var(--bleu-dark);
+  transform: translateY(-1px);
+}
+
+/* Hidden on desktop. Shown in the mobile media query below. */
+.menu-toggle {
+  display: none;
+  width: 44px;
+  height: 44px;
+  padding: 8px;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.menu-toggle span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  margin: 6px 0;
+  background: var(--ink);
+}
+
+
+/* =============================================================
+   5) BUTTONS
+   ============================================================= */
+
+.button,
+.instagram-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 52px;
+  padding: 0 24px;
+
+  border: 1px solid transparent;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.button:hover,
+.instagram-button:hover {
+  transform: translateY(-2px);
+}
+
+.button-primary {
+  background: var(--charcoal);
+  color: var(--light-text);
+}
+
+.button-primary:hover {
+  background: var(--bleu-dark);
+}
+
+.button-secondary {
+  border-color: rgba(255, 255, 255, 0.8);
+  color: white;
+  background: rgba(0, 0, 0, 0.12);
+}
+
+.button-secondary:hover {
+  background: white;
+  color: var(--ink);
+}
+
+.button-cream {
+  background: var(--cream);
+  color: var(--ink);
+}
+
+.button-cream:hover {
+  background: white;
+}
+
+
+/* =============================================================
+   6) HOME PAGE HERO
+   ============================================================= */
+
+.hero {
+  /* -----------------------------------------------------------
+     HERO PHOTO
+     -----------------------------------------------------------
+     Replace the image path below after adding your real hero image
+     to the "images" folder.
+
+     Example:
+       background-image: url("images/hero-photo.jpg");
+     ----------------------------------------------------------- */
+  background-image: url("images/slide-blue-purple.jpeg");
+  background-size: cover;
+  background-position: center;
+
+  position: relative;
+  min-height: calc(100vh - 88px);
+
+  display: flex;
+  align-items: center;
+
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Dark overlay helps text remain readable over bright photos. */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(14, 12, 11, 0.82) 0%,
+      rgba(14, 12, 11, 0.48) 50%,
+      rgba(14, 12, 11, 0.18) 100%
+    );
+}
+
+.hero-content {
+  width: min(820px, 86vw);
+  margin-left: max(6vw, calc((100vw - var(--content-width)) / 2));
+
+  color: white;
+}
+
+.hero-content h1 {
+  max-width: 820px;
+  margin-bottom: 24px;
+}
+
+.hero-content h1 span {
+  color: #c8d0da;
+  font-style: italic;
+}
+
+.hero-copy {
+  max-width: 620px;
+  margin-bottom: 34px;
+  font-size: clamp(1rem, 1.7vw, 1.25rem);
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.hero-caption {
+  position: absolute;
+  right: 4vw;
+  bottom: 3vw;
+
+  color: rgba(255, 255, 255, 0.55);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1rem, 2.4vw, 2rem);
+  letter-spacing: 0.18em;
+}
+
+
+/* =============================================================
+   7) QUICK INFORMATION STRIP
+   ============================================================= */
+
+.info-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  background: var(--cream);
+  border-bottom: 1px solid var(--line);
+}
+
+.info-item {
+  padding: 54px 7vw;
+  text-align: center;
+}
+
+.info-item + .info-item {
+  border-left: 1px solid var(--line);
+}
+
+.info-item h2 {
+  margin-bottom: 14px;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.info-item p {
+  margin-bottom: 3px;
+  color: var(--muted);
+}
+
+
+/* =============================================================
+   8) BRAND STORY / OWNER SECTION
+   ============================================================= */
+
+.brand-story {
+  width: min(var(--content-width), 100%);
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(50px, 8vw, 110px);
+  align-items: center;
+}
+
+.brand-story-image {
+  min-height: 640px;
+  overflow: hidden;
+  background: #ddd;
+  box-shadow: var(--shadow);
+}
+
+.brand-story-image img {
+  width: 100%;
+  height: 100%;
+  min-height: 640px;
+  object-fit: cover;
+}
+
+.brand-story-content h2 {
+  margin-bottom: 28px;
+}
+
+.brand-story-content p:not(.eyebrow) {
+  color: var(--muted);
+}
+
+
+/* =============================================================
+   9) SLIDESHOW / GALLERY
+   ============================================================= */
+
+.gallery-section {
+  background: var(--cream);
+}
+
+.section-heading {
+  width: min(760px, 100%);
+  margin: 0 auto 46px;
+  text-align: center;
+}
+
+.section-heading h2 {
+  margin-bottom: 18px;
+}
+
+.section-heading p:not(.eyebrow) {
+  color: var(--muted);
+}
+
+.section-heading.light {
+  color: var(--light-text);
+}
+
+.section-heading.light p:not(.eyebrow) {
+  color: rgba(255, 255, 255, 0.68);
+}
+
+.slideshow {
+  position: relative;
+  width: min(var(--content-width), 100%);
+  margin: 0 auto;
+}
+
+.slides-track {
+  position: relative;
+  min-height: 660px;
+  overflow: hidden;
+  background: var(--charcoal);
+  box-shadow: var(--shadow);
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+
+  margin: 0;
+
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(1.02);
+
+  transition:
+    opacity 0.7s ease,
+    transform 0.9s ease,
+    visibility 0.7s ease;
+}
+
+.slide.is-active {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+}
+
+.slide img {
+  width: 100%;
+  height: 660px;
+  object-fit: cover;
+}
+
+.slide figcaption {
+  position: absolute;
+  left: 28px;
+  bottom: 28px;
+
+  max-width: 520px;
+  padding: 14px 18px;
+
+  color: white;
+  background: rgba(24, 21, 20, 0.76);
+  backdrop-filter: blur(8px);
+}
+
+.slide-arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 5;
+  transform: translateY(-50%);
+
+  width: 54px;
+  height: 54px;
+
+  border: 0;
+  border-radius: 50%;
+
+  color: white;
+  background: rgba(0, 0, 0, 0.48);
+
+  font-size: 2rem;
+  line-height: 1;
+
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.slide-arrow:hover {
+  background: var(--bleu-dark);
+}
+
+.slide-arrow-left {
+  left: 20px;
+}
+
+.slide-arrow-right {
+  right: 20px;
+}
+
+.slide-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.slide-dot {
+  width: 10px;
+  height: 10px;
+  padding: 0;
+
+  border: 1px solid var(--ink);
+  border-radius: 50%;
+
+  background: transparent;
+  cursor: pointer;
+}
+
+.slide-dot.is-active {
+  background: var(--ink);
+}
+
+
+/* =============================================================
+   10) SERVICES PREVIEW SECTION
+   ============================================================= */
+
+.services-preview {
+  background: var(--brown);
+}
+
+.service-preview-grid {
+  width: min(var(--content-width), 100%);
+  margin: 0 auto 46px;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.preview-card {
+  min-height: 280px;
+  padding: 40px;
+
+  color: var(--light-text);
+  border: 1px solid rgba(255, 255, 255, 0.13);
+}
+
+.preview-card + .preview-card {
+  border-left: 0;
+}
+
+.preview-card span {
+  display: block;
+  margin-bottom: 70px;
+
+  color: #c6cdd7;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+}
+
+.preview-card h3 {
+  margin-bottom: 14px;
+  font-size: 2rem;
+}
+
+.preview-card p {
+  color: rgba(255, 255, 255, 0.68);
+}
+
+.centered-button {
+  text-align: center;
+}
+
+
+/* =============================================================
+   11) BOOKING BANNER
+   ============================================================= */
+
+.booking-banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 40px;
+
+  background: #d8dde5;
+}
+
+.booking-banner h2 {
+  max-width: 800px;
+  margin-bottom: 0;
+}
+
+
+/* =============================================================
+   12) FOOTER
+   ============================================================= */
+
+.site-footer {
+  padding: 70px 6vw 26px;
+  background: var(--charcoal);
+  color: var(--light-text);
+}
+
+.footer-grid {
+  width: min(var(--content-width), 100%);
+  margin: 0 auto 50px;
+
+  display: grid;
+  grid-template-columns: 1.35fr 1fr 1fr 1fr;
+  gap: 50px;
+}
+
+.footer-logo {
+  width: 190px;
+  max-height: 70px;
+  margin-bottom: 20px;
+
+  /* This invert filter makes the placeholder/light logo visible on dark footer.
+     Remove this filter if your real logo already looks correct on dark backgrounds. */
+  filter: brightness(0) invert(1);
+}
+
+.footer-brand p {
+  max-width: 330px;
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.site-footer h2 {
+  margin-bottom: 16px;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.site-footer p,
+.site-footer address {
+  margin-bottom: 8px;
+  color: rgba(255, 255, 255, 0.72);
+  font-style: normal;
+}
+
+.site-footer a:hover {
+  color: #c8d0da;
+}
+
+.instagram-button {
+  margin-top: 12px;
+  border-color: rgba(255, 255, 255, 0.4);
+  color: white;
+}
+
+.instagram-button:hover {
+  background: white;
+  color: var(--charcoal);
+}
+
+.footer-bottom {
+  width: min(var(--content-width), 100%);
+  margin: 0 auto;
+  padding-top: 24px;
+
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.footer-bottom p {
+  margin: 0;
+  font-size: 0.82rem;
+}
+
+.footer-links {
+  display: flex;
+  gap: 24px;
+  font-size: 0.82rem;
+}
+
+
+/* =============================================================
+   13) INNER PAGE HERO
+   Used by Services and Client Registration pages.
+   ============================================================= */
+
+.inner-hero {
+  padding: 110px 6vw 88px;
+  background: var(--brown);
+  color: var(--light-text);
+}
+
+.inner-hero-content {
+  width: min(var(--content-width), 100%);
+  margin: 0 auto;
+}
+
+.inner-hero h1 {
+  max-width: 850px;
+  margin-bottom: 20px;
+  font-size: clamp(3rem, 6vw, 6rem);
+}
+
+.inner-hero p:not(.eyebrow) {
+  max-width: 720px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.15rem;
+}
+
+
+/* =============================================================
+   14) SERVICES PAGE
+   ============================================================= */
+
+.service-menu {
+  width: min(var(--content-width), 100%);
+  margin: 0 auto;
+}
+
+.service-category {
+  padding: 46px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.service-category-header {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 50px;
+  margin-bottom: 32px;
+}
+
+.service-category-header h2 {
+  font-size: clamp(2rem, 4vw, 3.6rem);
+}
+
+.service-category-header p {
+  color: var(--muted);
+}
+
+.service-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+.service-item {
+  padding: 26px;
+  background: white;
+  border: 1px solid var(--line);
+}
+
+.service-item-topline {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.service-item h3 {
+  margin-bottom: 8px;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.service-price {
+  white-space: nowrap;
+  font-weight: 800;
+  color: var(--bleu-dark);
+}
+
+.service-item p {
+  margin-bottom: 0;
+  color: var(--muted);
+}
+
+.service-photo-grid {
+  margin-top: 42px;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.service-photo-grid img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+}
+
+
+/* =============================================================
+   15) CLIENT REGISTRATION PAGE / FORM
+   ============================================================= */
+
+.form-layout {
+  width: min(var(--content-width), 100%);
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: 0.75fr 1.25fr;
+  gap: clamp(50px, 8vw, 100px);
+  align-items: start;
+}
+
+.form-intro {
+  position: sticky;
+  top: 130px;
+}
+
+.form-intro p {
+  color: var(--muted);
+}
+
+.client-form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 22px;
+
+  padding: clamp(28px, 5vw, 58px);
+  background: white;
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-field.full-width {
+  grid-column: 1 / -1;
+}
+
+.form-field label,
+fieldset legend {
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 14px;
+
+  border: 1px solid #cfc8c0;
+  border-radius: 0;
+
+  background: #fff;
+}
+
+.form-field textarea {
+  min-height: 130px;
+  resize: vertical;
+}
+
+.checkbox-row {
+  grid-column: 1 / -1;
+
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.checkbox-row input {
+  margin-top: 5px;
+}
+
+.form-note {
+  grid-column: 1 / -1;
+  padding: 16px;
+  background: var(--cream);
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+
+/* =============================================================
+   16) RESPONSIVE DESIGN
+   ============================================================= */
+
+/* Tablet / smaller desktop */
+@media (max-width: 980px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .main-nav {
+    position: absolute;
+    left: 0;
+    top: 88px;
+
+    width: 100%;
+    padding: 24px 6vw 30px;
+
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+
+    background: var(--cream);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .main-nav.is-open {
+    display: flex;
+  }
+
+  .main-nav a {
+    width: 100%;
+    padding: 10px 0;
+  }
+
+  .info-strip {
+    grid-template-columns: 1fr;
+  }
+
+  .info-item + .info-item {
+    border-left: 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .brand-story,
+  .form-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .brand-story-image,
+  .brand-story-image img {
+    min-height: 520px;
+  }
+
+  .service-preview-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .preview-card + .preview-card {
+    border-left: 1px solid rgba(255, 255, 255, 0.13);
+    border-top: 0;
+  }
+
+  .booking-banner {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .service-category-header {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .form-intro {
+    position: static;
+  }
+}
+
+
+/* Phone */
+@media (max-width: 680px) {
+  .section {
+    padding: 72px 6vw;
+  }
+
+  .brand-logo {
+    width: 150px;
+  }
+
+  .hero {
+    min-height: 740px;
+    background-position: 58% center;
+  }
+
+  .hero-overlay {
+    background: rgba(14, 12, 11, 0.6);
+  }
+
+  .hero-caption {
+    display: none;
+  }
+
+  .hero-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .button {
+    width: 100%;
+  }
+
+  .info-item {
+    padding: 38px 7vw;
+  }
+
+  .brand-story-image,
+  .brand-story-image img {
+    min-height: 430px;
+  }
+
+  .slides-track {
+    min-height: 500px;
+  }
+
+  .slide img {
+    height: 500px;
+  }
+
+  .slide-arrow {
+    width: 44px;
+    height: 44px;
+  }
+
+  .slide-arrow-left {
+    left: 10px;
+  }
+
+  .slide-arrow-right {
+    right: 10px;
+  }
+
+  .slide figcaption {
+    left: 16px;
+    right: 16px;
+    bottom: 16px;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+  }
+
+  .footer-links {
+    flex-wrap: wrap;
+  }
+
+  .service-list,
+  .service-photo-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .client-form {
+    grid-template-columns: 1fr;
+  }
+
+  .form-field.full-width,
+  .checkbox-row,
+  .form-note {
+    grid-column: auto;
+  }
+}
+
+
+/* =============================================================
+   17) REDUCED MOTION ACCESSIBILITY
+   =============================================================
+   If a visitor has asked their device to reduce animation,
+   this disables smooth scrolling and slideshow transitions.
+   ============================================================= */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+
+/* =============================================================
+   19) REAL-PHOTO + OWNER CAPTION UPDATES
+   =============================================================
+   These rules were added after the salon's real photography was supplied.
+   They preserve the original editorial layout while making portrait images
+   and the owner caption display cleanly.
+   ============================================================= */
+
+.brand-story-image {
+  margin: 0;
+  background: var(--charcoal);
+}
+
+.brand-story-image img {
+  height: 640px;
+  min-height: 0;
+  object-position: center;
+}
+
+.owner-caption {
+  padding: 10px 14px 12px;
+  background: var(--charcoal);
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  text-align: center;
+}
+
+/* Small education notice under the homepage information strip. */
+.class-notice {
+  padding: 14px 6vw;
+  background: var(--bleu);
+  color: white;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.class-notice strong {
+  margin-right: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.78rem;
+}
+
+
+/* =============================================================
+   20) UPDATED SERVICES PAGE
+   =============================================================
+   Service cards can contain a photo OR be text-only.
+   This gives you flexibility because not every salon service needs an image.
+   ============================================================= */
+
+.sample-price-note {
+  max-width: 720px;
+  margin-top: 24px;
+  padding: 14px 16px;
+  border-left: 3px solid var(--bleu);
+  background: rgba(255, 255, 255, 0.08);
+  font-size: 0.92rem;
+}
+
+.classes-banner {
+  width: min(var(--content-width), calc(100% - 12vw));
+  margin: 64px auto 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  background: var(--cream);
+  border: 1px solid var(--line);
+}
+
+.classes-banner h2 {
+  margin-bottom: 8px;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+}
+
+.classes-banner p:last-child {
+  margin-bottom: 0;
+  color: var(--muted);
+}
+
+.service-section-heading {
+  max-width: 760px;
+  margin-bottom: 38px;
+}
+
+.service-section-heading h2 {
+  margin-bottom: 0;
+}
+
+.service-menu-alt {
+  width: 100%;
+  max-width: none;
+  background: var(--cream);
+}
+
+.service-menu-alt > * {
+  width: min(var(--content-width), 100%);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.service-card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.service-card {
+  min-width: 0;
+  background: white;
+  border: 1px solid var(--line);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.06);
+}
+
+.service-card-photo img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+}
+
+.service-card-content {
+  padding: 24px;
+}
+
+.service-card-content p {
+  margin-bottom: 0;
+  color: var(--muted);
+}
+
+.service-card-text-only {
+  display: flex;
+  min-height: 230px;
+  align-items: center;
+  background:
+    linear-gradient(135deg, rgba(111, 128, 152, 0.08), rgba(255, 255, 255, 1));
+}
+
+.compact-service-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.footer-small {
+  max-width: 250px;
+  margin-top: 12px;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  opacity: 0.78;
+}
+
+
+/* =============================================================
+   21) RESPONSIVE RULES FOR NEW CONTENT
+   ============================================================= */
+
+@media (max-width: 980px) {
+  .service-card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .classes-banner {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 700px) {
+  .brand-story-image img {
+    height: 520px;
+  }
+
+  .service-card-grid,
+  .compact-service-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .classes-banner {
+    width: calc(100% - 40px);
+    margin-top: 36px;
+  }
+}
+
+/* =============================================================
+   PRESERVED LATER SITE-WIDE REQUESTS
+   These overrides do NOT change the original Services area layout.
+   ============================================================= */
+.footer-logo { filter: none; }
+
+
+/* =============================================================
+   HEADER BRAND UPDATE
+   Moves the logo closer to the left edge and places the salon name
+   beside it. These rules affect only the site header/brand area.
+   ============================================================= */
+.nav-container {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding-left: 22px;
+  padding-right: 3vw;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+}
+
+.brand-logo {
+  width: 82px;
+  height: 82px;
+  max-height: 82px;
+  object-fit: contain;
+}
+
+.brand-name {
+  display: inline-block;
+  font-family: Georgia, "Times New Roman", serif;
+  /* Desktop brand wordmark: intentionally larger so the stylist/salon identity
+     reads as a real wordmark beside the logo instead of small utility text. */
+  font-size: 1.55rem;
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  white-space: nowrap;
+  color: var(--bleu-dark);
+}
+
+@media (max-width: 900px) {
+  .nav-container {
+    padding-left: 14px;
+    padding-right: 18px;
+  }
+
+  .brand-logo {
+    width: 66px;
+    height: 66px;
+  }
+
+  .brand-name {
+    font-size: 1.08rem;
+    letter-spacing: 0.04em;
+  }
+}
+
+@media (max-width: 520px) {
+  .brand { gap: 9px; }
+  .brand-logo {
+    width: 56px;
+    height: 56px;
+  }
+  .brand-name {
+    max-width: 126px;
+    white-space: normal;
+    font-size: 0.9rem;
+    line-height: 1.05;
+  }
+}
+
+
+/* =============================================================
+   22) COMPACT SERVICES MENU + HOVER PHOTO ENLARGEMENT
+   =============================================================
+   This section intentionally overrides the older large service-card layout.
+   It keeps the same site typography/colors while reducing vertical scrolling.
+   ============================================================= */
+.service-hero-compact {
+  padding-top: 68px;
+  padding-bottom: 52px;
+}
+
+.service-hero-compact h1 {
+  margin-bottom: 10px;
+  font-size: clamp(2.8rem, 5vw, 4.8rem);
+}
+
+.service-hero-compact p:not(.eyebrow) {
+  font-size: 1rem;
+}
+
+.service-hero-compact .sample-price-note {
+  max-width: 820px;
+  margin-top: 15px;
+  padding: 9px 12px;
+  font-size: .82rem;
+}
+
+.classes-strip {
+  padding: 10px 6vw;
+  background: var(--bleu);
+  color: white;
+  text-align: center;
+  font-size: .82rem;
+}
+
+.classes-strip strong {
+  margin-right: 5px;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  font-size: .72rem;
+}
+
+.compact-menu-section {
+  padding-top: 46px;
+  padding-bottom: 40px;
+}
+
+.compact-menu-heading {
+  width: min(var(--content-width), 100%);
+  margin: 0 auto 24px;
+}
+
+.compact-menu-heading h2 {
+  margin: 0;
+  font-size: clamp(2rem, 3.5vw, 3.4rem);
+}
+
+.compact-menu-grid {
+  width: min(var(--content-width), 100%);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
+  gap: 16px;
+}
+
+.menu-category-card {
+  border: 1px solid var(--line);
+  background: #fff;
+  box-shadow: 0 8px 22px rgba(0,0,0,.045);
+}
+
+.menu-category-card > h3 {
+  margin: 0;
+  padding: 16px 17px;
+  background: var(--charcoal);
+  color: #fff;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+
+.menu-category-accent > h3 {
+  background: var(--bleu-dark);
+}
+
+.menu-service {
+  padding: 11px 14px 10px;
+  border-bottom: 1px solid var(--line);
+}
+
+.menu-service:last-child {
+  border-bottom: 0;
+}
+
+.menu-service > div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.menu-service strong {
+  font-size: .83rem;
+  line-height: 1.25;
+}
+
+.menu-service span {
+  flex: 0 0 auto;
+  color: var(--bleu-dark);
+  font-size: .82rem;
+  font-weight: 800;
+}
+
+.menu-service p {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: .72rem;
+  line-height: 1.4;
+}
+
+.service-inspiration {
+  position: relative;
+  padding-top: 42px;
+  padding-bottom: 52px;
+  background: var(--cream);
+}
+
+.service-photo-heading {
+  width: min(var(--content-width), 100%);
+  margin: 0 auto 20px;
+}
+
+.service-photo-heading h2 {
+  margin: 0 0 5px;
+  font-size: clamp(2rem, 3.2vw, 3.2rem);
+}
+
+.service-photo-heading p:last-child {
+  margin: 0;
+  color: var(--muted);
+  font-size: .82rem;
+}
+
+.service-look-grid {
+  position: relative;
+  width: min(var(--content-width), 100%);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 10px;
+  overflow: visible;
+}
+
+.service-look {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  aspect-ratio: 1 / 1;
+  background: #ddd;
+  box-shadow: 0 5px 14px rgba(0,0,0,.08);
+  transition: transform .24s ease, z-index 0s linear .24s, box-shadow .24s ease;
+}
+
+.service-look img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Desktop hover enlargement. The tile grows over its neighbors instead of
+   pushing the page downward, so the menu remains compact. */
+@media (hover: hover) and (pointer: fine) {
+  .service-look:hover {
+    z-index: 40;
+    transform: scale(1.72);
+    box-shadow: 0 22px 54px rgba(0,0,0,.28);
+    transition-delay: 0s;
+  }
+}
+
+/* Normal Contact link replaces the former top-right call button. */
+.main-nav a[href="index.html#contact"],
+.main-nav a[href="#contact"] {
+  font-weight: 700;
+}
+
+/* The old Questions Before Booking banner has been removed from HTML. */
+
+@media (max-width: 1050px) {
+  .compact-menu-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .menu-category-card:last-child {
+    grid-column: 1 / -1;
+  }
+  .service-look-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  .service-hero-compact {
+    padding: 48px 20px 36px;
+  }
+
+  .compact-menu-section,
+  .service-inspiration {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .compact-menu-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .menu-category-card:last-child {
+    grid-column: auto;
+  }
+
+  .service-look-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+}
+
+@media (max-width: 430px) {
+  .service-look-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+
+/* =============================================================
+   23) COMBINED + COMPACT SERVICE CARDS (CURRENT DESIGN)
+   =============================================================
+   Restores the combined photo + description cards the user preferred,
+   while keeping them smaller so the menu requires less scrolling.
+   ============================================================= */
+
+.service-hero-compact {
+  padding-top: 52px;
+  padding-bottom: 38px;
+}
+.service-hero-compact h1 {
+  margin-bottom: 8px;
+  font-size: clamp(2.6rem, 5vw, 4.5rem);
+}
+.service-hero-compact p:not(.eyebrow) { font-size: .94rem; }
+.service-hero-compact .sample-price-note {
+  max-width: 780px;
+  margin-top: 12px;
+  padding: 8px 11px;
+  font-size: .76rem;
+}
+
+.classes-strip {
+  padding: 9px 6vw;
+  background: var(--bleu);
+  color: #fff;
+  text-align: center;
+  font-size: .78rem;
+}
+.classes-strip strong {
+  margin-right: 5px;
+  font-size: .7rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.service-menu-compact {
+  padding-top: 40px;
+  padding-bottom: 42px;
+}
+.compact-heading {
+  margin-bottom: 22px;
+}
+.compact-heading h2 {
+  font-size: clamp(1.9rem, 3.4vw, 3rem);
+}
+
+.compact-card-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  overflow: visible;
+}
+
+.compact-service-card {
+  position: relative;
+  z-index: 0;
+  min-height: 0;
+  overflow: visible;
+  box-shadow: 0 7px 20px rgba(0,0,0,.055);
+}
+
+.compact-service-card.service-card-photo img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 5 / 4;
+  height: auto;
+  object-fit: cover;
+
+  /*
+     PER-PHOTO HAIR / FACE POSITIONING
+     ------------------------------------------------------------
+     Each service image can optionally set two CSS variables directly in HTML:
+
+       style="--image-y: 38%; --image-scale: 1;"
+
+     --image-y changes ONLY the vertical crop position:
+       38% = the NEW site-wide default (shows more hair / less face)
+       30% = shows even MORE of the TOP / HAIR
+       20% = pushes the visible crop even farther toward the top of the photo
+       50% = centered image
+       60% = shows more of the lower part of the photo
+
+     IMPORTANT VISUAL NOTE:
+       Lowering --image-y (for example 38% -> 30%) makes the PHOTO CONTENT
+       appear a little LOWER inside the fixed card, revealing more of the hair
+       at the top without changing the card, text, or neighboring services.
+
+     --image-scale changes ONLY that photo's resting zoom:
+       1    = normal size
+       1.05 = 5% larger / more cropped
+       .95  = 5% smaller
+
+     These variables do not change the card size, service text, or neighboring photos.
+  */
+  object-position: center var(--image-y, 38%);
+  scale: var(--image-scale, 1);
+  transform-origin: center center;
+
+  background: #eee8e1;
+  cursor: zoom-in;
+  transition: transform .24s ease, scale .24s ease, box-shadow .24s ease;
+}
+
+.compact-service-card .service-card-content {
+  padding: 14px 14px 15px;
+}
+.compact-service-card .service-item-topline {
+  gap: 8px;
+}
+.compact-service-card .service-item-topline h3 {
+  margin: 0;
+  font-size: .84rem;
+  line-height: 1.25;
+}
+.compact-service-card .service-price {
+  font-size: .8rem;
+}
+.compact-service-card .service-card-content p {
+  margin: 6px 0 0;
+  font-size: .72rem;
+  line-height: 1.4;
+}
+
+.text-service-card {
+  min-height: 138px;
+  align-items: center;
+}
+.hair-care-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+/* Desktop: photo grows above EVERY neighboring card without reflowing the page.
+   The card itself receives the high z-index. This fixes the old issue where a
+   neighboring card could paint on top of the enlarged photo. */
+.compact-card-grid,
+.service-menu-compact,
+.service-menu-combined {
+  overflow: visible;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .compact-service-card.service-card-photo:hover,
+  .compact-service-card.service-card-photo:focus-within {
+    z-index: 200;
+  }
+
+  .compact-service-card.service-card-photo img:hover,
+  .compact-service-card.service-card-photo img:focus-visible {
+    position: relative;
+    z-index: 201;
+    transform: scale(1.58);
+    transform-origin: center center;
+    box-shadow: 0 24px 54px rgba(0,0,0,.3);
+  }
+}
+
+/* The former Cuts + Styling and Color blocks are now one section, so the
+   spacing is intentionally tighter than two full sections stacked together. */
+.service-menu-combined {
+  padding-bottom: 42px;
+}
+.combined-service-grid {
+  row-gap: 16px;
+}
+
+/* Footer logo: explicitly preserve its natural square proportions. */
+.site-footer .footer-logo {
+  width: 220px;
+  height: auto !important;
+  max-height: none !important;
+  aspect-ratio: auto !important;
+  object-fit: contain !important;
+  object-position: left center;
+  filter: none;
+}
+
+/* Generic photo lightbox also exists on this page through script.js. */
+.photo-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(10,9,9,.92);
+  backdrop-filter: blur(8px);
+}
+.photo-lightbox.is-open { display: flex; }
+body.lightbox-open { overflow: hidden; }
+.photo-lightbox-image {
+  display: block;
+  max-width: min(92vw, 1100px);
+  max-height: 84vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  box-shadow: 0 24px 70px rgba(0,0,0,.45);
+}
+.photo-lightbox-close {
+  position: fixed;
+  top: max(18px, env(safe-area-inset-top));
+  right: max(18px, env(safe-area-inset-right));
+  width: 46px;
+  height: 46px;
+  border: 1px solid rgba(255,255,255,.5);
+  border-radius: 50%;
+  background: rgba(0,0,0,.5);
+  color: #fff;
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.photo-lightbox-caption {
+  position: fixed;
+  left: 50%;
+  bottom: max(18px, env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  width: min(90vw, 760px);
+  margin: 0;
+  color: rgba(255,255,255,.88);
+  text-align: center;
+  font-size: .86rem;
+}
+
+@media (max-width: 1100px) {
+  .compact-card-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .hair-care-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+@media (max-width: 760px) {
+  .service-menu-compact { padding: 34px 16px 38px; }
+  .compact-card-grid,
+  .hair-care-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .compact-service-card .service-card-content { padding: 11px 10px 12px; }
+  .compact-service-card .service-item-topline { display: block; }
+  .compact-service-card .service-item-topline h3 { font-size: .76rem; }
+  .compact-service-card .service-price {
+    display: inline-block;
+    margin-top: 3px;
+    font-size: .72rem;
+  }
+  .compact-service-card .service-card-content p {
+    font-size: .66rem;
+    line-height: 1.35;
+  }
+  .text-service-card { min-height: 128px; }
+  .site-footer { padding-left: 20px; padding-right: 20px; }
+  .site-footer .footer-logo { width: min(210px, 68vw); height: auto !important; }
+  .photo-lightbox { padding: 12px; }
+  .photo-lightbox-image { max-width: 96vw; max-height: 80svh; }
+}
+
+@media (max-width: 355px) {
+  .compact-card-grid,
+  .hair-care-grid { grid-template-columns: 1fr; }
+  .compact-service-card .service-item-topline { display: flex; }
+}
+
+
+/* =============================================================
+   WHAT TO EXPECT + CURRENT SERVICE MENU POLISH
+   ============================================================= */
+.sample-price-disclaimer {
+  opacity: .72;
+}
+.expectation-intro {
+  max-width: 760px;
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: .92rem;
+}
+.expectation-card {
+  align-items: stretch;
+  min-height: 156px;
+}
+.expectation-number {
+  display: block;
+  margin-bottom: 13px;
+  color: var(--bleu-dark);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.55rem;
+  line-height: 1;
+}
+@media (max-width: 760px) {
+  .expectation-intro { font-size: .78rem; }
+  .expectation-card { min-height: 148px; }
+  .expectation-number { font-size: 1.3rem; margin-bottom: 9px; }
+}
+
+
+/* =============================================================
+   FINAL SERVICES PHONE + TABLET CENTERING
+   =============================================================
+   The Services page has its own stylesheet, so it needs its own responsive
+   centering rules. These intentionally come LAST and make iPad/tablet widths
+   follow the clean mobile presentation while leaving desktop unchanged.
+   ============================================================= */
+@media (max-width: 1024px) {
+  /* Header wordmark centered between logo and menu icon. */
+  .nav-container {
+    position: relative;
+    min-height: 82px;
+    padding: 9px 18px;
+    gap: 0;
+  }
+
+  .brand {
+    position: static;
+    gap: 0;
+  }
+
+  .brand-logo {
+    width: 64px;
+    height: 64px;
+    max-height: 64px;
+    object-fit: contain;
+  }
+
+  .brand-name {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: max-content;
+    max-width: calc(100% - 170px);
+    margin: 0;
+    font-size: clamp(1rem, 2.7vw, 1.35rem);
+    line-height: 1.08;
+    letter-spacing: .035em;
+    text-align: center;
+    white-space: normal;
+    pointer-events: none;
+  }
+
+  .menu-toggle {
+    position: relative;
+    z-index: 3;
+    margin-left: auto;
+  }
+
+  .main-nav {
+    top: 100%;
+    align-items: center;
+    text-align: center;
+  }
+
+  .main-nav a {
+    text-align: center;
+  }
+
+  /* Service hero and every section header/sub-header. */
+  .inner-hero-content,
+  .service-section-heading,
+  .compact-heading,
+  .expectation-section .service-section-heading {
+    text-align: center;
+  }
+
+  .inner-hero-content > p:not(.eyebrow),
+  .service-section-heading > p,
+  .expectation-intro,
+  .sample-price-note {
+    max-width: 760px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+
+  .service-hero-compact {
+    padding-left: 28px;
+    padding-right: 28px;
+  }
+
+  .service-menu-compact {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  /* Two-column tablet grid mirrors the compact phone layout instead of the
+     former three/four-column tablet arrangement. */
+  .compact-card-grid,
+  .hair-care-grid,
+  .expectation-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: min(820px, 100%);
+    margin-left: auto;
+    margin-right: auto;
+    gap: 14px;
+  }
+
+  /* Center service names/descriptions and What to Expect cards. */
+  .compact-service-card .service-card-content,
+  .compact-service-card .service-item-topline,
+  .compact-service-card .service-item-topline h3,
+  .compact-service-card .service-card-content p,
+  .expectation-number {
+    text-align: center;
+  }
+
+  .compact-service-card .service-item-topline {
+    display: block;
+  }
+
+  .expectation-card {
+    align-items: center;
+  }
+
+  /* Footer becomes one centered column on both phone and tablet. */
+  .site-footer {
+    text-align: center;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr !important;
+    justify-items: center;
+    gap: 34px;
+    text-align: center;
+  }
+
+  .footer-grid > div,
+  .footer-brand {
+    width: min(620px, 100%);
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+
+  .footer-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .site-footer .footer-logo {
+    display: block;
+    width: min(210px, 58vw);
+    height: auto !important;
+    margin: 0 auto 20px;
+    object-position: center !important;
+  }
+
+  .site-footer h2,
+  .site-footer p,
+  .site-footer address,
+  .footer-brand p {
+    text-align: center !important;
+  }
+
+  .instagram-button {
+    display: inline-flex;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    text-align: center;
+  }
+
+  .footer-bottom > p {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .footer-links {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 14px 20px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 700px) {
+  .nav-container {
+    min-height: 72px;
+    padding: 8px 14px;
+  }
+
+  .brand-logo {
+    width: 54px;
+    height: 54px;
+    max-height: 54px;
+  }
+
+  .brand-name {
+    max-width: calc(100% - 132px);
+    font-size: clamp(.92rem, 4.5vw, 1.08rem);
+  }
+
+  .service-hero-compact {
+    padding: 46px 20px 36px;
+  }
+
+  .service-menu-compact {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .compact-card-grid,
+  .hair-care-grid,
+  .expectation-grid {
+    gap: 10px;
+  }
+}
+
+/* =============================================================
+   32) SERVICES PAGE — WELCOMING EDITORIAL PERSONALITY UPGRADE
+   =============================================================
+   Matches the stronger Marni-focused personality added to the rest of the
+   site while preserving the compact service grid and mobile/tablet centering.
+   ============================================================= */
+:root {
+  --marni-blue: #315f9c;
+  --marni-blue-deep: #22466f;
+  --marni-blue-soft: #e7edf5;
+  --marnstarr-gold: #c99a24;
+}
+
+.site-header {
+  box-shadow: 0 8px 28px rgba(31, 41, 56, .05);
+}
+
+.main-nav a {
+  position: relative;
+}
+
+.main-nav a::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -7px;
+  width: 0;
+  height: 2px;
+  background: var(--marni-blue);
+  transform: translateX(-50%);
+  transition: width .24s ease;
+}
+
+.main-nav a:hover::after,
+.main-nav a:focus-visible::after,
+.main-nav a.active::after {
+  width: 72%;
+}
+
+.button,
+.instagram-button {
+  transition: transform .24s ease, box-shadow .24s ease, background .24s ease, color .24s ease;
+}
+
+.button:hover,
+.instagram-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(23, 43, 70, .18);
+}
+
+.button-primary {
+  background: var(--marni-blue-deep);
+  border-color: var(--marni-blue-deep);
+}
+
+.services-hero {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 82% 18%, rgba(49,95,156,.28), transparent 25%),
+    linear-gradient(130deg, #2c2927 0%, #24211f 65%, #20334d 100%);
+}
+
+.services-hero::after {
+  content: "MARNI";
+  position: absolute;
+  right: -1.5rem;
+  bottom: -2rem;
+  color: rgba(255,255,255,.028);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(7rem, 16vw, 14rem);
+  font-weight: 700;
+  letter-spacing: -.08em;
+  pointer-events: none;
+}
+
+.services-hero .eyebrow {
+  color: #b7c9e1;
+}
+
+.services-hero .sample-price-note {
+  border-left-color: #6f96c9;
+  background: rgba(111,150,201,.10);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.04);
+}
+
+[data-style-word] {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+[data-style-word]::before {
+  content: attr(data-style-word);
+  position: absolute;
+  z-index: -1;
+  right: -1vw;
+  top: -1.5rem;
+  color: rgba(49,95,156,.05);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(6rem, 14vw, 12rem);
+  font-weight: 700;
+  letter-spacing: -.08em;
+  line-height: .9;
+  pointer-events: none;
+}
+
+.service-section-heading::after {
+  content: "";
+  display: block;
+  width: 52px;
+  height: 3px;
+  margin: 20px 0 0;
+  border-radius: 99px;
+  background: var(--marni-blue);
+}
+
+.compact-service-card {
+  position: relative;
+  overflow: hidden;
+  transition: transform .26s ease, box-shadow .26s ease, border-color .26s ease;
+}
+
+.compact-service-card::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--marni-blue), #95aac6);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .28s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .compact-service-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(49,95,156,.24);
+    box-shadow: 0 18px 38px rgba(39,44,51,.13);
+  }
+
+  .compact-service-card:hover::after {
+    transform: scaleX(1);
+  }
+}
+
+.expectation-section {
+  background:
+    radial-gradient(circle at 8% 14%, rgba(49,95,156,.10), transparent 24%),
+    linear-gradient(180deg, #fbf7f1, #f5eee6);
+}
+
+.expectation-number {
+  color: var(--marni-blue-deep);
+}
+
+.expectation-card {
+  background: rgba(255,255,255,.72);
+}
+
+.site-footer {
+  position: relative;
+  background:
+    radial-gradient(circle at 15% 0%, rgba(49,95,156,.18), transparent 26%),
+    var(--charcoal);
+}
+
+.site-footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--marni-blue), #d8b65b, var(--marni-blue), transparent);
+}
+
+.site-footer h2 {
+  color: #b7c9e1;
+}
+
+/* Shared reveal-on-scroll animation. script.js assigns these classes. */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity .7s cubic-bezier(.2,.65,.25,1),
+    transform .7s cubic-bezier(.2,.65,.25,1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Mobile quick contact bar, injected on every page by script.js. */
+.mobile-quick-contact {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  body.has-mobile-quick-contact {
+    padding-bottom: calc(66px + env(safe-area-inset-bottom));
+  }
+
+  .mobile-quick-contact {
+    position: fixed;
+    z-index: 1200;
+    left: 12px;
+    right: 12px;
+    bottom: max(10px, env(safe-area-inset-bottom));
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,.22);
+    border-radius: 18px;
+    background: rgba(27, 30, 35, .93);
+    box-shadow: 0 16px 40px rgba(0,0,0,.28);
+    backdrop-filter: blur(14px);
+  }
+
+  .mobile-quick-contact a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 54px;
+    padding: 10px 12px;
+    color: #fff;
+    font-size: .76rem;
+    font-weight: 800;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  .mobile-quick-contact a + a {
+    border-left: 1px solid rgba(255,255,255,.18);
+    background: var(--marni-blue-deep);
+  }
+
+  [data-style-word]::before {
+    right: 50%;
+    top: 6px;
+    transform: translateX(50%);
+    font-size: clamp(5rem, 20vw, 9rem);
+  }
+
+  .service-section-heading::after {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-on-scroll,
+  .reveal-on-scroll.is-visible,
+  .compact-service-card,
+  .button,
+  .instagram-button {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+  }
+}
+
+
+/* =============================================================
+   FINAL SERVICES QA — NAV ALIGNMENT + PHOTO POPOUT RESTORATION
+   =============================================================
+   These rules intentionally come last.
+
+   - Navigation underline stays centered beneath each label.
+   - Desktop service-photo hover once again expands OUTSIDE the card rather
+     than being clipped inside it.
+   - Tablet/phone keep the stable tap-to-lightbox behavior instead of hover.
+   ============================================================= */
+
+.main-nav a::after,
+.main-nav a:not(.nav-cta)::after {
+  left: 50% !important;
+  right: auto !important;
+  bottom: -9px !important;
+  width: 100% !important;
+  height: 2px !important;
+  transform: translateX(-50%) scaleX(0) !important;
+  transform-origin: center center !important;
+  background: var(--marni-blue, #315f9c) !important;
+  transition: transform .24s ease !important;
+}
+
+.main-nav a:hover::after,
+.main-nav a:focus-visible::after,
+.main-nav a.active::after {
+  width: 100% !important;
+  transform: translateX(-50%) scaleX(.66) !important;
+}
+
+@media (hover: hover) and (pointer: fine) and (min-width: 1025px) {
+  .compact-card-grid,
+  .service-menu-compact,
+  .service-menu-combined,
+  .combined-service-grid {
+    overflow: visible !important;
+  }
+
+  .compact-service-card,
+  .compact-service-card.service-card-photo {
+    overflow: visible !important;
+  }
+
+  .compact-service-card.service-card-photo:hover,
+  .compact-service-card.service-card-photo:focus-within {
+    z-index: 500 !important;
+    transform: none !important;
+    box-shadow: 0 18px 38px rgba(39,44,51,.13);
+  }
+
+  .compact-service-card.service-card-photo img {
+    position: relative;
+    z-index: 1;
+    transition: transform .24s ease, scale .24s ease, box-shadow .24s ease !important;
+  }
+
+  .compact-service-card.service-card-photo img:hover,
+  .compact-service-card.service-card-photo img:focus-visible {
+    position: relative;
+    z-index: 510 !important;
+    transform: scale(1.58) !important;
+    transform-origin: center center !important;
+    box-shadow: 0 28px 62px rgba(0,0,0,.32) !important;
+  }
+}
+
+/* =============================================================
+   CLIENT-PREVIEW FINISHING PASS — SERVICES PAGE
+   =============================================================
+   Keeps the Services page visually consistent with the final editorial pass
+   while preserving the restored desktop photo pop-out and responsive layout.
+   ============================================================= */
+#contact {
+  scroll-margin-top: 118px;
+}
+
+.service-menu-combined {
+  background-image: radial-gradient(circle at 1px 1px, rgba(45,38,34,.045) .45px, transparent .55px);
+  background-size: 6px 6px;
+}
+
+/* Keep the approved blue/cream gradient and layer the texture ABOVE it. */
+.expectation-section {
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(45,38,34,.045) .45px, transparent .55px),
+    radial-gradient(circle at 8% 14%, rgba(49,95,156,.10), transparent 24%),
+    linear-gradient(180deg, #fbf7f1, #f5eee6);
+  background-size: 6px 6px, auto, auto;
+}
+
+@media (max-width: 1024px) {
+  #contact {
+    scroll-margin-top: 100px;
+  }
+}
+
+
+/* =============================================================
+   REQUESTED PHOTO/SERVICE UPDATE — AUG 2026
+   =============================================================
+   COLOR RETOUCH PHOTO SLIDER
+   - One service card, two photos.
+   - Arrows sit above the image and remain usable on desktop/tablet/mobile.
+   - Desktop keeps the existing large pop-out hover effect on the ACTIVE photo.
+   ============================================================= */
+.service-photo-slider {
+  position: relative;
+  overflow: visible;
+}
+
+.service-photo-slider > img {
+  display: block;
+  width: 100%;
+}
+
+.service-slider-arrow {
+  position: absolute;
+  z-index: 540;
+  top: 50%;
+  width: 38px;
+  height: 38px;
+  border: 1px solid rgba(255,255,255,.72);
+  border-radius: 50%;
+  transform: translateY(-50%);
+  background: rgba(18,22,29,.72);
+  color: #fff;
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 8px 22px rgba(0,0,0,.18);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  transition: background .2s ease, transform .2s ease;
+}
+
+.service-slider-prev { left: 9px; }
+.service-slider-next { right: 9px; }
+
+.service-slider-arrow:hover,
+.service-slider-arrow:focus-visible {
+  background: rgba(49,95,156,.94);
+  transform: translateY(-50%) scale(1.06);
+  outline: none;
+}
+
+.service-slider-count {
+  position: absolute;
+  z-index: 540;
+  right: 10px;
+  bottom: 9px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: rgba(18,22,29,.68);
+  color: rgba(255,255,255,.94);
+  font-size: .65rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+}
+
+/* Highlights + Dimension intentionally has a longer portrait image than the
+   other service cards. The standard cards remain unchanged. */
+.service-card-highlight-dimension {
+  align-self: start;
+}
+
+.compact-service-card.service-card-highlight-dimension > img {
+  aspect-ratio: 4 / 5;
+  object-position: center 44%;
+}
+
+/* Tablet + phone: feature the taller card on its own centered row so the
+   portrait does not become a cramped half-width crop. */
+@media (max-width: 1024px) {
+  .service-card-highlight-dimension {
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: min(430px, 100%);
+  }
+
+  .service-slider-arrow {
+    width: 34px;
+    height: 34px;
+    font-size: 1.05rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .service-card-highlight-dimension {
+    width: min(360px, 100%);
+  }
+}
+
+/* =============================================================
+   FOLLOW-UP ADJUSTMENTS — AUG 2026
+   =============================================================
+   1. Color Retouch slider arrows are slightly smaller in the resting card.
+   2. On desktop hover, the ENTIRE slider enlarges so the arrows and counter
+      stay attached to the popped-out image.
+   ============================================================= */
+.service-slider-arrow {
+  width: 32px;
+  height: 32px;
+  font-size: 1rem;
+}
+
+.service-slider-prev { left: 8px; }
+.service-slider-next { right: 8px; }
+
+.service-slider-count {
+  right: 8px;
+  bottom: 8px;
+  font-size: .62rem;
+}
+
+.color-retouch-card .service-photo-slider {
+  position: relative;
+  z-index: 1;
+  overflow: visible;
+  transform-origin: center center;
+  transition: transform .24s ease, box-shadow .24s ease;
+}
+
+.color-retouch-card .service-photo-slider > img {
+  transition: none !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  /*
+     IMPORTANT:
+     The pop-out is controlled by HOVER ONLY.
+     The arrow buttons can keep keyboard focus for accessibility without
+     forcing the enlarged photo to stay open after the mouse leaves.
+  */
+  .color-retouch-card.service-card-photo:hover {
+    z-index: 260 !important;
+  }
+
+  .color-retouch-card .service-photo-slider:hover {
+    z-index: 261;
+    transform: scale(1.58);
+    box-shadow: 0 24px 54px rgba(0,0,0,.3);
+  }
+
+  .color-retouch-card.service-card-photo img:hover,
+  .color-retouch-card.service-card-photo img:focus-visible,
+  .color-retouch-card .service-photo-slider:hover > img {
+    position: relative;
+    z-index: auto !important;
+    transform: none !important;
+    box-shadow: none !important;
+  }
+}
+
+@media (max-width: 1024px) {
+  .service-slider-arrow {
+    width: 30px;
+    height: 30px;
+    font-size: .95rem;
+  }
+}
+
+/* =============================================================
+   COLOR RETOUCH SLIDER — CLEAN ARROWS + LIGHTBOX NAVIGATION
+   =============================================================
+   The previous circular arrow backgrounds covered too much of the hair.
+   These overrides keep only the arrow glyph itself, with a soft shadow so
+   it remains readable on both light and dark hair.
+
+   The full-screen lightbox now has its own matching Previous/Next controls,
+   so visitors can switch between BOTH Color Retouch photos without closing
+   the enlarged view. This works on desktop, iPad/tablet, and phones.
+   ============================================================= */
+.service-slider-arrow {
+  width: auto !important;
+  height: auto !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  padding: 6px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  color: #fff !important;
+  font-size: 1.7rem !important;
+  font-weight: 700;
+  line-height: 1 !important;
+  text-shadow: 0 2px 7px rgba(0,0,0,.9), 0 0 2px rgba(0,0,0,.9);
+}
+
+.service-slider-prev { left: 7px !important; }
+.service-slider-next { right: 7px !important; }
+
+.service-slider-arrow:hover,
+.service-slider-arrow:focus-visible {
+  background: transparent !important;
+  color: #fff3c8 !important;
+  transform: translateY(-50%) scale(1.08) !important;
+  outline: 2px solid transparent;
+}
+
+/* Full-screen two-photo navigation. Hidden automatically for normal
+   one-photo gallery/service images. */
+.photo-lightbox-nav {
+  position: fixed;
+  z-index: 10002;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 12px 10px;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: clamp(3rem, 6vw, 5.2rem);
+  font-weight: 300;
+  line-height: .8;
+  cursor: pointer;
+  text-shadow: 0 3px 12px rgba(0,0,0,.95), 0 0 3px rgba(0,0,0,.9);
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.photo-lightbox-nav[hidden],
+.photo-lightbox-count[hidden] {
+  display: none !important;
+}
+
+.photo-lightbox-prev {
+  left: max(8px, env(safe-area-inset-left));
+}
+
+.photo-lightbox-next {
+  right: max(8px, env(safe-area-inset-right));
+}
+
+.photo-lightbox-nav:hover,
+.photo-lightbox-nav:focus-visible {
+  color: #fff3c8;
+  outline: none;
+  transform: translateY(-50%) scale(1.08);
+}
+
+.photo-lightbox-count {
+  position: fixed;
+  z-index: 10002;
+  right: max(18px, env(safe-area-inset-right));
+  bottom: max(56px, calc(env(safe-area-inset-bottom) + 50px));
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: rgba(0,0,0,.45);
+  color: rgba(255,255,255,.94);
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+}
+
+@media (max-width: 1024px) {
+  .service-slider-arrow {
+    padding: 7px !important;
+    font-size: 1.6rem !important;
+  }
+
+  .photo-lightbox-nav {
+    font-size: clamp(2.8rem, 10vw, 4.2rem);
+    padding: 14px 8px;
+  }
+}
+
+@media (max-width: 520px) {
+  .service-slider-prev { left: 3px !important; }
+  .service-slider-next { right: 3px !important; }
+
+  .photo-lightbox-prev {
+    left: max(2px, env(safe-area-inset-left));
+  }
+
+  .photo-lightbox-next {
+    right: max(2px, env(safe-area-inset-right));
+  }
+
+  .photo-lightbox-count {
+    right: max(12px, env(safe-area-inset-right));
+    bottom: max(58px, calc(env(safe-area-inset-bottom) + 52px));
+  }
+}
+
+
+/* =============================================================
+   HIGHLIGHTS + DIMENSION — MOBILE/TABLET SIZE REFINEMENT
+   =============================================================
+   The portrait service remains intentionally a little taller than the
+   standard service cards, but it should NOT take over the entire phone screen.
+   Desktop sizing is unchanged.
+   ============================================================= */
+
+@media (min-width: 701px) and (max-width: 1024px) {
+  .service-card-highlight-dimension {
+    width: min(360px, 58vw) !important;
+  }
+}
+
+@media (max-width: 700px) {
+  .service-card-highlight-dimension {
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: min(290px, 78vw) !important;
+  }
+
+  .compact-service-card.service-card-highlight-dimension > img {
+    aspect-ratio: 4 / 5;
+    object-position: center 44%;
+  }
+}
+
+@media (max-width: 420px) {
+  .service-card-highlight-dimension {
+    width: min(275px, 80vw) !important;
+  }
+}

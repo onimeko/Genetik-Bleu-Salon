@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>Client + Appointment Manager | Genetik Bleu Salon</title>
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+  <!-- =========================================================
+       PRIVATE CLIENT + APPOINTMENT MANAGER
+       =========================================================
+       This page is intentionally NOT linked from the public website.
+       Security does NOT depend on hiding this URL. Firebase Authentication
+       and Firestore Security Rules protect the private data.
+       ========================================================= -->
+  <header class="admin-header">
+    <div class="admin-brand">
+      <img src="images/genetik-bleu-logo.jpeg" alt="Genetik Bleu Salon logo" />
+      <div>
+        <p class="admin-kicker">Private Salon Dashboard</p>
+        <h1>Client + Appointment Manager</h1>
+      </div>
+    </div>
+    <button id="sign-out-button" class="admin-button admin-button-ghost" type="button" hidden>Sign Out</button>
+  </header>
+
+  <main class="admin-main">
+    <section id="signed-out-view" class="admin-card auth-card">
+      <p class="admin-kicker">Authorized Access Only</p>
+      <h2>Genetik Bleu Client Registry</h2>
+      <p>Sign in with the Google account that has been approved for the salon dashboard.</p>
+      <button id="google-sign-in" class="admin-button" type="button">Sign in with Google</button>
+      <p id="auth-status" class="admin-status" aria-live="polite"></p>
+    </section>
+
+    <section id="pending-view" class="admin-card auth-card" hidden>
+      <p class="admin-kicker">One-Time Setup</p>
+      <h2>Google sign-in worked.</h2>
+      <p>Your account is authenticated, but it has not been added to the salon administrator list yet.</p>
+      <div class="uid-box">
+        <span>Your Firebase UID</span>
+        <code id="current-user-uid"></code>
+        <button id="copy-uid" class="admin-button admin-button-small" type="button">Copy UID</button>
+      </div>
+      <p class="admin-help">Send this UID back to ChatGPT. You will then create one administrator document in Firestore. After that, this same page will unlock the client and appointment tools.</p>
+      <p id="pending-status" class="admin-status" aria-live="polite"></p>
+    </section>
+
+    <section id="dashboard-view" hidden>
+      <div class="dashboard-topline">
+        <div>
+          <p class="admin-kicker">Welcome back</p>
+          <h2 id="admin-welcome">Salon Dashboard</h2>
+        </div>
+        <div class="dashboard-counts">
+          <div><strong id="client-count">0</strong><span>Clients</span></div>
+          <div><strong id="upcoming-count">0</strong><span>Upcoming</span></div>
+        </div>
+      </div>
+
+      <nav class="admin-tabs" aria-label="Dashboard sections">
+        <button class="admin-tab is-active" type="button" data-tab="clients">Clients</button>
+        <button class="admin-tab" type="button" data-tab="appointments">Appointments</button>
+      </nav>
+
+      <section id="clients-panel" class="admin-panel is-active">
+        <div class="panel-heading">
+          <div>
+            <p class="admin-kicker">Client Directory</p>
+            <h3>Registered Clients</h3>
+          </div>
+          <input id="client-search" class="admin-search" type="search" placeholder="Search name, email, or phone" />
+        </div>
+        <div id="clients-empty" class="empty-state" hidden>No clients have registered yet.</div>
+        <div id="clients-list" class="client-list"></div>
+      </section>
+
+      <section id="appointments-panel" class="admin-panel">
+        <div class="panel-heading">
+          <div>
+            <p class="admin-kicker">Schedule</p>
+            <h3>Appointments</h3>
+          </div>
+          <button id="new-appointment-button" class="admin-button" type="button">Add Appointment</button>
+        </div>
+        <div id="appointments-empty" class="empty-state" hidden>No appointments have been added yet.</div>
+        <div id="appointments-list" class="appointment-list"></div>
+      </section>
+    </section>
+  </main>
+
+  <!-- Appointment editor dialog. Email/SMS sending is NOT active yet. -->
+  <dialog id="appointment-dialog" class="admin-dialog">
+    <form id="appointment-form" method="dialog">
+      <div class="dialog-heading">
+        <div>
+          <p class="admin-kicker">Appointment</p>
+          <h3 id="appointment-dialog-title">Add Appointment</h3>
+        </div>
+        <button id="appointment-close" class="icon-button" type="button" aria-label="Close">×</button>
+      </div>
+
+      <input id="appointment-id" type="hidden" />
+
+      <label>
+        Client
+        <select id="appointment-client" required></select>
+      </label>
+      <label>
+        Date
+        <input id="appointment-date" type="date" required />
+      </label>
+      <label>
+        Time
+        <input id="appointment-time" type="time" required />
+      </label>
+      <label>
+        Service
+        <input id="appointment-service" type="text" maxlength="120" placeholder="e.g. Silk Press" required />
+      </label>
+      <label>
+        Status
+        <select id="appointment-status" required>
+          <option value="scheduled">Scheduled</option>
+          <option value="confirmed">Confirmed</option>
+          <option value="completed">Completed</option>
+          <option value="cancelled">Cancelled</option>
+        </select>
+      </label>
+      <label>
+        Notes
+        <textarea id="appointment-notes" rows="3" maxlength="500" placeholder="Optional internal note"></textarea>
+      </label>
+
+      <div class="dialog-actions">
+        <button id="appointment-delete" class="admin-button admin-button-danger" type="button" hidden>Delete</button>
+        <span class="dialog-spacer"></span>
+        <button id="appointment-cancel" class="admin-button admin-button-ghost" type="button">Cancel</button>
+        <button class="admin-button" type="submit">Save Appointment</button>
+      </div>
+      <p id="appointment-status-message" class="admin-status" aria-live="polite"></p>
+    </form>
+  </dialog>
+
+  <script type="module" src="admin.js"></script>
+</body>
+</html>

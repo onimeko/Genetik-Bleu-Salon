@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<!--
+    GENETIK BLEU SALON - HOME PAGE
+    ------------------------------------------------------------
+    This is the main landing page for the salon.
+
+    IMPORTANT:
+    - The styling for this page lives in: styles.css
+    - Shared navigation/footer JavaScript lives in: script.js
+    - The Services page lives in: services.html
+    - The Client Registration page lives in: registration.html
+  -->
+<meta charset="utf-8"/>
+<!-- Makes the website resize correctly on phones/tablets. -->
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<!-- This text appears in the browser tab and can help with SEO. -->
+<title>Genetik Bleu Salon | Chicago Hair Salon</title>
+<!-- Short description that search engines may display. -->
+<meta content="Genetik Bleu Salon in Chicago, Illinois. Professional hair services, client care, and a polished salon experience." name="description"/>
+<!-- Connect this HTML page to the separate CSS file. -->
+<link href="styles.css" rel="stylesheet"/>
+</head>
+<body class="page-home">
+<!-- =========================================================
+       HEADER / NAVIGATION
+       ========================================================= -->
+<header class="site-header">
+<div class="nav-container">
+<!--
+        SALON LOGO:
+        Right now this points to a placeholder SVG in the images folder.
+
+        WHEN YOU HAVE THE REAL LOGO:
+        1. Put the logo image inside the "images" folder.
+        2. Give it an easy name such as: genetik-bleu-logo.png
+        3. Change the src below from:
+              images/genetik-bleu-logo.jpeg
+           to:
+              images/genetik-bleu-logo.png
+
+        TIP:
+        A transparent PNG works very well for salon logos.
+      -->
+<a aria-label="Genetik Bleu Salon home" class="brand" href="index.html">
+<img alt="Genetik Bleu Salon logo" class="brand-logo" height="768" src="images/genetik-bleu-logo.jpeg" width="768"/>
+<span class="brand-name">Genetik Bleu Salon</span>
+</a>
+<!-- Mobile menu button.
+           The JavaScript file makes this button open/close the navigation on small screens. -->
+<button aria-controls="main-navigation" aria-expanded="false" aria-label="Open navigation menu" class="menu-toggle" type="button">
+<span></span>
+<span></span>
+<span></span>
+</button>
+<!-- Main site navigation.
+           Each page is kept in its own HTML file as requested. -->
+<nav aria-label="Primary navigation" class="main-nav" id="main-navigation">
+<a class="active" href="index.html">Home</a>
+<a href="services.html">Services</a>
+<a href="registration.html">Client Registration</a>
+<!-- CLASSES NAV LINK: jumps to the education/classes section on the Home page. -->
+<a href="#classes">Classes</a>
+<!--
+          BOOKING BUTTON:
+          Replace the # with your real booking link later.
+          Example:
+          href="https://your-booking-platform.com/your-salon"
+        -->
+<a href="#contact">Contact</a>
+</nav>
+</div>
+</header>
+<main>
+<!-- =========================================================
+         HERO SECTION
+         =========================================================
+         This is the large image area at the top of the page.
+
+         The background image is controlled in styles.css under:
+             .hero
+
+         Search for:
+             HERO PHOTO
+
+         Then replace:
+             images/slide-blue-purple.jpeg
+         with the filename of your preferred salon/owner/client photo.
+    -->
+<section aria-labelledby="hero-title" class="hero">
+<div class="hero-overlay"></div>
+<div class="hero-content">
+<h1 id="hero-title">Elevated beauty. Individual style. Genuine care.</h1>
+<p class="hero-copy">
+          Welcome to Genetik Bleu Salon! A polished, client-centered salon
+          experience created for beautiful hair and confident transformations.
+        </p>
+</div>
+<!--
+  MARNI HERO SIGNATURE
+  ------------------------------------------------------------
+  IMPORTANT: This label intentionally sits OUTSIDE .hero-content.
+  The desktop hero-content is transformed lower on the page, and a transformed
+  parent becomes the positioning reference for absolutely positioned children.
+  Keeping this label as a direct child of .hero ensures right/bottom are measured
+  from the actual hero photo, so it stays in the true lower-right corner.
+-->
+<p class="hero-signature">Marni Newman <span aria-hidden="true">•</span> Stylist &amp; Educator</p>
+<!--
+  HERO CORNER LABEL HIDDEN FOR NOW
+  ------------------------------------------------------------
+  This used to display "GENETIK BLEU SALON" in the lower-right corner
+  of the hero photo. It is intentionally commented out so the portrait
+  feels cleaner. Remove the comment markers later if you want it back.
+
+  <div aria-hidden="true" class="hero-caption">
+    GENETIK BLEU SALON
+  </div>
+-->
+<!-- =========================================================
+     DESKTOP HERO SCROLL CUE
+     =========================================================
+     A small, understated prompt that helps first-time visitors understand
+     there is more content below the full-screen hero. It is hidden on
+     phone/tablet layouts and fades away as soon as the visitor scrolls.
+-->
+<a aria-label="Explore Marni's story" class="hero-scroll-cue" href="#marnstarr">
+<span>Explore</span>
+<i aria-hidden="true"></i>
+</a>
+</section>
+<!-- =========================================================
+         QUICK INFORMATION STRIP
+         =========================================================
+         This section mirrors the clean information strip from your
+         inspiration screenshots, but uses your own salon information.
+    -->
+<!-- Salon hours, location, and contact were intentionally removed here.
+         They remain in the footer so this area stays visually clean. -->
+<!-- =========================================================
+         INTRO / BRAND STORY SECTION
+         =========================================================
+         OWNER PHOTO:
+         The real owner photo is now stored at:
+             images/marni-owner-blowdryer.jpeg
+
+         If you ever want to swap the photo, replace that image file or
+         change the src="" path below. The small caption under the photo
+         is intentionally styled to stay subtle.
+    -->
+<section class="brand-story section marnstarr-feature" data-style-word="MARNI" id="marnstarr">
+<figure class="brand-story-image">
+<img alt="Marni Newman, Salon owner and Stylist at Genetik Bleu Salon" height="1536" loading="lazy" src="images/marni-owner-blowdryer.jpeg" width="1024"/>
+<figcaption class="owner-caption">Salon owner and Stylist Marni Newman</figcaption>
+</figure>
+<div class="brand-story-content marnstarr-story">
+<p class="eyebrow">Introducing Salon Owner Marni Newman</p>
+<h2 class="marnstarr-heading">
+<span class="marnstarr-line">The</span>
+<span class="marnstarr-line"><span class="marnstarr-word">Marnstarr<button class="marnstarr-star" type="button" aria-label="Replay the Marnstarr star animation">★</button></span></span>
+<span class="marnstarr-line">Experience</span>
+</h2>
+<p class="marnstarr-mantra">Healthy hair. Beautiful shape. A look that feels like you.</p>
+<p>
+  Marni is a licensed cosmetologist and educator at Genetik Bleu Salon, which is a beauty
+  destination focused on precision cutting, polished styling, healthy-hair care,
+  and expressive color. Every look is approached with the client's features,
+  lifestyle, and personal style in mind.
+</p>
+<p>
+  Led by salon owner and stylist Marni Newman, Genetik Bleu pairs creative artistry
+  with a welcoming, client-centered salon experience.
+</p>
+<!-- The service-menu link in the Marnstarr Experience section is intentionally hidden for now. -->
+</div>
+</section>
+<section aria-labelledby="gallery-title" class="gallery-section section editorial-gallery" data-style-word="STYLE">
+<div class="section-heading">
+<!-- <p class="eyebrow">Our Work</p> -->
+<h2 id="gallery-title">Styles By Marni</h2>
+<p>Finished looks showcasing precision cuts, dimensional color, curls, waves, and polished styling.</p>
+</div>
+<!-- =========================================================
+       8-PHOTO HOME GALLERY
+       =========================================================
+       Unlike the old slideshow, the current portfolio photos are visible together.
+       The images keep their natural proportions so the hairstyles are
+       not aggressively cropped just to force every photo into one shape.
+  -->
+<div aria-label="Genetik Bleu hairstyle gallery" class="work-gallery">
+<figure class="work-gallery-card">
+<img alt="Black sculpted wave hairstyle by Genetik Bleu Salon" data-zoomable="" height="1452" loading="lazy" src="images/gallery-black-waves.jpeg" tabindex="0" width="1320"/>
+</figure>
+<figure class="work-gallery-card">
+<img alt="Blue and purple dimensional hairstyle by Genetik Bleu Salon" data-zoomable="" height="1457" loading="lazy" src="images/gallery-blue-purple-front.jpeg" tabindex="0" width="1320"/>
+</figure>
+<figure class="work-gallery-card">
+<img alt="Long smooth blonde hairstyle by Genetik Bleu Salon" data-zoomable="" height="1672" loading="lazy" src="images/gallery-long-blonde.jpeg" tabindex="0" width="874"/>
+</figure>
+<figure class="work-gallery-card">
+<img alt="Magenta and black short hairstyle by Genetik Bleu Salon" data-zoomable="" height="1378" loading="lazy" src="images/gallery-magenta-front.jpeg" tabindex="0" width="1320"/>
+</figure>
+<figure class="work-gallery-card">
+<img alt="Vivid blue curled hairstyle by Genetik Bleu Salon" data-zoomable="" height="1802" loading="lazy" src="images/gallery-blue-curls.jpeg" tabindex="0" width="1320"/>
+</figure>
+<figure class="work-gallery-card">
+<img alt="Blonde dimensional color on natural texture by Marni" data-zoomable="" height="1500" loading="lazy" src="images/gallery-highlights-natural.jpeg" tabindex="0" width="1320"/>
+</figure>
+<figure class="work-gallery-card">
+<img alt="Burgundy sculpted hairstyle by Genetik Bleu Salon" data-zoomable="" height="2053" loading="lazy" src="images/gallery-burgundy.jpeg" tabindex="0" width="1320"/>
+</figure>
+</div>
+<!-- =========================================================
+       ADD MORE GALLERY PHOTOS LATER
+       =========================================================
+       The block below is intentionally COMMENTED OUT.
+
+       WHEN YOU WANT TO ADD ANOTHER PHOTO:
+       1. Put the new image inside the images folder.
+       2. Copy the <figure> block below.
+       3. Paste it INSIDE the .work-gallery div above.
+       4. Remove the comment markers around the copied block.
+       5. Change the image filename and alt text.
+
+       <figure class="work-gallery-card">
+         <img
+           data-zoomable
+           tabindex="0"
+           src="images/YOUR-NEW-PHOTO.jpeg"
+           alt="Describe the hairstyle shown in this photo"
+           loading="lazy"
+         />
+         
+       </figure>
+  -->
+</section>
+<!-- =========================================================
+         SERVICES PREVIEW
+         =========================================================
+         This is only a teaser on the Home page.
+         The full service menu lives in services.html.
+    -->
+<section class="services-preview section" data-style-word="CREATE">
+<div class="section-heading light">
+<p class="eyebrow">Services</p>
+<h2>Inside Genetik Bleu</h2>
+<p>
+          A closer look at the healthy-hair foundation, precision cutting, and dimensional color work that define Marni's approach behind the chair.
+        </p>
+</div>
+<div class="service-preview-grid">
+<article class="preview-card">
+<span>01</span>
+<h3>Healthy Hair</h3>
+<p>Healthy-hair care comes first, with services designed to support strength, moisture, shine, and long-term manageability.</p>
+</article>
+<article class="preview-card">
+<span>02</span>
+<h3>Precision Cuts</h3>
+<p>Customized shaping, pixies, bobs, layers, and short-hair finishing tailored to your features and lifestyle.</p>
+</article>
+<article class="preview-card">
+<span>03</span>
+<h3>Dimensional Color</h3>
+<p>Thoughtful color placement, retouches, blonding, glossing, and tone refinement designed to create depth and movement.</p>
+</article>
+</div>
+<div class="centered-button">
+<a class="button button-cream" href="services.html">View Full Service Menu</a>
+</div>
+</section>
+<!-- =========================================================
+         GENETIK BLEU EDUCATION / CLASSES FEATURE
+         =========================================================
+         This replaces the old appointment banner. Class registration is
+         handled directly through the salon rather than through the website.
+    -->
+<section class="booking-banner section education-banner" data-style-word="LEARN" id="classes">
+<div>
+<p class="eyebrow">Come Learn with Us!</p>
+<h2>One-on-One Color Processing and Hair-Shaping Classes are held Sundays and Mondays.</h2>
+<p>For more information about classes, availability, or enrollment, please call the salon during operating hours or message the Genetik Bleu Instagram page.</p>
+<div aria-label="Class focus areas" class="education-tags">
+<span>Color Processing</span>
+<span>Hair Shaping</span>
+<span>One-on-One Guidance</span>
+</div>
+</div>
+<a class="button button-primary education-cta" href="#contact">Learn With Marni</a>
+</section>
+</main>
+<!-- =========================================================
+       FOOTER
+       =========================================================
+       All of the business information you provided is incorporated here.
+  -->
+<footer class="site-footer" id="contact">
+<div class="footer-grid">
+<div class="footer-brand">
+<img alt="Genetik Bleu Salon logo" class="footer-logo" src="images/genetik-bleu-logo.jpeg"/>
+<p>
+          Personalized healthy-hair care, precision cutting, and expressive color by Marni Newman at Genetik Bleu Salon.
+        </p>
+</div>
+<div>
+<h2>Visit</h2>
+<address>
+          8452 S Stony Island Ave<br/>
+          Chicago, IL 60617
+        </address>
+</div>
+<div>
+<h2>Hours</h2>
+<p>Tuesday - Saturday</p>
+<p>10:00 AM - 6:00 PM</p>
+<p class="footer-small">Classes are Sunday and Monday. Please call during shop hours for more information.</p>
+</div>
+<div>
+<h2>Contact</h2>
+<p>
+<a href="tel:+17733592491">(773) 359-2491</a>
+</p>
+<!--
+          INSTAGRAM LINK:
+          Marni's Instagram URL is connected below. Replace the URL only if her Instagram changes.
+
+          Example:
+          href="https://www.instagram.com/YOUR_USERNAME/"
+        -->
+<a class="instagram-button" href="https://www.instagram.com/marnstarr_marni?igsi=MXY0YXpjMGZjZnUxOQ==" rel="noopener noreferrer" target="_blank">
+          Follow on Instagram
+        </a>
+</div>
+</div>
+<div class="footer-bottom">
+<p>
+        © <span id="current-year"></span> Genetik Bleu Salon. All rights reserved.
+      </p>
+<div class="footer-links">
+<a href="services.html">Services</a>
+<a href="registration.html">Client Registration</a>
+<a href="policies.html">Salon Policies</a>
+</div>
+</div>
+</footer>
+<!-- Connect this page to the separate JavaScript file. -->
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,4429 @@
+/* =============================================================
+   GENETIK BLEU SALON - MAIN STYLESHEET
+   =============================================================
+
+   This ONE CSS file styles all three HTML pages:
+   - index.html
+   - services.html
+   - registration.html
+
+   The design is inspired by the elegant, editorial salon website
+   shown in your screenshots, but it is written as an original layout
+   for Genetik Bleu Salon.
+
+   -------------------------------------------------------------
+   QUICK CUSTOMIZATION GUIDE
+   -------------------------------------------------------------
+   1. COLORS:
+      Change the variables inside :root below.
+
+   2. HERO PHOTO:
+      Search this file for "HERO PHOTO" and change the image URL.
+
+   3. FONTS:
+      This version uses dependable built-in fonts so it works immediately.
+      You can later add a Google Font or premium font if desired.
+
+   4. SPACING / WIDTHS:
+      Most main sections use max-width: 1200px so content stays polished
+      on very large screens.
+   ============================================================= */
+
+
+/* =============================================================
+   1) GLOBAL COLOR + SIZE VARIABLES
+   ============================================================= */
+:root {
+  /* Warm neutral background similar to an upscale editorial salon site. */
+  --cream: #f3eee6;
+
+  /* Light cream used for cards/sections. */
+  --soft-cream: #faf7f1;
+
+  /* Main dark background. */
+  --charcoal: #1d1a19;
+
+  /* Slightly lighter dark brown/charcoal. */
+  --brown: #342e2a;
+
+  /* "Bleu" accent color for branding. */
+  --bleu: #6f8098;
+
+  /* Darker blue used for hover states. */
+  --bleu-dark: #53657c;
+
+  /* Standard dark text. */
+  --ink: #26211f;
+
+  /* Muted paragraph color. */
+  --muted: #6e6762;
+
+  /* White/cream text used on dark areas. */
+  --light-text: #f7f3ed;
+
+  /* Thin border color. */
+  --line: rgba(38, 33, 31, 0.15);
+
+  /* Reusable page width. */
+  --content-width: 1200px;
+
+  /* Reusable subtle shadow. */
+  --shadow: 0 18px 45px rgba(0, 0, 0, 0.12);
+}
+
+
+/* =============================================================
+   2) BASIC RESET / GLOBAL ELEMENTS
+   ============================================================= */
+
+/* Makes padding and borders count inside width calculations. */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Smooth scrolling when clicking an anchor link like #booking. */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--soft-cream);
+  color: var(--ink);
+
+  /* Clean sans-serif body font.
+     You can replace this later with another font if desired. */
+  font-family: "Helvetica Neue", Arial, sans-serif;
+
+  line-height: 1.6;
+}
+
+/* Prevent images from overflowing their containers. */
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* Remove the default underline; custom hover states are added later. */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Consistent button font. */
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+/* Makes focus states visible for keyboard users. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid rgba(111, 128, 152, 0.5);
+  outline-offset: 3px;
+}
+
+/* Reusable section spacing. */
+.section {
+  padding: 96px 6vw;
+}
+
+
+/* =============================================================
+   3) TYPOGRAPHY
+   ============================================================= */
+
+/* A more editorial serif font for headings.
+   Georgia is built into most computers and requires no external download. */
+h1,
+h2,
+h3,
+.brand {
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 500;
+  line-height: 1.08;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  font-size: clamp(3.2rem, 7vw, 7rem);
+  letter-spacing: -0.045em;
+}
+
+h2 {
+  font-size: clamp(2.25rem, 4.5vw, 4.6rem);
+  letter-spacing: -0.035em;
+}
+
+h3 {
+  font-size: 1.6rem;
+}
+
+p {
+  font-size: 1.02rem;
+}
+
+.eyebrow {
+  margin-bottom: 16px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.text-link {
+  display: inline-block;
+  margin-top: 10px;
+  color: var(--bleu-dark);
+  font-weight: 700;
+  border-bottom: 1px solid currentColor;
+}
+
+.text-link:hover {
+  color: var(--charcoal);
+}
+
+
+/* =============================================================
+   4) HEADER / NAVIGATION
+   ============================================================= */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  background: rgba(243, 238, 230, 0.97);
+  border-bottom: 1px solid rgba(38, 33, 31, 0.08);
+  backdrop-filter: blur(10px);
+}
+
+.nav-container {
+  width: min(var(--content-width), 92vw);
+  min-height: 88px;
+  margin: 0 auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+/* LOGO SIZE:
+   Increase/decrease the width below after you add the real logo. */
+.brand-logo {
+  width: 250px;
+  max-height: 82px;
+  object-fit: contain;
+  object-position: left center;
+}
+
+.main-nav {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.main-nav a {
+  position: relative;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+/* Elegant underline for standard navigation links. */
+.main-nav a:not(.nav-cta)::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+
+  width: 0;
+  height: 1px;
+
+  background: var(--ink);
+  transition: width 0.25s ease;
+}
+
+.main-nav a:hover::after,
+.main-nav a.active::after {
+  width: 100%;
+}
+
+/* Special call-to-action button in the navigation. */
+.nav-cta {
+  padding: 12px 16px;
+  color: var(--light-text);
+  background: var(--charcoal);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.nav-cta:hover {
+  background: var(--bleu-dark);
+  transform: translateY(-1px);
+}
+
+/* Hidden on desktop. Shown in the mobile media query below. */
+.menu-toggle {
+  display: none;
+  width: 44px;
+  height: 44px;
+  padding: 8px;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.menu-toggle span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  margin: 6px 0;
+  background: var(--ink);
+}
+
+
+/* =============================================================
+   5) BUTTONS
+   ============================================================= */
+
+.button,
+.instagram-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 52px;
+  padding: 0 24px;
+
+  border: 1px solid transparent;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.button:hover,
+.instagram-button:hover {
+  transform: translateY(-2px);
+}
+
+.button-primary {
+  background: var(--charcoal);
+  color: var(--light-text);
+}
+
+.button-primary:hover {
+  background: var(--bleu-dark);
+}
+
+.button-secondary {
+  border-color: rgba(255, 255, 255, 0.8);
+  color: white;
+  background: rgba(0, 0, 0, 0.12);
+}
+
+.button-secondary:hover {
+  background: white;
+  color: var(--ink);
+}
+
+.button-cream {
+  background: var(--cream);
+  color: var(--ink);
+}
+
+.button-cream:hover {
+  background: white;
+}
+
+
+/* =============================================================
+   6) HOME PAGE HERO
+   ============================================================= */
+
+.hero {
+  /* -----------------------------------------------------------
+     HERO PHOTO
+     -----------------------------------------------------------
+     Replace the image path below after adding your real hero image
+     to the "images" folder.
+
+     Example:
+       background-image: url("images/hero-photo.jpg");
+     ----------------------------------------------------------- */
+  background-image: url("images/slide-blue-purple.jpeg");
+  background-size: cover;
+  background-position: center;
+
+  position: relative;
+  min-height: calc(100vh - 88px);
+
+  display: flex;
+  align-items: center;
+
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Dark overlay helps text remain readable over bright photos. */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(14, 12, 11, 0.82) 0%,
+      rgba(14, 12, 11, 0.48) 50%,
+      rgba(14, 12, 11, 0.18) 100%
+    );
+}
+
+.hero-content {
+  width: min(820px, 86vw);
+  margin-left: max(6vw, calc((100vw - var(--content-width)) / 2));
+
+  color: white;
+}
+
+.hero-content h1 {
+  max-width: 820px;
+  margin-bottom: 24px;
+}
+
+.hero-content h1 span {
+  color: #c8d0da;
+  font-style: italic;
+}
+
+.hero-copy {
+  max-width: 620px;
+  margin-bottom: 34px;
+  font-size: clamp(1rem, 1.7vw, 1.25rem);
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.hero-caption {
+  position: absolute;
+  right: 4vw;
+  bottom: 3vw;
+
+  color: rgba(255, 255, 255, 0.55);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1rem, 2.4vw, 2rem);
+  letter-spacing: 0.18em;
+}
+
+
+/* =============================================================
+   7) QUICK INFORMATION STRIP
+   ============================================================= */
+
+.info-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  background: var(--cream);
+  border-bottom: 1px solid var(--line);
+}
+
+.info-item {
+  padding: 54px 7vw;
+  text-align: center;
+}
+
+.info-item + .info-item {
+  border-left: 1px solid var(--line);
+}
+
+.info-item h2 {
+  margin-bottom: 14px;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.info-item p {
+  margin-bottom: 3px;
+  color: var(--muted);
+}
+
+
+/* =============================================================
+   8) BRAND STORY / OWNER SECTION
+   ============================================================= */
+
+.brand-story {
+  width: min(var(--content-width), 100%);
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(50px, 8vw, 110px);
+  align-items: center;
+}
+
+.brand-story-image {
+  min-height: 640px;
+  overflow: hidden;
+  background: #ddd;
+  box-shadow: var(--shadow);
+}
+
+.brand-story-image img {
+  width: 100%;
+  height: auto;
+  min-height: 0;
+  object-fit: contain;
+}
+
+.brand-story-content h2 {
+  margin-bottom: 28px;
+}
+
+.brand-story-content p:not(.eyebrow) {
+  color: var(--muted);
+}
+
+
+/* =============================================================
+   9) SLIDESHOW / GALLERY
+   ============================================================= */
+
+.gallery-section {
+  background: var(--cream);
+}
+
+.section-heading {
+  width: min(760px, 100%);
+  margin: 0 auto 46px;
+  text-align: center;
+}
+
+.section-heading h2 {
+  margin-bottom: 18px;
+}
+
+.section-heading p:not(.eyebrow) {
+  color: var(--muted);
+}
+
+.section-heading.light {
+  color: var(--light-text);
+}
+
+.section-heading.light p:not(.eyebrow) {
+  color: rgba(255, 255, 255, 0.68);
+}
+
+.slideshow {
+  position: relative;
+  width: min(var(--content-width), 100%);
+  margin: 0 auto;
+}
+
+.slides-track {
+  position: relative;
+  min-height: 660px;
+  overflow: hidden;
+  background: var(--charcoal);
+  box-shadow: var(--shadow);
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+
+  margin: 0;
+
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(1.02);
+
+  transition:
+    opacity 0.7s ease,
+    transform 0.9s ease,
+    visibility 0.7s ease;
+}
+
+.slide.is-active {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+}
+
+.slide img {
+  width: 100%;
+  height: 660px;
+  object-fit: contain;
+  object-position: center;
+  background: var(--charcoal);
+}
+
+.slide figcaption {
+  position: absolute;
+  left: 28px;
+  bottom: 28px;
+
+  max-width: 520px;
+  padding: 14px 18px;
+
+  color: white;
+  background: rgba(24, 21, 20, 0.76);
+  backdrop-filter: blur(8px);
+}
+
+.slide-arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 5;
+  transform: translateY(-50%);
+
+  width: 54px;
+  height: 54px;
+
+  border: 0;
+  border-radius: 50%;
+
+  color: white;
+  background: rgba(0, 0, 0, 0.48);
+
+  font-size: 2rem;
+  line-height: 1;
+
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.slide-arrow:hover {
+  background: var(--bleu-dark);
+}
+
+.slide-arrow-left {
+  left: 20px;
+}
+
+.slide-arrow-right {
+  right: 20px;
+}
+
+.slide-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.slide-dot {
+  width: 10px;
+  height: 10px;
+  padding: 0;
+
+  border: 1px solid var(--ink);
+  border-radius: 50%;
+
+  background: transparent;
+  cursor: pointer;
+}
+
+.slide-dot.is-active {
+  background: var(--ink);
+}
+
+
+/* =============================================================
+   10) SERVICES PREVIEW SECTION
+   ============================================================= */
+
+.services-preview {
+  background: var(--brown);
+}
+
+.service-preview-grid {
+  width: min(var(--content-width), 100%);
+  margin: 0 auto 46px;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.preview-card {
+  min-height: 280px;
+  padding: 40px;
+
+  color: var(--light-text);
+  border: 1px solid rgba(255, 255, 255, 0.13);
+}
+
+.preview-card + .preview-card {
+  border-left: 0;
+}
+
+.preview-card span {
+  display: block;
+  margin-bottom: 70px;
+
+  color: #c6cdd7;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+}
+
+.preview-card h3 {
+  margin-bottom: 14px;
+  font-size: 2rem;
+}
+
+.preview-card p {
+  color: rgba(255, 255, 255, 0.68);
+}
+
+.centered-button {
+  text-align: center;
+}
+
+
+/* =============================================================
+   11) BOOKING BANNER
+   ============================================================= */
+
+.booking-banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 40px;
+
+  background: #d8dde5;
+}
+
+.booking-banner h2 {
+  max-width: 800px;
+  margin-bottom: 0;
+}
+
+
+/* =============================================================
+   12) FOOTER
+   ============================================================= */
+
+.site-footer {
+  padding: 70px 6vw 26px;
+  background: var(--charcoal);
+  color: var(--light-text);
+}
+
+.footer-grid {
+  width: min(var(--content-width), 100%);
+  margin: 0 auto 50px;
+
+  display: grid;
+  grid-template-columns: 1.35fr 1fr 1fr 1fr;
+  gap: 50px;
+}
+
+.footer-logo {
+  display: block;
+  width: 260px;
+  height: auto;
+  max-height: none;
+  margin-bottom: 20px;
+
+  /* IMPORTANT: keep height:auto here. A hard-coded image height makes the
+     desktop footer stretch vertically and creates the oversized-logo issue. */
+
+  /* The real Genetik Bleu logo already has a black background, so no filter is
+     applied. The previous invert filter turned the JPEG background white and
+     made it look like an empty white rectangle. */
+  filter: none;
+  object-fit: contain;
+}
+
+.footer-brand p {
+  max-width: 330px;
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.site-footer h2 {
+  margin-bottom: 16px;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.site-footer p,
+.site-footer address {
+  margin-bottom: 8px;
+  color: rgba(255, 255, 255, 0.72);
+  font-style: normal;
+}
+
+.site-footer a:hover {
+  color: #c8d0da;
+}
+
+.instagram-button {
+  margin-top: 12px;
+  border-color: rgba(255, 255, 255, 0.4);
+  color: white;
+}
+
+.instagram-button:hover {
+  background: white;
+  color: var(--charcoal);
+}
+
+.footer-bottom {
+  width: min(var(--content-width), 100%);
+  margin: 0 auto;
+  padding-top: 24px;
+
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.footer-bottom p {
+  margin: 0;
+  font-size: 0.82rem;
+}
+
+.footer-links {
+  display: flex;
+  gap: 24px;
+  font-size: 0.82rem;
+}
+
+
+/* =============================================================
+   13) INNER PAGE HERO
+   Used by Services and Client Registration pages.
+   ============================================================= */
+
+.inner-hero {
+  padding: 110px 6vw 88px;
+  background: var(--brown);
+  color: var(--light-text);
+}
+
+.inner-hero-content {
+  width: min(var(--content-width), 100%);
+  margin: 0 auto;
+}
+
+.inner-hero h1 {
+  max-width: 850px;
+  margin-bottom: 20px;
+  font-size: clamp(3rem, 6vw, 6rem);
+}
+
+.inner-hero p:not(.eyebrow) {
+  max-width: 720px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.15rem;
+}
+
+
+/* =============================================================
+   14) SERVICES PAGE
+   ============================================================= */
+
+.service-menu {
+  width: min(var(--content-width), 100%);
+  margin: 0 auto;
+}
+
+.service-category {
+  padding: 46px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.service-category-header {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 50px;
+  margin-bottom: 32px;
+}
+
+.service-category-header h2 {
+  font-size: clamp(2rem, 4vw, 3.6rem);
+}
+
+.service-category-header p {
+  color: var(--muted);
+}
+
+.service-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+.service-item {
+  padding: 26px;
+  background: white;
+  border: 1px solid var(--line);
+}
+
+.service-item-topline {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.service-item h3 {
+  margin-bottom: 8px;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.service-price {
+  white-space: nowrap;
+  font-weight: 800;
+  color: var(--bleu-dark);
+}
+
+.service-item p {
+  margin-bottom: 0;
+  color: var(--muted);
+}
+
+.service-photo-grid {
+  margin-top: 42px;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.service-photo-grid img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: contain;
+  background: var(--soft-cream);
+}
+
+
+/* =============================================================
+   15) CLIENT REGISTRATION PAGE / FORM
+   ============================================================= */
+
+.form-layout {
+  width: min(var(--content-width), 100%);
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: 0.75fr 1.25fr;
+  gap: clamp(50px, 8vw, 100px);
+  align-items: start;
+}
+
+.form-intro {
+  position: sticky;
+  top: 130px;
+}
+
+.form-intro p {
+  color: var(--muted);
+}
+
+.client-form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 22px;
+
+  padding: clamp(28px, 5vw, 58px);
+  background: white;
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-field.full-width {
+  grid-column: 1 / -1;
+}
+
+.form-field label,
+fieldset legend {
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 14px;
+
+  border: 1px solid #cfc8c0;
+  border-radius: 0;
+
+  background: #fff;
+}
+
+.form-field textarea {
+  min-height: 130px;
+  resize: vertical;
+}
+
+.checkbox-row {
+  grid-column: 1 / -1;
+
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.checkbox-row input {
+  margin-top: 5px;
+}
+
+.form-note {
+  grid-column: 1 / -1;
+  padding: 16px;
+  background: var(--cream);
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+
+/* =============================================================
+   16) RESPONSIVE DESIGN
+   ============================================================= */
+
+/* Tablet / smaller desktop */
+@media (max-width: 980px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .main-nav {
+    position: absolute;
+    left: 0;
+    top: 88px;
+
+    width: 100%;
+    padding: 24px 6vw 30px;
+
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+
+    background: var(--cream);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .main-nav.is-open {
+    display: flex;
+  }
+
+  .main-nav a {
+    width: 100%;
+    padding: 10px 0;
+  }
+
+  .info-strip {
+    grid-template-columns: 1fr;
+  }
+
+  .info-item + .info-item {
+    border-left: 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .brand-story,
+  .form-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .brand-story-image,
+  .brand-story-image img {
+    min-height: 520px;
+  }
+
+  .service-preview-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .preview-card + .preview-card {
+    border-left: 1px solid rgba(255, 255, 255, 0.13);
+    border-top: 0;
+  }
+
+  .booking-banner {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .service-category-header {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .form-intro {
+    position: static;
+  }
+}
+
+
+/* Phone */
+@media (max-width: 680px) {
+  .section {
+    padding: 72px 6vw;
+  }
+
+  .brand-logo {
+    width: 190px;
+    max-height: 72px;
+  }
+
+  .hero {
+    min-height: 740px;
+    background-position: 58% center;
+  }
+
+  .hero-overlay {
+    background: rgba(14, 12, 11, 0.6);
+  }
+
+  .hero-caption {
+    display: none;
+  }
+
+  .hero-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .button {
+    width: 100%;
+  }
+
+  .info-item {
+    padding: 38px 7vw;
+  }
+
+  .brand-story-image,
+  .brand-story-image img {
+    min-height: 0;
+  }
+
+  .slides-track {
+    min-height: 500px;
+  }
+
+  .slide img {
+    height: 500px;
+  }
+
+  .slide-arrow {
+    width: 44px;
+    height: 44px;
+  }
+
+  .slide-arrow-left {
+    left: 10px;
+  }
+
+  .slide-arrow-right {
+    right: 10px;
+  }
+
+  .slide figcaption {
+    left: 16px;
+    right: 16px;
+    bottom: 16px;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+  }
+
+  .footer-links {
+    flex-wrap: wrap;
+  }
+
+  .service-list,
+  .service-photo-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .client-form {
+    grid-template-columns: 1fr;
+  }
+
+  .form-field.full-width,
+  .checkbox-row,
+  .form-note {
+    grid-column: auto;
+  }
+}
+
+
+/* =============================================================
+   17) REDUCED MOTION ACCESSIBILITY
+   =============================================================
+   If a visitor has asked their device to reduce animation,
+   this disables smooth scrolling and slideshow transitions.
+   ============================================================= */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+
+/* =============================================================
+   19) REAL-PHOTO + OWNER CAPTION UPDATES
+   =============================================================
+   These rules were added after the salon's real photography was supplied.
+   They preserve the original editorial layout while making portrait images
+   and the owner caption display cleanly.
+   ============================================================= */
+
+.brand-story-image {
+  margin: 0;
+  background: var(--charcoal);
+}
+
+.brand-story-image img {
+  height: auto;
+  min-height: 0;
+  object-fit: contain;
+  object-position: center;
+}
+
+.owner-caption {
+  padding: 10px 14px 12px;
+  background: var(--charcoal);
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  text-align: center;
+}
+
+/* Small education notice under the homepage information strip. */
+.class-notice {
+  padding: 14px 6vw;
+  background: var(--bleu);
+  color: white;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.class-notice strong {
+  margin-right: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.78rem;
+}
+
+
+/* =============================================================
+   20) UPDATED SERVICES PAGE
+   =============================================================
+   Service cards can contain a photo OR be text-only.
+   This gives you flexibility because not every salon service needs an image.
+   ============================================================= */
+
+.sample-price-note {
+  max-width: 720px;
+  margin-top: 24px;
+  padding: 14px 16px;
+  border-left: 3px solid var(--bleu);
+  background: rgba(255, 255, 255, 0.08);
+  font-size: 0.92rem;
+}
+
+.classes-banner {
+  width: min(var(--content-width), calc(100% - 12vw));
+  margin: 64px auto 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  background: var(--cream);
+  border: 1px solid var(--line);
+}
+
+.classes-banner h2 {
+  margin-bottom: 8px;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+}
+
+.classes-banner p:last-child {
+  margin-bottom: 0;
+  color: var(--muted);
+}
+
+.service-section-heading {
+  max-width: 760px;
+  margin-bottom: 38px;
+}
+
+.service-section-heading h2 {
+  margin-bottom: 0;
+}
+
+.service-menu-alt {
+  width: 100%;
+  max-width: none;
+  background: var(--cream);
+}
+
+.service-menu-alt > * {
+  width: min(var(--content-width), 100%);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.service-card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.service-card {
+  min-width: 0;
+  background: white;
+  border: 1px solid var(--line);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.06);
+}
+
+.service-card-photo img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: contain;
+  object-position: center;
+  background: #f1ece5;
+}
+
+.service-card-content {
+  padding: 24px;
+}
+
+.service-card-content p {
+  margin-bottom: 0;
+  color: var(--muted);
+}
+
+.service-card-text-only {
+  display: flex;
+  min-height: 230px;
+  align-items: center;
+  background:
+    linear-gradient(135deg, rgba(111, 128, 152, 0.08), rgba(255, 255, 255, 1));
+}
+
+.compact-service-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.footer-small {
+  max-width: 250px;
+  margin-top: 12px;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  opacity: 0.78;
+}
+
+
+/* =============================================================
+   21) RESPONSIVE RULES FOR NEW CONTENT
+   ============================================================= */
+
+@media (max-width: 980px) {
+  .service-card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .classes-banner {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 700px) {
+  .brand-story-image img {
+    height: auto;
+  }
+
+  .service-card-grid,
+  .compact-service-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .classes-banner {
+    width: calc(100% - 40px);
+    margin-top: 36px;
+  }
+}
+
+/* =============================================================
+   22) PHOTO DISPLAY REFINEMENTS
+   =============================================================
+   These rules keep the owner and service photos in their original
+   presentation while giving ONLY the homepage slideshow a more
+   zoomed-out treatment.
+
+   The slideshow uses a softly blurred copy of each image behind the
+   full hairstyle. This avoids harsh black bars while still letting the
+   main photo show substantially more of the finished style.
+   ============================================================= */
+
+/* OWNER PHOTO
+   Remove the old 640px minimum height that caused the large empty
+   black area under Marni Newman's landscape-oriented photo. */
+.brand-story-image {
+  min-height: 0;
+  background: transparent;
+}
+
+.brand-story-image img {
+  width: 100%;
+  height: auto;
+  min-height: 0;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Keep the owner caption as a slim strip directly under the image. */
+.owner-caption {
+  margin: 0;
+}
+
+/* SERVICE PAGE PHOTOS
+   Restore the original edge-to-edge card treatment. These photos should
+   fill their cards rather than using the slideshow's zoomed-out style. */
+.service-card-photo {
+  overflow: hidden;
+  background: #f1ece5;
+}
+
+.service-card-photo img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: center;
+  background: transparent;
+}
+
+/* SLIDESHOW ONLY
+   Full-photo foreground + blurred full-bleed backdrop. */
+.slide {
+  background: var(--charcoal);
+}
+
+.slide::before {
+  content: "";
+  position: absolute;
+  inset: -22px;
+  z-index: 0;
+  background-position: center;
+  background-size: cover;
+  filter: blur(18px) brightness(0.62);
+  transform: scale(1.06);
+}
+
+/* Match the backdrop to each slideshow image. */
+.slide:nth-child(1)::before {
+  background-image: url("images/slide-magenta.jpeg");
+}
+
+.slide:nth-child(2)::before {
+  background-image: url("images/slide-blue-purple.jpeg");
+}
+
+.slide:nth-child(3)::before {
+  background-image: url("images/slide-burgundy.jpeg");
+}
+
+.slide:nth-child(4)::before {
+  background-image: url("images/slide-long-blonde.jpeg");
+}
+
+.slide img {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 660px;
+  object-fit: contain;
+  object-position: center;
+  background: transparent;
+}
+
+.slide figcaption,
+.slide-arrow,
+.slide-dots {
+  z-index: 3;
+}
+
+/* HERO PHOTO
+   This photo remains full-bleed (no border). A slightly taller desktop hero
+   reduces the amount of cropping and shows more of the blue hairstyle. */
+@media (min-width: 701px) {
+  .hero {
+    min-height: clamp(760px, 61vw, 860px);
+    background-size: cover;
+    background-position: 58% center;
+  }
+}
+
+/* On phones, keep the established compact hero behavior. */
+@media (max-width: 700px) {
+  .brand-story-image {
+    min-height: 0;
+  }
+
+  .brand-story-image img {
+    height: auto;
+  }
+
+  .slide img {
+    height: 500px;
+  }
+}
+
+/* =============================================================
+   23) FINAL PHOTO PRESENTATION CORRECTIONS
+   =============================================================
+   Owner photo and service galleries are restored to their original
+   presentation. Only slideshow images use the zoomed-out treatment.
+   ============================================================= */
+
+/* OWNER: restore the original tall editorial crop with no empty area. */
+.brand-story-image {
+  min-height: 0;
+  margin: 0;
+  overflow: hidden;
+  background: transparent;
+  box-shadow: var(--shadow);
+}
+
+.brand-story-image img {
+  display: block;
+  width: 100%;
+  height: 640px;
+  min-height: 0;
+  object-fit: cover;
+  object-position: center;
+}
+
+.owner-caption {
+  display: block;
+  margin: 0;
+  padding: 10px 14px 12px;
+  background: var(--charcoal);
+}
+
+/* HERO: use a custom wide composition made from the original blue-hair
+   photo. It shows more of the top of the hairstyle without black borders
+   and without increasing the hero height. */
+.hero {
+  background-image: url("images/hero-blue-purple-wide.jpeg");
+  background-size: cover;
+  background-position: center center;
+  min-height: calc(100vh - 88px);
+}
+
+@media (min-width: 701px) {
+  .hero {
+    min-height: calc(100vh - 88px);
+    background-size: cover;
+    background-position: center center;
+  }
+}
+
+/* SERVICES: restore the first site's separate three-photo gallery style. */
+.service-photo-grid {
+  margin-top: 42px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.service-photo-grid img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: center;
+  background: transparent;
+}
+
+@media (max-width: 980px) {
+  .brand-story-image img {
+    height: 520px;
+  }
+}
+
+@media (max-width: 700px) {
+  .brand-story-image img {
+    height: 430px;
+  }
+
+  .service-photo-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =============================================================
+   24) SERVICES PAGE — ORIGINAL STARTER LAYOUT RESTORATION
+   =============================================================
+   This intentionally restores the first services-page presentation:
+   category heading + two-column text service cards + a separate
+   three-photo gallery beneath the category. Photos are not embedded
+   inside each individual service card.
+   ============================================================= */
+.service-menu {
+  width: min(var(--content-width), 100%);
+  margin: 0 auto;
+}
+
+.service-category {
+  padding: 46px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.service-category-header {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 50px;
+  margin-bottom: 32px;
+}
+
+.service-category-header h2 {
+  font-size: clamp(2rem, 4vw, 3.6rem);
+}
+
+.service-category-header p {
+  color: var(--muted);
+}
+
+.service-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+.service-item {
+  padding: 26px;
+  background: white;
+  border: 1px solid var(--line);
+}
+
+.service-item-topline {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.service-item h3 {
+  margin-bottom: 8px;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.service-price {
+  white-space: nowrap;
+  font-weight: 800;
+  color: var(--bleu-dark);
+}
+
+.service-item p {
+  margin-bottom: 0;
+  color: var(--muted);
+}
+
+.service-photo-grid {
+  margin-top: 42px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.service-photo-grid img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: center;
+  background: transparent;
+}
+
+@media (max-width: 980px) {
+  .service-category-header {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+}
+
+@media (max-width: 700px) {
+  .service-list,
+  .service-photo-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* =============================================================
+   HEADER BRAND UPDATE
+   Moves the logo closer to the left edge and places the salon name
+   beside it. These rules affect only the site header/brand area.
+   ============================================================= */
+.nav-container {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding-left: 22px;
+  padding-right: 3vw;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+}
+
+.brand-logo {
+  width: 82px;
+  height: 82px;
+  max-height: 82px;
+  object-fit: contain;
+}
+
+.brand-name {
+  display: inline-block;
+  font-family: Georgia, "Times New Roman", serif;
+  /* Desktop brand wordmark: intentionally larger so the stylist/salon identity
+     reads as a real wordmark beside the logo instead of small utility text. */
+  font-size: 1.55rem;
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  white-space: nowrap;
+  color: var(--bleu-dark);
+}
+
+@media (max-width: 900px) {
+  .nav-container {
+    padding-left: 14px;
+    padding-right: 18px;
+  }
+
+  .brand-logo {
+    width: 66px;
+    height: 66px;
+  }
+
+  .brand-name {
+    font-size: 1.08rem;
+    letter-spacing: 0.04em;
+  }
+}
+
+@media (max-width: 520px) {
+  .brand { gap: 9px; }
+  .brand-logo {
+    width: 56px;
+    height: 56px;
+  }
+  .brand-name {
+    max-width: 126px;
+    white-space: normal;
+    font-size: 0.9rem;
+    line-height: 1.05;
+  }
+}
+
+/* =============================================================
+   CLIENT DIRECTORY REGISTRATION - FIREBASE VERSION
+   ============================================================= */
+.client-registration-section {
+  background: var(--soft-cream);
+}
+
+.simple-registration-wrap {
+  width: min(980px, 100%);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: 58px;
+  align-items: start;
+}
+
+.simple-registration-intro h2 {
+  margin-bottom: 18px;
+  font-size: clamp(2rem, 4vw, 3.4rem);
+}
+
+.simple-registration-intro p {
+  color: var(--muted);
+}
+
+.privacy-note {
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+  font-size: 0.92rem;
+}
+
+.simple-client-form {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.website-field {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  white-space: nowrap !important;
+}
+
+.registration-status {
+  grid-column: 1 / -1;
+  min-height: 1.5em;
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+.registration-status.is-error {
+  color: #8b2525;
+}
+
+.registration-status.is-success {
+  color: #35633d;
+}
+
+#registration-submit:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+@media (max-width: 780px) {
+  .simple-registration-wrap {
+    grid-template-columns: 1fr;
+    gap: 34px;
+  }
+
+  .simple-client-form {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* =============================================================
+   25) STATIC 8-PHOTO HOME GALLERY
+   =============================================================
+   Replaces the previous slideshow. CSS columns preserve the natural
+   proportions of the salon photos so more of each hairstyle stays visible.
+   ============================================================= */
+.work-gallery {
+  width: min(var(--content-width), 100%);
+  margin: 0 auto;
+  columns: 4 240px;
+  column-gap: 18px;
+}
+
+.work-gallery-card {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  margin: 0 0 18px;
+  overflow: hidden;
+  break-inside: avoid;
+  background: var(--charcoal);
+  box-shadow: 0 12px 28px rgba(0,0,0,.09);
+}
+
+.work-gallery-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform .35s ease;
+}
+
+.work-gallery-card:hover img {
+  transform: scale(1.025);
+}
+
+.work-gallery-card figcaption {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  padding: 9px 11px;
+  color: #fff;
+  background: rgba(24, 21, 20, .72);
+  backdrop-filter: blur(7px);
+  font-size: .78rem;
+  line-height: 1.35;
+}
+
+/* The top-right call button is replaced with a normal Contact nav link. */
+.main-nav a[href="#contact"],
+.main-nav a[href="index.html#contact"] {
+  font-weight: 700;
+}
+
+@media (max-width: 700px) {
+  .work-gallery {
+    columns: 2 145px;
+    column-gap: 12px;
+  }
+
+  .work-gallery-card {
+    margin-bottom: 12px;
+  }
+
+  .work-gallery-card figcaption {
+    font-size: .7rem;
+  }
+}
+
+
+/* =============================================================
+   26) MOBILE POLISH + PHOTO LIGHTBOX + REGISTRATION REVIEWS
+   ============================================================= */
+
+/* Make gallery photos feel interactive on desktop without changing layout. */
+.work-gallery-card {
+  overflow: visible;
+  z-index: 1;
+  transition: transform .24s ease, box-shadow .24s ease, z-index 0s .24s;
+}
+
+.work-gallery-card img[data-zoomable] {
+  cursor: zoom-in;
+  border-radius: 0;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .work-gallery-card:hover {
+    z-index: 25;
+    transform: translateY(-3px) scale(1.055);
+    box-shadow: 0 22px 48px rgba(0, 0, 0, .2);
+    transition-delay: 0s;
+  }
+  .work-gallery-card:hover img {
+    transform: none;
+  }
+}
+
+/* Generic full-screen image viewer. Especially useful on iPhones where hover
+   does not exist. */
+.photo-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(10, 9, 9, .92);
+  backdrop-filter: blur(8px);
+}
+
+.photo-lightbox.is-open { display: flex; }
+body.lightbox-open { overflow: hidden; }
+
+.photo-lightbox-image {
+  display: block;
+  max-width: min(92vw, 1100px);
+  max-height: 84vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, .45);
+}
+
+.photo-lightbox-close {
+  position: fixed;
+  top: max(18px, env(safe-area-inset-top));
+  right: max(18px, env(safe-area-inset-right));
+  width: 46px;
+  height: 46px;
+  border: 1px solid rgba(255,255,255,.5);
+  border-radius: 50%;
+  background: rgba(0,0,0,.5);
+  color: white;
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.photo-lightbox-caption {
+  position: fixed;
+  left: 50%;
+  bottom: max(18px, env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  width: min(90vw, 760px);
+  margin: 0;
+  color: rgba(255,255,255,.88);
+  text-align: center;
+  font-size: .86rem;
+}
+
+/* Registration: reviews on the left, white registration card on the right. */
+.registration-experience {
+  width: min(1120px, 100%);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, .88fr) minmax(0, 1.12fr);
+  gap: clamp(34px, 6vw, 72px);
+  align-items: center;
+}
+
+.registration-reviews {
+  min-width: 0;
+}
+
+.registration-reviews h2 {
+  margin-bottom: 22px;
+  font-size: clamp(2rem, 4vw, 3.35rem);
+}
+
+.review-carousel {
+  position: relative;
+  overflow: hidden;
+  min-height: 300px;
+  padding: 18px 0 10px;
+  background: transparent;
+  color: var(--ink);
+  box-shadow: none;
+  border: 0;
+}
+
+.review-track { position: relative; min-height: 205px; }
+.review-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: translateX(14px);
+  pointer-events: none;
+  transition: opacity .35s ease, transform .35s ease;
+}
+.review-slide.is-active {
+  position: relative;
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+.review-source {
+  margin-bottom: 18px;
+  color: var(--ink);
+  font-size: .72rem;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.review-slide blockquote {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.35rem, 3vw, 2rem);
+  line-height: 1.35;
+}
+
+.reviewer {
+  margin: 22px 0 0;
+  color: var(--ink);
+  font-size: .86rem;
+}
+
+.review-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+
+.review-arrow {
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(38,33,31,.28);
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.review-dots { display: flex; gap: 8px; }
+.review-dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(38,33,31,.28);
+  cursor: pointer;
+}
+.review-dot.is-active { background: var(--ink); }
+.review-note {
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: .74rem;
+}
+
+.registration-form-column { min-width: 0; }
+.form-kicker {
+  margin: 0 0 8px 4px;
+  color: var(--muted);
+  font-size: .72rem;
+  font-weight: 800;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+.simple-client-form {
+  padding: clamp(24px, 4vw, 42px);
+}
+
+/* The home-page appointment CTA now leads to contact details instead of
+   immediately initiating a phone call. */
+.booking-banner .button[href="#contact"] { min-width: 150px; }
+
+/* Mobile-first polish. */
+@media (max-width: 780px) {
+  .registration-experience {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .review-carousel { min-height: 250px; }
+  .review-track { min-height: 170px; }
+  .simple-client-form { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 680px) {
+  .section { padding: 56px 20px; }
+  .site-header { position: sticky; top: 0; z-index: 1000; }
+  .hero {
+    min-height: min(760px, 88svh);
+    background-position: 58% center;
+  }
+  .hero-content { padding-left: 20px; padding-right: 20px; }
+  .booking-banner { padding: 42px 20px; }
+  .booking-banner .button { width: auto; min-width: 140px; }
+  .footer-grid { gap: 28px; }
+  .site-footer { padding-left: 20px; padding-right: 20px; }
+  .footer-logo { width: min(220px, 70vw); height: auto; }
+  .work-gallery { columns: 2 145px; column-gap: 10px; }
+  .work-gallery-card { margin-bottom: 10px; }
+  .work-gallery-card figcaption { left: 7px; right: 7px; bottom: 7px; padding: 7px 8px; }
+  .photo-lightbox { padding: 12px; }
+  .photo-lightbox-image { max-width: 96vw; max-height: 80svh; }
+}
+
+@media (max-width: 390px) {
+  .brand-name { max-width: 96px; font-size: .62rem; }
+  .work-gallery { columns: 2 135px; }
+  .review-carousel { padding: 16px 0 8px; }
+}
+
+
+/* =============================================================
+   27) MARNSTARR OWNER STORY + SALON POLICIES
+   ============================================================= */
+
+/* Owner-story heading from the updated Genetik Bleu creative direction. */
+.marnstarr-story .eyebrow {
+  margin-bottom: 18px;
+}
+
+.marnstarr-heading {
+  margin: 0 0 30px;
+  font-size: clamp(3.1rem, 6.2vw, 6.2rem);
+  line-height: .92;
+  letter-spacing: -.045em;
+}
+
+.marnstarr-line {
+  display: block;
+}
+
+.marnstarr-word {
+  /*
+     This wrapper is important: it anchors the star to the END of the word
+     "Marnstarr" so the browser cannot wrap the star onto its own line.
+  */
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.marnstarr-star {
+  color: #d0a11d;
+
+  /* Keep the star LARGE, matching the previous visual size. */
+  font-size: .88em;
+  line-height: 1;
+
+  /* STAR POSITION ADJUSTMENT
+     ------------------------------------------------------------
+     The star is ABSOLUTELY ANCHORED to the word "Marnstarr".
+     That means it stays next to the word instead of wrapping below it.
+
+     CURRENT POSITION:
+       - 1 centimeter to the RIGHT of the end of "Marnstarr"
+       - 1 centimeter DOWN from the top edge of the word
+
+     TO MOVE IT LATER:
+       - farther RIGHT: increase the + 1cm in left: calc(100% + 1cm)
+       - farther LEFT / closer to the word: decrease that 1cm value
+       - farther DOWN: increase top: 1cm
+       - farther UP: decrease top: 1cm
+
+     EXAMPLE:
+       left: calc(100% + .7cm);  -> moves it 0.3cm closer to the word
+       top: .8cm;                -> moves it 0.2cm upward
+
+     Do NOT change this back to margin-left positioning; a large margin can
+     make the star wrap onto the next line on narrower screens. */
+  position: absolute;
+  left: calc(100% + 1cm);
+  top: 1cm;
+  display: block;
+  white-space: nowrap;
+
+  /* The star is now interactive. */
+  pointer-events: auto;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  font-family: inherit;
+  cursor: pointer;
+  transform-origin: 50% 50%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (max-width: 520px) {
+  .marnstarr-star {
+    /* On small phones, keep the star attached while reducing only the OFFSET,
+       not the star size. This prevents horizontal overflow. */
+    left: calc(100% + .45cm);
+    top: .65cm;
+  }
+}
+
+/* Salon policies page: editorial, compact, and consistent with the rest of the site. */
+.policy-page-header {
+  padding-bottom: 24px;
+  background: var(--soft-cream);
+}
+
+.policy-intro {
+  width: min(880px, 100%);
+  margin: 0 auto;
+  text-align: center;
+}
+
+.policy-intro h1 {
+  margin-bottom: 14px;
+}
+
+.policy-intro > p:last-child {
+  margin: 0;
+  color: var(--muted);
+}
+
+.policy-list-section {
+  padding-top: 16px;
+  background: var(--soft-cream);
+}
+
+.policy-list {
+  width: min(1080px, 100%);
+  margin: 0 auto;
+  border-top: 1px solid var(--line);
+}
+
+.policy-item {
+  border-bottom: 1px solid var(--line);
+}
+
+.policy-toggle {
+  width: 100%;
+  min-height: 88px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 24px;
+  padding: 22px 0;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
+}
+
+.policy-title {
+  font-size: clamp(.98rem, 2vw, 1.12rem);
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.policy-action {
+  min-width: 82px;
+  padding: 12px 18px;
+  background: var(--charcoal);
+  color: var(--light-text);
+  text-align: center;
+  font-size: .72rem;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  transition: background .2s ease, transform .2s ease;
+}
+
+.policy-toggle:hover .policy-action,
+.policy-toggle:focus-visible .policy-action {
+  background: var(--brown);
+  transform: translateY(-1px);
+}
+
+.policy-toggle[aria-expanded="true"] .policy-action {
+  background: #9b7a4a;
+}
+
+.policy-details {
+  padding: 0 118px 28px 0;
+}
+
+.policy-details p {
+  max-width: 940px;
+  margin: 0;
+  color: var(--ink);
+  font-size: clamp(.98rem, 1.7vw, 1.08rem);
+  line-height: 1.7;
+}
+
+@media (max-width: 780px) {
+  .marnstarr-heading {
+    font-size: clamp(2.8rem, 14vw, 4.5rem);
+  }
+
+  .policy-page-header {
+    padding-top: 52px;
+  }
+
+  .policy-list-section {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .policy-toggle {
+    min-height: 74px;
+    gap: 14px;
+    padding: 18px 0;
+  }
+
+  .policy-title {
+    letter-spacing: .055em;
+  }
+
+  .policy-action {
+    min-width: 68px;
+    padding: 10px 12px;
+    font-size: .65rem;
+  }
+
+  .policy-details {
+    padding: 0 0 24px;
+  }
+}
+
+
+/* =============================================================
+   REQUIRED REGISTRATION CONSENT
+   ============================================================= */
+.consent-field {
+  margin-top: 2px;
+}
+.consent-checkbox {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 14px 15px;
+  border: 1px solid rgba(38, 33, 31, .14);
+  background: rgba(255,255,255,.48);
+  cursor: pointer;
+}
+.consent-checkbox input {
+  width: 18px;
+  height: 18px;
+  margin: 2px 0 0;
+  flex: 0 0 auto;
+  accent-color: var(--bleu-dark);
+}
+.consent-checkbox span {
+  color: var(--muted);
+  font-size: .78rem;
+  line-height: 1.45;
+}
+@media (max-width: 520px) {
+  .consent-checkbox { padding: 12px; gap: 10px; }
+  .consent-checkbox span { font-size: .72rem; }
+}
+
+/* =============================================================
+   CLASSES NAV LINK / DESKTOP FIT SAFEGUARD
+   Keeps the added Classes navigation item visible on medium-size laptops.
+   The normal mobile hamburger menu still takes over below 980px.
+   ============================================================= */
+@media (min-width: 981px) and (max-width: 1180px) {
+  .main-nav { gap: 16px; }
+  .main-nav a { font-size: 0.70rem; letter-spacing: 0.13em; }
+  .brand-name { font-size: 1.35rem; }
+}
+
+
+/* =============================================================
+   FINAL MARNI PHOTO SWAP
+   =============================================================
+   These rules intentionally come last so they override older hero/owner
+   photo experiments elsewhere in this stylesheet.
+
+   HERO POSITIONING:
+   - Change the SECOND percentage in background-position to move the crop
+     vertically. Smaller = show more of the top of the photo.
+   - Change the FIRST percentage to move the crop left/right.
+   ============================================================= */
+.hero {
+  background-image: url("images/marni-hero-portrait.jpeg");
+  background-size: cover;
+  background-position: 50% 30%;
+}
+
+/* New professional owner portrait with blow dryer. */
+.brand-story-image img {
+  object-fit: cover;
+  object-position: 50% 38%;
+}
+
+@media (max-width: 680px) {
+  .hero {
+    background-position: 50% 24%;
+  }
+
+  .brand-story-image img {
+    object-position: 50% 32%;
+  }
+}
+
+
+/* =============================================================
+   FINAL MOBILE REFINEMENT - HOME PAGE + SHARED HEADER/FOOTER
+   =============================================================
+   This block is intentionally LAST in the stylesheet so the mobile layout
+   stays clean even if older responsive rules above it are still present.
+
+   DESKTOP NOTE:
+   Everything in this section is inside a mobile media query, so the approved
+   desktop/web layout is not changed.
+   ============================================================= */
+@media (max-width: 700px) {
+  /* -----------------------------------------------------------
+     MOBILE HEADER
+     Keep the logo on the left, menu button on the right, and center the
+     "Genetik Bleu Salon" wordmark in the available header area.
+     ----------------------------------------------------------- */
+  .nav-container {
+    position: relative;
+    min-height: 72px;
+    padding: 8px 14px;
+    gap: 0;
+  }
+
+  .brand {
+    position: static;
+    gap: 0;
+  }
+
+  .brand-logo {
+    width: 54px;
+    height: 54px;
+    max-height: 54px;
+    object-fit: contain;
+  }
+
+  .brand-name {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: max-content;
+    max-width: calc(100% - 132px);
+    margin: 0;
+    text-align: center;
+    white-space: normal;
+    font-size: clamp(.92rem, 4.5vw, 1.08rem);
+    line-height: 1.08;
+    letter-spacing: .035em;
+    color: var(--bleu-dark);
+    pointer-events: none;
+  }
+
+  .menu-toggle {
+    position: relative;
+    z-index: 2;
+    margin-left: auto;
+  }
+
+  .main-nav {
+    top: 72px;
+    padding: 22px 20px 26px;
+    align-items: center;
+    text-align: center;
+  }
+
+  .main-nav a {
+    text-align: center;
+  }
+
+  /* -----------------------------------------------------------
+     MOBILE HERO
+     The portrait is intentionally tighter on phones so only the upper body
+     is emphasized. The copy sits near the bottom so it does not cover
+     Marni's face.
+
+     To show MORE of the portrait later, lower 165% to e.g. 150%.
+     To crop TIGHTER, increase 165% to e.g. 175%.
+     ----------------------------------------------------------- */
+  .hero {
+    min-height: 600px;
+    height: calc(100svh - 72px);
+    max-height: 700px;
+    align-items: flex-end;
+    justify-content: center;
+    background-size: 165% auto;
+    background-position: 50% top;
+    background-repeat: no-repeat;
+    background-color: #c9a47f;
+  }
+
+  .hero-overlay {
+    background: linear-gradient(
+      180deg,
+      rgba(14, 12, 11, .03) 0%,
+      rgba(14, 12, 11, .06) 42%,
+      rgba(14, 12, 11, .46) 68%,
+      rgba(14, 12, 11, .82) 100%
+    );
+  }
+
+  .hero-content {
+    width: 100%;
+    margin: 0;
+    padding: 0 24px 38px;
+    text-align: center;
+  }
+
+  .hero-content h1 {
+    max-width: 355px;
+    margin: 0 auto 16px;
+    font-size: clamp(2.25rem, 10.5vw, 3rem);
+    line-height: 1.02;
+    letter-spacing: -.038em;
+    text-wrap: balance;
+    text-shadow: 0 2px 18px rgba(0,0,0,.28);
+  }
+
+  .hero-copy {
+    max-width: 340px;
+    margin: 0 auto;
+    font-size: .98rem;
+    line-height: 1.55;
+    text-align: center;
+    text-wrap: pretty;
+    text-shadow: 0 1px 12px rgba(0,0,0,.30);
+  }
+
+  /* -----------------------------------------------------------
+     HOME PAGE - CENTERED EDITORIAL LAYOUT
+     ----------------------------------------------------------- */
+  .brand-story {
+    gap: 34px;
+  }
+
+  .brand-story-image {
+    width: 100%;
+    max-width: 430px;
+    min-height: 0;
+    margin: 0 auto;
+    aspect-ratio: 4 / 5;
+  }
+
+  .brand-story-image img {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    object-fit: cover;
+    object-position: 50% 28%;
+  }
+
+  .owner-caption {
+    text-align: center;
+  }
+
+  .brand-story-content,
+  .brand-story-content p,
+  .brand-story-content .eyebrow,
+  .section-heading,
+  .services-preview .section-heading,
+  .preview-card,
+  .booking-banner,
+  .education-banner {
+    text-align: center;
+  }
+
+  .brand-story-content p:not(.eyebrow),
+  .section-heading p:not(.eyebrow),
+  .booking-banner p,
+  .education-banner p {
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Keep the large Marnstarr title centered without letting the star create
+     horizontal overflow on narrow phones. */
+  .marnstarr-heading {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    font-size: clamp(2.65rem, 13.5vw, 4.15rem);
+    line-height: .94;
+  }
+
+  .marnstarr-line {
+    text-align: center;
+  }
+
+  .marnstarr-word {
+    transform: translateX(-.22em);
+  }
+
+  .marnstarr-star {
+    left: calc(100% + .14em);
+    top: .24em;
+    font-size: .68em;
+  }
+
+  /* -----------------------------------------------------------
+     MOBILE GALLERY
+     A consistent two-column editorial grid replaces the uneven masonry
+     layout on phones. Captions are intentionally hidden/removed so there
+     is no text sitting on top of the salon photos.
+     ----------------------------------------------------------- */
+  .gallery-section .section-heading {
+    margin-bottom: 30px;
+  }
+
+  .work-gallery {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    width: 100%;
+    columns: unset;
+    column-gap: normal;
+  }
+
+  .work-gallery-card {
+    display: block;
+    width: 100%;
+    margin: 0;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    break-inside: auto;
+    background: #ddd6ce;
+    box-shadow: 0 8px 22px rgba(0,0,0,.10);
+    transform: none;
+  }
+
+  .work-gallery-card img,
+  .work-gallery-card img[data-zoomable] {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 28%;
+    transform: none;
+  }
+
+  .work-gallery-card figcaption {
+    display: none !important;
+  }
+
+  /* -----------------------------------------------------------
+     "INSIDE GENETIK BLEU" + CLASSES
+     Center the cards and tighten the vertical rhythm on phones.
+     ----------------------------------------------------------- */
+  .service-preview-grid {
+    gap: 0;
+    margin-bottom: 34px;
+  }
+
+  .preview-card {
+    min-height: 0;
+    padding: 30px 24px;
+  }
+
+  .preview-card span {
+    margin-bottom: 18px;
+  }
+
+  .preview-card h3 {
+    margin-bottom: 12px;
+  }
+
+  .preview-card p {
+    max-width: 420px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .booking-banner,
+  .education-banner {
+    align-items: center;
+    justify-content: center;
+    padding: 48px 20px;
+    gap: 24px;
+  }
+
+  .booking-banner h2,
+  .education-banner h2 {
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: clamp(2rem, 9vw, 2.75rem);
+    line-height: 1.08;
+    text-wrap: balance;
+  }
+
+  .booking-banner .button,
+  .education-banner .button {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* -----------------------------------------------------------
+     SHARED MOBILE FOOTER - applies to ALL pages.
+     ----------------------------------------------------------- */
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 34px;
+    text-align: center;
+  }
+
+  .footer-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-logo {
+    width: min(210px, 62vw);
+    height: auto;
+    margin: 0 auto 20px;
+  }
+
+  .footer-brand p {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .site-footer address,
+  .site-footer p {
+    text-align: center;
+  }
+
+  .instagram-button {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    text-align: center;
+  }
+
+  .footer-links {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 14px 20px;
+  }
+}
+
+@media (max-width: 380px) {
+  .brand-name {
+    max-width: calc(100% - 116px);
+    font-size: .86rem;
+  }
+
+  .hero {
+    background-size: 172% auto;
+  }
+
+  .hero-content {
+    padding-left: 18px;
+    padding-right: 18px;
+    padding-bottom: 32px;
+  }
+
+  .work-gallery {
+    gap: 8px;
+  }
+}
+
+
+/* =============================================================
+   FINAL PHONE + TABLET ALIGNMENT REFINEMENT
+   =============================================================
+   This responsive block intentionally comes LAST. It makes the phone and
+   tablet layouts feel like a centered editorial version of the desktop site
+   without changing the approved desktop presentation above 1024px.
+
+   Main goals:
+   - Center the salon wordmark between the logo and menu button.
+   - Center headings, supporting copy, and calls-to-action on small screens.
+   - Make the footer one clean centered column, including the classes note.
+   - Extend the polished phone treatment to iPad/tablet widths.
+   ============================================================= */
+@media (max-width: 1024px) {
+  /* ---------- Shared header: phone + tablet ---------- */
+  .nav-container {
+    position: relative;
+    min-height: 82px;
+    padding: 9px 18px;
+    gap: 0;
+  }
+
+  .brand {
+    position: static;
+    gap: 0;
+  }
+
+  .brand-logo {
+    width: 64px;
+    height: 64px;
+    max-height: 64px;
+    object-fit: contain;
+  }
+
+  .brand-name {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: max-content;
+    max-width: calc(100% - 170px);
+    margin: 0;
+    color: var(--bleu-dark);
+    font-size: clamp(1rem, 2.7vw, 1.35rem);
+    line-height: 1.08;
+    letter-spacing: .035em;
+    text-align: center;
+    white-space: normal;
+    pointer-events: none;
+  }
+
+  .menu-toggle {
+    position: relative;
+    z-index: 3;
+    margin-left: auto;
+  }
+
+  .main-nav {
+    top: 100%;
+    align-items: center;
+    text-align: center;
+  }
+
+  .main-nav a {
+    text-align: center;
+  }
+
+  /* ---------- Home / shared page typography ---------- */
+  .section-heading,
+  .section-heading p,
+  .brand-story-content,
+  .brand-story-content p,
+  .brand-story-content .eyebrow,
+  .services-preview .section-heading,
+  .preview-card,
+  .booking-banner,
+  .education-banner,
+  .inner-hero-content,
+  .registration-reviews,
+  .form-kicker {
+    text-align: center;
+  }
+
+  .section-heading p:not(.eyebrow),
+  .brand-story-content p:not(.eyebrow),
+  .booking-banner p,
+  .education-banner p,
+  .inner-hero-content > p:not(.eyebrow) {
+    max-width: 680px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Tablet should follow the cleaner phone-style single-column story flow. */
+  .brand-story,
+  .registration-experience {
+    grid-template-columns: 1fr;
+  }
+
+  .brand-story-content,
+  .registration-reviews,
+  .registration-form-column {
+    width: min(760px, 100%);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .marnstarr-heading,
+  .marnstarr-line {
+    text-align: center;
+  }
+
+  /* Extend the professional gallery treatment to iPad/tablet widths. */
+  .work-gallery {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    width: min(820px, 100%);
+    margin-left: auto;
+    margin-right: auto;
+    columns: unset;
+    column-gap: normal;
+  }
+
+  .work-gallery-card {
+    display: block;
+    width: 100%;
+    margin: 0;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    break-inside: auto;
+  }
+
+  .work-gallery-card img,
+  .work-gallery-card img[data-zoomable] {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 28%;
+  }
+
+  .work-gallery-card figcaption {
+    display: none !important;
+  }
+
+  /* ---------- Shared footer: phone + tablet ---------- */
+  .site-footer {
+    text-align: center;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr !important;
+    justify-items: center;
+    gap: 34px;
+    text-align: center;
+  }
+
+  .footer-grid > div,
+  .footer-brand {
+    width: min(620px, 100%);
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+
+  .footer-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-logo {
+    display: block;
+    width: min(210px, 58vw);
+    height: auto;
+    margin: 0 auto 20px;
+    object-position: center;
+  }
+
+  .site-footer h2,
+  .site-footer p,
+  .site-footer address,
+  .footer-brand p,
+  .footer-small {
+    text-align: center !important;
+  }
+
+  /* The classes note was the remaining off-center line in the footer. */
+  .footer-small {
+    max-width: 440px;
+    margin: 12px auto 0 !important;
+  }
+
+  .instagram-button {
+    display: inline-flex;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    text-align: center;
+  }
+
+  .footer-bottom > p {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .footer-links {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 14px 20px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 700px) {
+  .nav-container {
+    min-height: 72px;
+    padding: 8px 14px;
+  }
+
+  .brand-logo {
+    width: 54px;
+    height: 54px;
+    max-height: 54px;
+  }
+
+  .brand-name {
+    max-width: calc(100% - 132px);
+    font-size: clamp(.92rem, 4.5vw, 1.08rem);
+  }
+}
+
+/* =============================================================
+   31) WELCOMING EDITORIAL + MARNI PERSONALITY UPGRADE
+   =============================================================
+   Added near launch to make the site feel warmer, more personal, and more
+   interactive without changing the core layout/content structure.
+
+   DESIGN NOTES:
+   - --marni-blue is the stronger signature accent inspired by Marni's blue.
+   - --marnstarr-gold is used sparingly around the Marnstarr identity.
+   - Scroll reveal motion is intentionally subtle and respects reduced-motion.
+   - Mobile/tablet quick-contact bar is created in script.js.
+   ============================================================= */
+:root {
+  --marni-blue: #315f9c;
+  --marni-blue-deep: #22466f;
+  --marni-blue-soft: #e7edf5;
+  --marnstarr-gold: #c99a24;
+  --warm-blush: #ead9cc;
+}
+
+/* ---------- Small brand details that make the site feel more alive ---------- */
+.site-header {
+  box-shadow: 0 8px 28px rgba(31, 41, 56, .05);
+}
+
+.main-nav a {
+  position: relative;
+}
+
+.main-nav a::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -7px;
+  width: 0;
+  height: 2px;
+  background: var(--marni-blue);
+  transform: translateX(-50%);
+  transition: width .24s ease;
+}
+
+.main-nav a:hover::after,
+.main-nav a:focus-visible::after,
+.main-nav a.active::after {
+  width: 72%;
+}
+
+.button,
+.instagram-button {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  transition: transform .24s ease, box-shadow .24s ease, background .24s ease, color .24s ease;
+}
+
+.button::before,
+.instagram-button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(120deg, transparent 20%, rgba(255,255,255,.22), transparent 80%);
+  transform: translateX(-120%);
+  transition: transform .5s ease;
+}
+
+.button:hover::before,
+.instagram-button:hover::before {
+  transform: translateX(120%);
+}
+
+.button:hover,
+.instagram-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(23, 43, 70, .18);
+}
+
+.button-primary {
+  background: var(--marni-blue-deep);
+  border-color: var(--marni-blue-deep);
+}
+
+.button-primary:hover {
+  background: var(--marni-blue);
+}
+
+/* ---------- Hero: personal, but still elegant ---------- */
+.hero-signature {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin: 0 0 16px;
+  padding: 8px 12px;
+  border: 1px solid rgba(255,255,255,.42);
+  background: rgba(21, 24, 30, .22);
+  color: #fff;
+  backdrop-filter: blur(8px);
+  font-size: .72rem;
+  font-weight: 750;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+}
+
+.hero-signature span {
+  color: #d7b24f;
+}
+
+/* ---------- Oversized editorial background words / section transitions ---------- */
+[data-style-word] {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+[data-style-word]::before {
+  content: attr(data-style-word);
+  position: absolute;
+  z-index: -1;
+  right: -1.5vw;
+  top: -2.5rem;
+  color: rgba(49, 95, 156, .055);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(7rem, 17vw, 15rem);
+  font-weight: 700;
+  letter-spacing: -.08em;
+  line-height: .85;
+  pointer-events: none;
+  user-select: none;
+}
+
+.services-preview[data-style-word]::before,
+.education-banner[data-style-word]::before {
+  color: rgba(255,255,255,.045);
+}
+
+/* ---------- Marnstarr Experience: stronger personal feature ---------- */
+.marnstarr-feature {
+  width: 100%;
+  max-width: none;
+  padding-left: max(6vw, calc((100vw - var(--content-width)) / 2));
+  padding-right: max(6vw, calc((100vw - var(--content-width)) / 2));
+  background:
+    radial-gradient(circle at 88% 20%, rgba(49,95,156,.13), transparent 31%),
+    linear-gradient(135deg, #fbf6ef 0%, #f3e9df 100%);
+  border-top: 1px solid rgba(49,95,156,.12);
+  border-bottom: 1px solid rgba(49,95,156,.12);
+}
+
+.marnstarr-feature .brand-story-image {
+  position: relative;
+  border: 8px solid rgba(255,255,255,.72);
+  box-shadow: 0 28px 65px rgba(50, 42, 35, .16);
+}
+
+.marnstarr-feature .brand-story-image::after {
+  content: none;
+}
+
+.marnstarr-feature .eyebrow {
+  color: var(--marni-blue-deep);
+}
+
+.marnstarr-mantra {
+  max-width: 560px;
+  margin: -8px 0 26px;
+  padding: 16px 18px;
+  border-left: 3px solid var(--marnstarr-gold);
+  background: rgba(255,255,255,.55);
+  color: var(--ink) !important;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.15rem, 2vw, 1.45rem) !important;
+  line-height: 1.45;
+}
+
+/* Decorative star removed from the Marnstarr mantra line to keep the page cleaner. */
+
+@keyframes marnstarrGlow {
+  0%, 100% { filter: none; }
+  48% { filter: drop-shadow(0 0 7px rgba(201,154,36,.65)) brightness(1.18); }
+}
+
+.marnstarr-star {
+  animation: none;
+}
+
+/* ---------- Styles By Marni: beauty-editorial gallery ---------- */
+.editorial-gallery {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.38), transparent 22%),
+    var(--cream);
+}
+
+.editorial-gallery .section-heading::after {
+  content: "";
+  display: block;
+  width: 54px;
+  height: 3px;
+  margin: 24px auto 0;
+  border-radius: 99px;
+  background: var(--marni-blue);
+}
+
+@media (min-width: 1025px) {
+  .editorial-gallery .work-gallery {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-auto-rows: 185px;
+    gap: 16px;
+    columns: unset;
+  }
+
+  .editorial-gallery .work-gallery-card {
+    display: block;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    break-inside: auto;
+    border-radius: 2px;
+    box-shadow: 0 14px 36px rgba(38,33,31,.10);
+  }
+
+  .editorial-gallery .work-gallery-card:nth-child(1) {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+
+  .editorial-gallery .work-gallery-card:nth-child(2) {
+    grid-row: span 2;
+  }
+
+  .editorial-gallery .work-gallery-card:nth-child(6) {
+    grid-column: span 2;
+  }
+
+  .editorial-gallery .work-gallery-card img,
+  .editorial-gallery .work-gallery-card img[data-zoomable] {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 30%;
+    transition: transform .5s cubic-bezier(.2,.7,.2,1), filter .4s ease;
+  }
+
+  .editorial-gallery .work-gallery-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 24px 55px rgba(38,33,31,.18);
+  }
+
+  .editorial-gallery .work-gallery-card:hover img {
+    transform: scale(1.055);
+    filter: saturate(1.05) contrast(1.02);
+  }
+}
+
+/* ---------- Inside Genetik Bleu: stronger blue details ---------- */
+.services-preview {
+  position: relative;
+  background:
+    radial-gradient(circle at 15% 10%, rgba(49,95,156,.35), transparent 28%),
+    linear-gradient(135deg, #292725 0%, #211f1e 68%, #1b283a 100%);
+}
+
+.preview-card {
+  position: relative;
+  background: rgba(255,255,255,.015);
+  transition: transform .28s ease, background .28s ease, border-color .28s ease;
+}
+
+.preview-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--marni-blue), rgba(255,255,255,.18));
+  transform: scaleX(.25);
+  transform-origin: left;
+  transition: transform .3s ease;
+}
+
+.preview-card span {
+  color: #9db5d5;
+}
+
+.preview-card:hover {
+  transform: translateY(-5px);
+  background: rgba(255,255,255,.045);
+  border-color: rgba(130,166,215,.35);
+}
+
+.preview-card:hover::before {
+  transform: scaleX(1);
+}
+
+/* ---------- Classes: feature moment instead of a plain banner ---------- */
+.education-banner {
+  position: relative;
+  padding-top: clamp(74px, 8vw, 120px);
+  padding-bottom: clamp(74px, 8vw, 120px);
+  color: #fff;
+  background:
+    radial-gradient(circle at 85% 18%, rgba(216,178,79,.24), transparent 24%),
+    radial-gradient(circle at 8% 85%, rgba(255,255,255,.10), transparent 28%),
+    linear-gradient(125deg, var(--marni-blue-deep), #315f9c 52%, #23354e 100%);
+  border-top: 0;
+}
+
+.education-banner::after {
+  content: none;
+}
+
+.education-banner .eyebrow {
+  color: #f1d586;
+}
+
+.education-banner h2 {
+  max-width: 860px;
+  color: #fff;
+}
+
+.education-banner p:not(.eyebrow) {
+  color: rgba(255,255,255,.82);
+}
+
+.education-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-top: 24px;
+}
+
+.education-tags span {
+  padding: 8px 12px;
+  border: 1px solid rgba(255,255,255,.26);
+  border-radius: 999px;
+  background: rgba(255,255,255,.08);
+  color: rgba(255,255,255,.92);
+  font-size: .74rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+}
+
+.education-banner .education-cta {
+  flex: 0 0 auto;
+  background: #fff;
+  border-color: #fff;
+  color: var(--marni-blue-deep);
+}
+
+.education-banner .education-cta:hover {
+  background: #f7e9c3;
+  border-color: #f7e9c3;
+  color: #1f3857;
+}
+
+/* ---------- Registration reviews: warmer social-proof moment ---------- */
+.page-registration .registration-reviews {
+  position: relative;
+  padding: clamp(26px, 4vw, 44px);
+  border: 1px solid rgba(49,95,156,.16);
+  background:
+    radial-gradient(circle at 100% 0%, rgba(49,95,156,.11), transparent 34%),
+    linear-gradient(145deg, #fffaf4, #f3e7dd);
+  box-shadow: 0 22px 54px rgba(49, 40, 34, .10);
+}
+
+.page-registration .registration-reviews::before {
+  content: "“";
+  position: absolute;
+  right: 20px;
+  top: -30px;
+  color: rgba(49,95,156,.15);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 9rem;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.page-registration .registration-reviews .eyebrow,
+.page-registration .review-source {
+  color: var(--marni-blue-deep);
+}
+
+.page-registration .review-source::before {
+  content: "★★★★★";
+  display: block;
+  margin-bottom: 8px;
+  color: var(--marnstarr-gold);
+  font-size: .82rem;
+  letter-spacing: .14em;
+}
+
+.page-registration .review-arrow {
+  border-radius: 50%;
+  border-color: rgba(49,95,156,.28);
+  color: var(--marni-blue-deep);
+  transition: transform .22s ease, background .22s ease, color .22s ease;
+}
+
+.page-registration .review-arrow:hover {
+  transform: scale(1.06);
+  background: var(--marni-blue-deep);
+  color: #fff;
+}
+
+.page-registration .review-dot.is-active {
+  background: var(--marni-blue);
+}
+
+/* ---------- Footer: warmer invitation + blue micro-accent ---------- */
+.site-footer {
+  position: relative;
+  background:
+    radial-gradient(circle at 15% 0%, rgba(49,95,156,.18), transparent 26%),
+    var(--charcoal);
+}
+
+.site-footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--marni-blue), #d8b65b, var(--marni-blue), transparent);
+}
+
+.site-footer h2 {
+  color: #b7c9e1;
+}
+
+.footer-links a,
+.site-footer a:not(.instagram-button) {
+  transition: color .2s ease;
+}
+
+.footer-links a:hover,
+.site-footer a:not(.instagram-button):hover {
+  color: #b9cceb;
+}
+
+/* ---------- Subtle reveal-on-scroll motion ---------- */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity .7s cubic-bezier(.2,.65,.25,1),
+    transform .7s cubic-bezier(.2,.65,.25,1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---------- Mobile quick contact bar (created in script.js) ---------- */
+.mobile-quick-contact {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  body.has-mobile-quick-contact {
+    padding-bottom: calc(66px + env(safe-area-inset-bottom));
+  }
+
+  .mobile-quick-contact {
+    position: fixed;
+    z-index: 1200;
+    left: 12px;
+    right: 12px;
+    bottom: max(10px, env(safe-area-inset-bottom));
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,.22);
+    border-radius: 18px;
+    background: rgba(27, 30, 35, .93);
+    box-shadow: 0 16px 40px rgba(0,0,0,.28);
+    backdrop-filter: blur(14px);
+  }
+
+  .mobile-quick-contact a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 54px;
+    padding: 10px 12px;
+    color: #fff;
+    font-size: .76rem;
+    font-weight: 800;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  .mobile-quick-contact a + a {
+    border-left: 1px solid rgba(255,255,255,.18);
+    background: var(--marni-blue-deep);
+  }
+
+  .mobile-quick-contact a:active {
+    transform: scale(.98);
+  }
+
+  /* Keep the personality additions aligned with the existing centered mobile/tablet design. */
+  [data-style-word]::before {
+    right: 50%;
+    top: 6px;
+    transform: translateX(50%);
+    font-size: clamp(5.5rem, 22vw, 10rem);
+  }
+
+  .marnstarr-feature {
+    padding-left: 6vw;
+    padding-right: 6vw;
+  }
+
+  .marnstarr-mantra {
+    margin-left: auto;
+    margin-right: auto;
+    border-left: 0;
+    border-top: 3px solid var(--marnstarr-gold);
+    text-align: center;
+  }
+
+  .marnstarr-feature .brand-story-image::after {
+    right: 14px;
+    bottom: 14px;
+  }
+
+  .education-banner {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .education-tags {
+    justify-content: center;
+  }
+
+  .education-banner .education-cta {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .page-registration .registration-reviews {
+    text-align: center;
+  }
+
+  .page-registration .review-controls {
+    justify-content: center;
+  }
+
+  .page-registration .review-dots {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 700px) {
+  .hero-signature {
+    margin-bottom: 12px;
+    font-size: .62rem;
+    letter-spacing: .1em;
+  }
+
+  .editorial-gallery .work-gallery-card {
+    border-radius: 2px;
+    box-shadow: 0 8px 22px rgba(38,33,31,.10);
+  }
+
+  .education-banner::after {
+    right: 18px;
+    top: 16px;
+    font-size: 2.35rem;
+  }
+
+  .education-tags span {
+    font-size: .67rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-on-scroll,
+  .reveal-on-scroll.is-visible,
+  .marnstarr-star,
+  .button,
+  .instagram-button,
+  .preview-card,
+  .work-gallery-card,
+  .work-gallery-card img {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+  }
+}
+
+
+/* =============================================================
+   FINAL VISUAL CORRECTIONS — DESKTOP + TABLET + MOBILE
+   =============================================================
+   Added after the editorial upgrade to address final QA feedback.
+
+   FIXES IN THIS BLOCK:
+   1. Keeps navigation underline animations perfectly centered under labels.
+   2. Lowers the desktop hero copy so it does not sit across Marni's face.
+   3. Keeps phone/tablet hero copy at the bottom with a portrait-friendly crop.
+   4. Restores the gallery to a natural-ratio masonry layout so hairstyles
+      are not aggressively cropped on desktop, tablet, or mobile.
+   5. Keeps all gallery captions hidden.
+   ============================================================= */
+
+/* --- Navigation underline alignment --- */
+.main-nav a::after,
+.main-nav a:not(.nav-cta)::after {
+  left: 50% !important;
+  right: auto !important;
+  bottom: -9px !important;
+  width: 100% !important;
+  height: 2px !important;
+  transform: translateX(-50%) scaleX(0) !important;
+  transform-origin: center center !important;
+  background: var(--marni-blue, #315f9c) !important;
+  transition: transform .24s ease !important;
+}
+
+.main-nav a:hover::after,
+.main-nav a:focus-visible::after,
+.main-nav a.active::after {
+  width: 100% !important;
+  transform: translateX(-50%) scaleX(.66) !important;
+}
+
+/* --- Desktop hero copy placement --- */
+@media (min-width: 1025px) {
+  .page-home .hero-content {
+    /* Positive Y moves the entire text group LOWER on the portrait. */
+    transform: translateY(clamp(58px, 7.5vh, 92px));
+  }
+}
+
+/* --- Styles By Marni: preserve the full hairstyle photography --- */
+.editorial-gallery .work-gallery {
+  display: block !important;
+  columns: 4 250px !important;
+  column-gap: 16px !important;
+  width: min(var(--content-width), 94vw) !important;
+  margin: 0 auto !important;
+}
+
+.editorial-gallery .work-gallery-card,
+.editorial-gallery .work-gallery-card:nth-child(n) {
+  display: inline-block !important;
+  width: 100% !important;
+  height: auto !important;
+  aspect-ratio: auto !important;
+  margin: 0 0 16px !important;
+  overflow: hidden !important;
+  break-inside: avoid !important;
+  border-radius: 2px;
+  background: #eee8e1;
+  box-shadow: 0 12px 30px rgba(38,33,31,.11);
+  transform: none;
+}
+
+.editorial-gallery .work-gallery-card img,
+.editorial-gallery .work-gallery-card img[data-zoomable] {
+  display: block !important;
+  width: 100% !important;
+  height: auto !important;
+  aspect-ratio: auto !important;
+  object-fit: contain !important;
+  object-position: center center !important;
+  transform: none;
+}
+
+.editorial-gallery .work-gallery-card figcaption {
+  display: none !important;
+}
+
+@media (hover: hover) and (pointer: fine) and (min-width: 1025px) {
+  .editorial-gallery .work-gallery-card:hover {
+    z-index: 25;
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 22px 46px rgba(38,33,31,.18);
+  }
+
+  .editorial-gallery .work-gallery-card:hover img {
+    transform: none !important;
+    filter: saturate(1.035) contrast(1.015);
+  }
+}
+
+/* Tablet and phone: same natural-photo treatment in a clean two-column masonry. */
+@media (max-width: 1024px) {
+  .page-home .hero {
+    align-items: flex-end;
+    justify-content: center;
+  }
+
+  .page-home .hero-content {
+    transform: none !important;
+    margin-left: 0;
+    margin-right: 0;
+    text-align: center;
+  }
+
+  .editorial-gallery .work-gallery {
+    display: block !important;
+    columns: 2 180px !important;
+    column-gap: 14px !important;
+    width: min(820px, 94vw) !important;
+  }
+
+  .editorial-gallery .work-gallery-card,
+  .editorial-gallery .work-gallery-card:nth-child(n) {
+    margin-bottom: 14px !important;
+  }
+
+  .editorial-gallery .work-gallery-card img,
+  .editorial-gallery .work-gallery-card img[data-zoomable] {
+    height: auto !important;
+    object-fit: contain !important;
+    object-position: center center !important;
+  }
+}
+
+/* iPad/tablet portrait treatment: closer to the approved phone composition. */
+@media (min-width: 701px) and (max-width: 1024px) {
+  .page-home .hero {
+    min-height: 700px;
+    height: min(82svh, 780px);
+    background-size: 116% auto;
+    background-position: 50% 12%;
+    background-repeat: no-repeat;
+    background-color: #c9a47f;
+  }
+
+  .page-home .hero-overlay {
+    background: linear-gradient(
+      180deg,
+      rgba(14,12,11,.02) 0%,
+      rgba(14,12,11,.04) 43%,
+      rgba(14,12,11,.38) 70%,
+      rgba(14,12,11,.76) 100%
+    );
+  }
+
+  .page-home .hero-content {
+    width: min(720px, 92vw);
+    padding: 0 30px 48px;
+  }
+
+  .page-home .hero-content h1,
+  .page-home .hero-copy {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+}
+
+@media (max-width: 700px) {
+  .page-home .hero {
+    /* Chest-up crop; keeps the lower torso out of the phone hero. */
+    background-size: 165% auto;
+    background-position: 50% top;
+  }
+
+  .page-home .hero-content {
+    padding-bottom: 34px;
+  }
+}
+
+/* =============================================================
+   33) CLIENT-PREVIEW FINISHING PASS
+   =============================================================
+   This is the "show the client the finished feeling" layer.
+
+   It intentionally adds MICRO-INTERACTIONS rather than new content:
+   - a staggered Home hero entrance;
+   - an understated desktop Explore cue that disappears after scrolling;
+   - a tactile paper/grain effect on selected light sections;
+   - improved anchor-scroll spacing below the sticky header;
+   - a one-time shimmer + tiny rotation on the Marnstarr star;
+   - more deliberate reveal timing for the Styles By Marni gallery.
+
+   IMPORTANT:
+   These rules come last so they preserve the approved desktop, tablet,
+   and mobile layout/crop fixes above.
+   ============================================================= */
+
+/* Anchor links such as Classes / Contact / Explore should stop below the
+   sticky header rather than hiding the section heading underneath it. */
+#marnstarr,
+#classes,
+#contact {
+  scroll-margin-top: 118px;
+}
+
+/* ---------- Home hero: refined first-load entrance ---------- */
+@keyframes heroEditorialEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+    filter: blur(1.5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+.page-home .hero-signature,
+.page-home .hero-content h1,
+.page-home .hero-copy {
+  animation: heroEditorialEntrance .72s cubic-bezier(.2,.7,.2,1) both;
+}
+
+.page-home .hero-signature { animation-delay: .08s; }
+.page-home .hero-content h1 { animation-delay: .22s; }
+.page-home .hero-copy { animation-delay: .38s; }
+
+/* ---------- Tiny desktop scroll prompt ---------- */
+.hero-scroll-cue {
+  position: absolute;
+  z-index: 6;
+  right: clamp(26px, 4vw, 62px);
+  bottom: 25px;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 9px;
+  color: rgba(255,255,255,.84);
+  text-decoration: none;
+  font-size: .62rem;
+  font-weight: 800;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  opacity: .9;
+  transition: opacity .35s ease, transform .35s ease;
+}
+
+.hero-scroll-cue i {
+  position: relative;
+  display: block;
+  width: 1px;
+  height: 42px;
+  overflow: hidden;
+  background: rgba(255,255,255,.28);
+}
+
+.hero-scroll-cue i::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: -18px;
+  width: 1px;
+  height: 18px;
+  background: #fff;
+  animation: heroScrollLine 1.8s ease-in-out infinite;
+}
+
+@keyframes heroScrollLine {
+  0% { transform: translateY(0); opacity: 0; }
+  20% { opacity: 1; }
+  75% { opacity: 1; }
+  100% { transform: translateY(60px); opacity: 0; }
+}
+
+.hero-scroll-cue:hover,
+.hero-scroll-cue:focus-visible {
+  color: #fff;
+  transform: translateY(3px);
+}
+
+.hero-scroll-cue.is-hidden {
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+}
+
+/* ---------- Soft paper/grain texture ----------
+   This is intentionally extremely faint. It prevents large cream areas from
+   feeling digitally flat while leaving text and photography crisp. */
+.marnstarr-feature,
+.editorial-gallery {
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(45,38,34,.075) .48px, transparent .58px),
+    radial-gradient(circle at 88% 20%, rgba(49,95,156,.13), transparent 31%),
+    linear-gradient(135deg, #fbf6ef 0%, #f3e9df 100%);
+  background-size: 6px 6px, auto, auto;
+}
+
+.editorial-gallery {
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(45,38,34,.06) .45px, transparent .55px),
+    linear-gradient(180deg, rgba(255,255,255,.38), transparent 22%);
+  background-size: 6px 6px, auto;
+  background-color: var(--cream);
+}
+
+.page-registration .client-registration-section,
+.page-policies .policy-list-section {
+  background-image: radial-gradient(circle at 1px 1px, rgba(45,38,34,.05) .45px, transparent .55px);
+  background-size: 6px 6px;
+}
+
+/* Make the existing Marnstarr line read like a deliberate signature thought,
+   without inventing a new quote on Marni's behalf. */
+.marnstarr-mantra::before {
+  content: "Marni's approach";
+  display: block;
+  margin-bottom: 8px;
+  color: var(--marni-blue-deep);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: .63rem;
+  font-weight: 800;
+  letter-spacing: .16em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+/* One subtle star moment instead of a continuously moving decoration. */
+@keyframes marnstarrGlow {
+  0%   { filter: none; rotate: 0deg; }
+  38%  { filter: drop-shadow(0 0 7px rgba(201,154,36,.62)) brightness(1.15); rotate: -5deg; }
+  62%  { filter: drop-shadow(0 0 9px rgba(201,154,36,.48)) brightness(1.12); rotate: 5deg; }
+  100% { filter: none; rotate: 0deg; }
+}
+
+.marnstarr-star {
+  animation: none;
+}
+
+/* The gallery already reveals on scroll through script.js. These local delays
+   make each group feel slightly more like a beauty-editorial sequence. */
+.editorial-gallery .work-gallery-card:nth-child(4n + 1) { --reveal-delay: 0ms !important; }
+.editorial-gallery .work-gallery-card:nth-child(4n + 2) { --reveal-delay: 70ms !important; }
+.editorial-gallery .work-gallery-card:nth-child(4n + 3) { --reveal-delay: 140ms !important; }
+.editorial-gallery .work-gallery-card:nth-child(4n + 4) { --reveal-delay: 210ms !important; }
+
+/* Tablet/phone should retain the approved centered layout and avoid adding
+   decorative UI that competes with the portrait or bottom contact bar. */
+@media (max-width: 1024px) {
+  #marnstarr,
+  #classes,
+  #contact {
+    scroll-margin-top: 100px;
+  }
+
+  .hero-scroll-cue {
+    display: none !important;
+  }
+
+  .marnstarr-mantra::before {
+    text-align: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-home .hero-signature,
+  .page-home .hero-content h1,
+  .page-home .hero-copy,
+  .hero-scroll-cue i::after,
+  .marnstarr-star {
+    animation: none !important;
+  }
+
+  .hero-scroll-cue {
+    transition: none !important;
+  }
+}
+
+/* =============================================================
+   FINAL HERO SIGNATURE POSITION — TRUE LOWER-RIGHT CORNER
+   =============================================================
+   The label is now a DIRECT CHILD of .hero (see index.html), rather than
+   living inside .hero-content. This matters because the desktop hero-content
+   uses a CSS transform, which previously made the label position itself from
+   the text column instead of from the full photograph.
+
+   DESKTOP:
+   - `right` controls distance from the right edge of the HERO PHOTO.
+   - `bottom` controls distance from the bottom edge of the HERO PHOTO.
+
+   PHONE / TABLET:
+   The label also stays anchored to the actual lower-right of the hero, with
+   smaller spacing and type so it remains tidy.
+   ============================================================= */
+.page-home .hero > .hero-signature {
+  position: absolute !important;
+  z-index: 7;
+  left: auto !important;
+  right: clamp(18px, 2.2vw, 34px) !important;
+  top: auto !important;
+  bottom: clamp(16px, 2vw, 28px) !important;
+  margin: 0 !important;
+  max-width: min(460px, calc(100% - 48px));
+}
+
+/* Keep the small Explore cue on the opposite side of the hero. */
+@media (min-width: 1025px) {
+  .page-home .hero-scroll-cue {
+    right: auto;
+    left: clamp(28px, 4vw, 62px);
+  }
+}
+
+@media (max-width: 1024px) {
+  .page-home .hero > .hero-signature {
+    right: 16px !important;
+    bottom: 16px !important;
+    max-width: calc(100% - 32px);
+    padding: 7px 10px;
+    font-size: .62rem;
+    letter-spacing: .10em;
+  }
+}
+
+@media (max-width: 700px) {
+  .page-home .hero > .hero-signature {
+    right: 12px !important;
+    bottom: 12px !important;
+    max-width: calc(100% - 24px);
+    font-size: .56rem;
+    letter-spacing: .075em;
+  }
+}
+
+/* =============================================================
+   FOLLOW-UP ADJUSTMENTS — AUG 2026
+   =============================================================
+   Keeps the Client Registration form column stationary while the review
+   carousel rotates through reviews of different lengths.
+   ============================================================= */
+.registration-experience {
+  align-items: start !important;
+}
+
+.registration-form-column {
+  align-self: start;
+}
+
+/* =============================================================
+   MOBILE + TABLET FINAL SPACING / GALLERY ORDER FIX
+   =============================================================
+   1. Reserves a little more room between the Home hero paragraph and the
+      lower-right "Marni Newman • Stylist & Educator" label.
+   2. Uses a true two-column grid on phone/tablet so gallery reveal animations
+      follow the same visual order visitors see on screen.
+   3. Separates the two vivid-blue hairstyles so they are not side-by-side.
+   ============================================================= */
+
+/* Tablet: give the hero copy enough breathing room above the signature. */
+@media (min-width: 701px) and (max-width: 1024px) {
+  .page-home .hero-content {
+    padding-bottom: 68px !important;
+  }
+}
+
+/* Phone: the label is a little taller relative to the viewport, so reserve
+   slightly more room below the paragraph without changing the portrait crop. */
+@media (max-width: 700px) {
+  .page-home .hero-content {
+    padding-bottom: 56px !important;
+  }
+}
+
+/* Phone + tablet gallery:
+   Multi-column masonry can paint items in a visual order that differs from
+   the DOM/reveal order. A normal grid keeps the animation sequence stable. */
+@media (max-width: 1024px) {
+  .editorial-gallery .work-gallery {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    grid-auto-flow: row !important;
+    align-items: start !important;
+    columns: unset !important;
+    column-gap: 14px !important;
+    row-gap: 14px !important;
+  }
+
+  .editorial-gallery .work-gallery-card,
+  .editorial-gallery .work-gallery-card:nth-child(n) {
+    display: block !important;
+    width: 100% !important;
+    margin: 0 !important;
+    align-self: start !important;
+  }
+
+  /* Desired mobile/tablet visual order:
+     1 Black sculpted wave
+     2 Magenta + black short
+     3 Blue/purple dimensional
+     4 Long smooth blonde
+     5 Vivid blue curls
+     6 Blonde dimensional texture
+     7 Burgundy sculpted
+
+     This keeps the two blue hairstyles in separate rows. */
+  .editorial-gallery .work-gallery-card:nth-child(1) { order: 1; --reveal-delay: 0ms !important; }
+  .editorial-gallery .work-gallery-card:nth-child(4) { order: 2; --reveal-delay: 70ms !important; }
+  .editorial-gallery .work-gallery-card:nth-child(2) { order: 3; --reveal-delay: 0ms !important; }
+  .editorial-gallery .work-gallery-card:nth-child(3) { order: 4; --reveal-delay: 70ms !important; }
+  .editorial-gallery .work-gallery-card:nth-child(5) { order: 5; --reveal-delay: 0ms !important; }
+  .editorial-gallery .work-gallery-card:nth-child(6) { order: 6; --reveal-delay: 70ms !important; }
+  .editorial-gallery .work-gallery-card:nth-child(7) { order: 7; --reveal-delay: 0ms !important; }
+}
+
+@media (max-width: 520px) {
+  .editorial-gallery .work-gallery {
+    column-gap: 12px !important;
+    row-gap: 12px !important;
+  }
+}
+
+/* =============================================================
+   FINAL PHOTO + MOBILE GALLERY CLEANUP — SEP 2026
+   =============================================================
+   1. Keeps "Introducing Salon Owner Marni Newman" on one line on phones.
+   2. Uses two independent mobile/tablet gallery columns so portrait photos
+      stack naturally without the large blank gaps a normal CSS grid creates.
+   3. Desktop gallery remains unchanged.
+   ============================================================= */
+
+@media (max-width: 700px) {
+  .page-home .marnstarr-story > .eyebrow {
+    white-space: nowrap;
+    font-size: clamp(.54rem, 2.25vw, .64rem);
+    letter-spacing: .105em;
+    max-width: none;
+    width: auto;
+  }
+}
+
+@media (min-width: 701px) and (max-width: 1024px) {
+  .page-home .marnstarr-story > .eyebrow {
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 1024px) {
+  .editorial-gallery .work-gallery.is-responsive-masonry {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    align-items: start !important;
+    gap: 12px !important;
+    columns: unset !important;
+  }
+
+  .editorial-gallery .mobile-gallery-column {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    gap: 12px;
+  }
+
+  .editorial-gallery .mobile-gallery-column .work-gallery-card,
+  .editorial-gallery .mobile-gallery-column .work-gallery-card:nth-child(n) {
+    display: block !important;
+    width: 100% !important;
+    margin: 0 !important;
+    order: initial !important;
+    align-self: auto !important;
+  }
+}
+
+@media (min-width: 1025px) {
+  .editorial-gallery .mobile-gallery-column {
+    display: contents;
+  }
+}
+
+
+/* =============================================================
+   MARNSTARR INTRO MOBILE/TABLET POSITIONING — SEP 2026
+   =============================================================
+   Keeps "Introducing Salon Owner Marni Newman" directly beneath Marni's
+   photo, keeps it on one line, and makes it easier to read on phones.
+   Desktop styling is intentionally unchanged.
+   ============================================================= */
+
+@media (max-width: 700px) {
+  .page-home .marnstarr-feature.brand-story {
+    /* Reduce the space between the owner photo and the story text. */
+    gap: 14px !important;
+  }
+
+  .page-home .marnstarr-story > .eyebrow {
+    /* Stay on one line while restoring a more readable size. */
+    white-space: nowrap !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin-top: 0 !important;
+    margin-bottom: 16px !important;
+    font-size: clamp(.70rem, 2.9vw, .78rem) !important;
+    letter-spacing: .085em !important;
+    line-height: 1.25 !important;
+    text-align: center !important;
+  }
+}
+
+@media (min-width: 701px) and (max-width: 1024px) {
+  .page-home .marnstarr-feature.brand-story {
+    gap: 20px !important;
+  }
+
+  .page-home .marnstarr-story > .eyebrow {
+    white-space: nowrap !important;
+    margin-top: 0 !important;
+    font-size: clamp(.76rem, 1.55vw, .88rem) !important;
+    letter-spacing: .095em !important;
+    line-height: 1.25 !important;
+    text-align: center !important;
+  }
+}
+
+
+/* =============================================================
+   MARNSTARR STAR — SIGNATURE ANIMATION
+   =============================================================
+   Behavior:
+   - First time The Marnstarr Experience scrolls into view:
+       full spin -> tiny overshoot -> settle + soft gold shimmer
+   - Desktop/laptop hover:
+       one small extra twinkle
+   - Phone/tablet tap:
+       replays the full signature animation
+   - Reduced Motion:
+       animations are disabled automatically
+   ============================================================= */
+
+@keyframes marnstarrSpinSettle {
+  0% {
+    transform: rotate(0deg) scale(.96);
+    filter: none;
+  }
+
+  50% {
+    transform: rotate(372deg) scale(1.09);
+    filter:
+      drop-shadow(0 0 8px rgba(208,161,29,.70))
+      drop-shadow(0 0 18px rgba(208,161,29,.30))
+      brightness(1.18);
+  }
+
+  /* Tiny overshoot in the opposite direction so the landing feels playful,
+     not like a mechanical loading spinner. */
+  72% {
+    transform: rotate(354deg) scale(1.035);
+    filter: drop-shadow(0 0 7px rgba(208,161,29,.48)) brightness(1.12);
+  }
+
+  86% {
+    transform: rotate(364deg) scale(1.015);
+    filter: drop-shadow(0 0 4px rgba(208,161,29,.28)) brightness(1.07);
+  }
+
+  100% {
+    transform: rotate(360deg) scale(1);
+    filter: none;
+  }
+}
+
+@keyframes marnstarrTwinkle {
+  0%, 100% {
+    transform: rotate(0deg) scale(1);
+    filter: none;
+  }
+
+  35% {
+    transform: rotate(-7deg) scale(1.09);
+    filter:
+      drop-shadow(0 0 7px rgba(208,161,29,.62))
+      brightness(1.18);
+  }
+
+  68% {
+    transform: rotate(6deg) scale(1.045);
+    filter: drop-shadow(0 0 4px rgba(208,161,29,.35)) brightness(1.1);
+  }
+}
+
+.marnstarr-star {
+  animation: none !important;
+  will-change: transform, filter;
+}
+
+.marnstarr-star.is-spinning {
+  animation: marnstarrSpinSettle .95s cubic-bezier(.22,.72,.24,1) both !important;
+}
+
+.marnstarr-star:focus-visible {
+  outline: 2px solid rgba(49,95,156,.72);
+  outline-offset: 5px;
+  border-radius: 4px;
+}
+
+/* Desktop/laptop: hovering gives a small one-time twinkle.
+   The full spin remains reserved for the section entrance / replay action. */
+@media (hover: hover) and (pointer: fine) {
+  .marnstarr-star:hover:not(.is-spinning) {
+    animation: marnstarrTwinkle .62s ease both !important;
+  }
+}
+
+/* On touch devices, subtly indicate that the star can be tapped without
+   adding another visible button or label to the design. */
+@media (max-width: 1024px) {
+  .marnstarr-star {
+    touch-action: manipulation;
+  }
+
+  .marnstarr-star:active {
+    filter: brightness(1.12);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marnstarr-star,
+  .marnstarr-star.is-spinning,
+  .marnstarr-star:hover {
+    animation: none !important;
+    transform: none !important;
+    filter: none !important;
+  }
+}
+
+
+/* =============================================================
+   MARNSTARR STAR — MOBILE/TABLET TIMING REFINEMENT
+   =============================================================
+   The star waits until it is actually visible before animating (handled in
+   script.js), and the animation is slightly slower on touch-sized layouts so
+   visitors can clearly see the spin, overshoot, shimmer, and settle.
+   ============================================================= */
+@media (max-width: 1024px) {
+  .marnstarr-star.is-spinning {
+    animation-duration: 1.28s !important;
+  }
+}
