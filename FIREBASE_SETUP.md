@@ -1,85 +1,48 @@
-# Genetik Bleu Salon — Firebase Phase 2
+# Genetik Bleu — Phase 3 setup (current)
 
-Firestore and Google Authentication are now enabled. This package adds the private, iPad-friendly **Client + Appointment Manager**.
+**Project:** `genetik-bleu`  
+**Live website:** `genetikbleu.com` on GitHub Pages  
+**Database:** Firestore; approved dashboard administrators have an `admins/{uid}` document.
 
-## What is new
+Your earlier client registration, appointment creation, rescheduling and cancellation tests succeeded. You do **not** need to create a new Firebase project or a new administrator account.
 
-- `admin.html` — private dashboard; intentionally not linked from the public site.
-- `admin.js` — Google sign-in, admin authorization, client directory, search, and appointment CRUD.
-- `admin.css` — responsive desktop/iPad/iPhone dashboard styling.
-- `firestore.rules` — public client creation + administrator-only client/appointment access.
+## What this ZIP adds
 
-Automated email/SMS sending is **not active yet**. Appointment records already include tracking fields that Phase 3 can use for confirmation/reminder delivery.
+- Public registration: clients explicitly choose **email only, text only, both, or no automated appointment updates**. SMS requires a separate unchecked checkbox. Optional promotional *email* consent is separate; promotional SMS is not offered. The record stores the selected preference and consent timestamps.
+- Admin directory: archive, restore, and permanently delete a client and their associated appointment documents. Active-client counts and the new-appointment picker exclude archived clients.
+- Appointment editor: search by name, email, or phone instead of scrolling through a dropdown. Search returns only active clients.
+- `privacy.html` and `sms-terms.html`: draft public disclosures for owner review before any messaging enrollment. Links appear in the registration form; privacy is also in the footer.
+- `CNAME`: preserves the existing `genetikbleu.com` GitHub Pages custom domain.
+- `firestore.rules`: permits the new registration schema while maintaining admin-only client access; admins can archive and restore records without changing consent fields through the website.
 
-## NEXT STEP A — Publish the new Firestore Rules
+**Automated email/text delivery is NOT active.** This release saves preferences; it never contacts Resend, Twilio, or any other delivery service. Do not present reminders as operational to clients until the provider and server phases are deployed and tested.
 
-1. Firebase Console → **Firestore Database**.
-2. Open the **Rules** tab.
-3. Replace everything there with the contents of this package's `firestore.rules` file.
-4. Click **Publish**.
+## Deploy in this order
 
-Do not create the `clients` or `appointments` collections manually.
+1. Make a backup of your current GitHub repository or retain its last working commit/ZIP.
+2. In Firebase Console → **Firestore Database → Rules**, replace the rules with this ZIP's `firestore.rules` and publish. **The old public registration form may briefly stop accepting new registrations until step 3 is live.** Your existing client and appointment records remain accessible.
+3. Upload this ZIP's *folder contents* to the same GitHub repository branch/root used by Pages. `index.html`, `registration.html`, `admin.html`, `styles.css`, the `images/` folder, and `CNAME` must all be at repository root. Do not put the whole downloaded folder one directory down.
+4. Wait for GitHub Pages to finish deployment; open `https://genetikbleu.com/registration.html` and confirm the new four-choice preference form appears. If you still see the old checkbox, refresh without cache or wait for the deployment.
+5. Open the private `admin.html` page and confirm your existing Google administrator sign-in still works.
+6. Use your own **test** client to verify the four preferences, archive/restore, searchable picker, and permanent deletion. The permanent deletion is irreversible and removes all linked appointment documents. Do not test it on a real client.
 
-## NEXT STEP B — Authorize the website domain for Google sign-in
+## What happens to the old client records?
 
-Firebase Console → **Authentication → Settings → Authorized domains**.
+Records registered before this release do not contain explicit channel preferences. The dashboard labels them **Preference not collected (legacy registration)**. These clients must **not** automatically receive SMS or email updates based on the earlier broad `marketingConsent` checkbox. If they want automated reminders, obtain their selection and new consent through the updated registration flow first. Because the public form currently creates a new record, archive their earlier record after reconciling any old appointments; avoid accidentally creating two active records for the same person. We can build a secure existing-client preference update workflow later.
 
-Add the domain where you are testing the site. Examples:
+## Archive versus permanent deletion
 
-- GitHub Pages: `onimeko.github.io`
-- Local VS Code Live Server: add `localhost` if it is not already listed.
+- **Archive** hides the client from the active list and searchable booking picker; linked appointment history remains in the dashboard. You can restore the client later. Cancel upcoming appointments separately if they should not occur.
+- **Delete Permanently** appears only when you check **Show archived clients**. It requires typing `DELETE` and removes the client plus linked appointment documents in one Firestore batch. Records with more than 450 associated appointments require a separate administrative deletion procedure.
+- This version has no messaging job history to purge. When the messaging backend is added, its deletion/opt-out flow must handle provider-side and job data as well.
 
-Do not enter `https://` or a page path in the Authorized domains list — enter the domain only.
+## The next phase: activate actual email and SMS
 
-## NEXT STEP C — Get your Firebase UID
+The browser cannot safely hold provider API credentials or send messages by itself. Keep GitHub Pages for the site. We will add **Firebase Cloud Functions** and server-held secrets after Marni has approved the sending identity, wording and messaging terms.
 
-1. Serve the website through GitHub Pages, Firebase Hosting, or VS Code Live Server. Do not open `admin.html` through a `file://` URL.
-2. Open `admin.html`.
-3. Click **Sign in with Google** and choose your Google account.
-4. The page will display your Firebase UID.
-5. Copy that UID and send it to ChatGPT.
+- **Email:** create a transactional sending account with a provider (proposed: Resend), verify an authorized sending domain/subdomain with the DNS records that provider supplies, and choose the salon's sender name/address.
+- **Text:** create an SMS provider account (proposed: Twilio) with the salon's correct legal business information, a sending number/service and, for US 10-digit application texting, approved A2P 10DLC brand/campaign registration. Do not use your personal details to misrepresent the salon. Review the live SMS opt-in form and terms with the provider. Configure STOP/HELP handling and make the backend honor opt-outs.
+- **Firebase backend:** Cloud Functions deployment requires the Firebase Blaze billing plan. We will implement server-side appointment triggers, confirmation/update/cancellation templates, a scheduled reminder worker, deduplication and cancellation checks, and live preference/opt-out checks before sending. Never place API keys or auth tokens in your public GitHub repository.
+- **Owner review:** Have Marni review the draft `privacy.html` and `sms-terms.html` and verify they describe the salon's actual practices. Messaging laws and carrier/provider requirements can vary; check current provider guidance before activating.
 
-At this point the dashboard will correctly say that your account is authenticated but not yet approved.
-
-## NEXT STEP D — Create your administrator document
-
-After you have your UID, ChatGPT will walk you through creating exactly one document:
-
-`admins/YOUR_FIREBASE_UID`
-
-The admin page itself cannot create this document. That is intentional security protection.
-
-Once the document exists, refresh `admin.html`. The Client + Appointment Manager will unlock.
-
-## What the dashboard can already do after authorization
-
-- Display all registered clients.
-- Sort clients alphabetically by last name, then first name.
-- Search by name, email, or phone.
-- Create appointments for a client.
-- Edit/reschedule appointments.
-- Change appointment status: Scheduled, Confirmed, Completed, Cancelled.
-- Delete appointments.
-- Show client and upcoming-appointment counts.
-- Work responsively on desktop, iPad, and phone.
-
-## Security model
-
-Public visitors can create a valid registration record, but cannot read the client list.
-
-Google sign-in by itself does NOT grant client access. The signed-in Firebase UID must also have an `admins/{uid}` document created manually in Firebase Console.
-
-The website cannot create, edit, or delete administrator authorization documents.
-
-## Still intentionally postponed
-
-Do not set these up yet:
-
-- Twilio
-- automated SMS
-- transactional email provider
-- scheduled reminder functions
-- Firebase App Check enforcement
-- service-account private keys
-
-After the Client + Appointment Manager is fully tested, we will move to automated confirmations and reminders.
+**Do not enable messaging just by editing the HTML.** No provider credentials are included in this ZIP, and no message will be sent until the server phase is explicitly deployed.

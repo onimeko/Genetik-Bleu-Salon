@@ -1,45 +1,31 @@
 rules_version = '2';
-
 service cloud.firestore {
   match /databases/{database}/documents {
-
-    // ---------------------------------------------------------
-    // ADMIN AUTHORIZATION
-    // ---------------------------------------------------------
-    // An approved administrator has a document whose ID equals their
-    // Firebase Authentication UID:
-    //
-    //     admins/{firebaseUid}
-    //
-    // The admin dashboard cannot create these documents. Add them manually
-    // in the Firebase Console so a random authenticated Google user cannot
-    // promote themselves to administrator.
     function isAdmin() {
       return request.auth != null &&
         exists(/databases/$(database)/documents/admins/$(request.auth.uid));
     }
 
-    // A signed-in user may check ONLY their own admin document.
-    // Nobody can create/change/delete admin authorization from the website.
     match /admins/{uid} {
       allow get: if request.auth != null && request.auth.uid == uid;
-      allow list: if false;
-      allow create, update, delete: if false;
+      allow list, create, update, delete: if false;
     }
 
-    // ---------------------------------------------------------
-    // CLIENT DIRECTORY
-    // ---------------------------------------------------------
     match /clients/{clientId} {
-      // Public registration may CREATE a narrowly validated client record.
+      // New public registration only. Older existing client records remain
+      // readable/manageable by admins; missing preferences mean NO messages.
       allow create: if
         request.resource.data.keys().hasAll([
-          'firstName', 'lastName', 'email', 'phone',
-          'marketingConsent', 'consentAt', 'createdAt'
+          'firstName', 'lastName', 'email', 'phone', 'status',
+          'directoryConsent', 'communicationPreference', 'smsConsent',
+          'smsConsentAt', 'emailMarketingConsent', 'consentVersion',
+          'consentAt', 'createdAt'
         ]) &&
         request.resource.data.keys().hasOnly([
-          'firstName', 'lastName', 'email', 'phone',
-          'marketingConsent', 'consentAt', 'createdAt'
+          'firstName', 'lastName', 'email', 'phone', 'status',
+          'directoryConsent', 'communicationPreference', 'smsConsent',
+          'smsConsentAt', 'emailMarketingConsent', 'consentVersion',
+          'consentAt', 'createdAt'
         ]) &&
         request.resource.data.firstName is string &&
         request.resource.data.firstName.size() > 0 &&
@@ -53,21 +39,33 @@ service cloud.firestore {
         request.resource.data.phone is string &&
         request.resource.data.phone.size() > 6 &&
         request.resource.data.phone.size() <= 30 &&
-        request.resource.data.marketingConsent is bool &&
-        request.resource.data.marketingConsent == true &&
+        request.resource.data.status == 'active' &&
+        request.resource.data.directoryConsent == true &&
+        request.resource.data.communicationPreference in ['email', 'sms', 'both', 'none'] &&
+        request.resource.data.smsConsent is bool &&
+        request.resource.data.smsConsent == (
+          request.resource.data.communicationPreference in ['sms', 'both']
+        ) &&
+        request.resource.data.smsConsentAt == (
+          request.resource.data.smsConsent ? request.time : null
+        ) &&
+        request.resource.data.emailMarketingConsent is bool &&
+        request.resource.data.consentVersion == '2026-09-v1' &&
         request.resource.data.consentAt == request.time &&
         request.resource.data.createdAt == request.time;
 
-      // Only approved admins can view/manage registered clients.
-      allow read, update, delete: if isAdmin();
+      // Only approved administrators can read, archive, restore and delete.
+      allow read, delete: if isAdmin();
+      // Staff may archive or restore a record; they cannot silently grant
+      // marketing or SMS consent by editing a client document via the site.
+      allow update: if isAdmin() &&
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status', 'updatedAt']) &&
+        request.resource.data.status in ['active','archived'] &&
+        request.resource.data.updatedAt == request.time;
     }
 
-    // ---------------------------------------------------------
-    // APPOINTMENTS
-    // ---------------------------------------------------------
     match /appointments/{appointmentId} {
       allow read: if isAdmin();
-
       allow create: if isAdmin() &&
         request.resource.data.keys().hasAll([
           'clientId', 'clientName', 'clientEmail', 'clientPhone',
@@ -84,7 +82,7 @@ service cloud.firestore {
         request.resource.data['service'].size() > 0 &&
         request.resource.data['service'].size() <= 120 &&
         request.resource.data.startAt is timestamp &&
-        request.resource.data.status in ['scheduled', 'confirmed', 'completed', 'cancelled'] &&
+        request.resource.data.status in ['scheduled','confirmed','completed','cancelled'] &&
         request.resource.data.notes is string &&
         request.resource.data.notes.size() <= 500 &&
         request.resource.data.confirmationEmailSent == false &&
@@ -93,7 +91,6 @@ service cloud.firestore {
         request.resource.data.reminderSmsSent == false &&
         request.resource.data.createdAt == request.time &&
         request.resource.data.updatedAt == request.time;
-
       allow update: if isAdmin() &&
         request.resource.data.clientId is string &&
         request.resource.data.clientName is string &&
@@ -103,16 +100,15 @@ service cloud.firestore {
         request.resource.data['service'].size() > 0 &&
         request.resource.data['service'].size() <= 120 &&
         request.resource.data.startAt is timestamp &&
-        request.resource.data.status in ['scheduled', 'confirmed', 'completed', 'cancelled'] &&
+        request.resource.data.status in ['scheduled','confirmed','completed','cancelled'] &&
         request.resource.data.notes is string &&
         request.resource.data.notes.size() <= 500 &&
         request.resource.data.updatedAt == request.time &&
         request.resource.data.createdAt == resource.data.createdAt;
-
       allow delete: if isAdmin();
     }
 
-    // Deny anything not explicitly allowed above.
+    // Any future backend-only messaging jobs/credentials are never exposed.
     match /{document=**} {
       allow read, write: if false;
     }

@@ -27,9 +27,12 @@ import {
   getDoc,
   getDocs,
   getFirestore,
+  query,
   serverTimestamp,
   Timestamp,
-  updateDoc
+  updateDoc,
+  where,
+  writeBatch
 } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 import { firebaseConfig } from "./firebase-config.js";
 
@@ -56,10 +59,14 @@ const clientsEmpty = document.querySelector("#clients-empty");
 const appointmentsList = document.querySelector("#appointments-list");
 const appointmentsEmpty = document.querySelector("#appointments-empty");
 const clientSearch = document.querySelector("#client-search");
+const showArchived = document.querySelector("#show-archived");
+const clientActionStatus = document.querySelector("#client-action-status");
 const newAppointmentButton = document.querySelector("#new-appointment-button");
 const appointmentDialog = document.querySelector("#appointment-dialog");
 const appointmentForm = document.querySelector("#appointment-form");
 const appointmentClient = document.querySelector("#appointment-client");
+const appointmentClientSearch = document.querySelector("#appointment-client-search");
+const appointmentClientResults = document.querySelector("#appointment-client-results");
 const appointmentDate = document.querySelector("#appointment-date");
 const appointmentTime = document.querySelector("#appointment-time");
 const appointmentService = document.querySelector("#appointment-service");
@@ -183,45 +190,134 @@ async function loadAppointments() {
   appointments.sort((a, b) => toMillis(a.startAt) - toMillis(b.startAt));
 }
 
+function isArchived(client) { return client.status === "archived"; }
+function activeClients() { return clients.filter((client) => !isArchived(client)); }
+
 function updateCounts() {
-  clientCount.textContent = String(clients.length);
+  clientCount.textContent = String(activeClients().length);
   const now = Date.now();
   const upcoming = appointments.filter((a) => toMillis(a.startAt) >= now && a.status !== "cancelled").length;
   upcomingCount.textContent = String(upcoming);
 }
 
+function preferenceLabel(client) {
+  const labels = {
+    email: "Email updates", sms: "Text updates", both: "Email + text updates", none: "No automated appointment updates"
+  };
+  // Legacy clients were registered before channel-specific consent existed:
+  // NEVER assume they agreed to SMS, even if old marketingConsent was true.
+  if (!client.consentVersion) return "Preference not collected (legacy registration)";
+  return labels[client.communicationPreference] || "No automated appointment updates";
+}
+
+function setClientActionStatus(message, isError = false) {
+  clientActionStatus.textContent = message;
+  clientActionStatus.classList.toggle("is-error", isError);
+}
+
 function renderClients() {
   const term = clientSearch.value.trim().toLowerCase();
   const filtered = clients.filter((client) => {
+    if (isArchived(client) !== showArchived.checked) return false;
     const haystack = `${client.firstName || ""} ${client.lastName || ""} ${client.email || ""} ${client.phone || ""}`.toLowerCase();
     return haystack.includes(term);
   });
 
   clientsList.innerHTML = "";
   clientsEmpty.hidden = filtered.length !== 0;
+  clientsEmpty.textContent = filtered.length ? "" :
+    (term ? "No clients match your search." :
+      (showArchived.checked ? "No archived clients." : "No active clients have registered yet."));
 
   filtered.forEach((client) => {
     const row = document.createElement("article");
-    row.className = "client-row";
+    row.className = "client-row" + (isArchived(client) ? " client-row-archived" : "");
+    const actions = isArchived(client)
+      ? `<div class="client-row-actions">
+           <button class="admin-button admin-button-small admin-button-ghost" type="button" data-action="restore">Restore</button>
+           <button class="admin-button admin-button-small admin-button-danger" type="button" data-action="delete">Delete Permanently</button>
+         </div>`
+      : `<div class="client-row-actions">
+           <button class="admin-button admin-button-small" type="button" data-action="book">Add Appointment</button>
+           <button class="admin-button admin-button-small admin-button-ghost" type="button" data-action="archive">Archive</button>
+         </div>`;
     row.innerHTML = `
       <div>
         <span class="row-label">Client</span>
         <h4>${escapeHtml(client.lastName || "")}, ${escapeHtml(client.firstName || "")}</h4>
         <p>Registered ${formatTimestamp(client.createdAt)}</p>
+        <p class="client-preference">${escapeHtml(preferenceLabel(client))}</p>
       </div>
-      <div>
-        <span class="row-label">Phone</span>
-        <p>${escapeHtml(client.phone || "—")}</p>
-      </div>
-      <div>
-        <span class="row-label">Email</span>
-        <p>${escapeHtml(client.email || "—")}</p>
-      </div>
-      <button class="admin-button admin-button-small" type="button">Add Appointment</button>
+      <div><span class="row-label">Phone</span><p>${escapeHtml(client.phone || "—")}</p></div>
+      <div><span class="row-label">Email</span><p>${escapeHtml(client.email || "—")}</p></div>
+      ${actions}
     `;
-    row.querySelector("button").addEventListener("click", () => openAppointmentDialog(null, client.id));
+    row.querySelectorAll("[data-action]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const action = button.dataset.action;
+        if (action === "book") openAppointmentDialog(null, client.id);
+        if (action === "archive") setClientArchiveStatus(client, true);
+        if (action === "restore") setClientArchiveStatus(client, false);
+        if (action === "delete") permanentlyDeleteClient(client);
+      });
+    });
     clientsList.appendChild(row);
   });
+}
+
+async function setClientArchiveStatus(client, archive) {
+  if (!isAdmin || !currentUser) return;
+  const linked = appointments.filter((item) => item.clientId === client.id && item.status !== "cancelled");
+  const label = `${client.firstName || ""} ${client.lastName || ""}`.trim();
+  if (archive) {
+    const note = linked.length
+      ? `\n\n${linked.length} appointment(s) will remain in the schedule. Archiving hides the client from new bookings and will prevent future automated reminders. Cancel any unwanted appointments separately.`
+      : "";
+    if (!window.confirm(`Archive ${label}? They will leave the active client list and appointment picker.${note}`)) return;
+  }
+  setClientActionStatus(archive ? "Archiving client..." : "Restoring client...");
+  try {
+    await updateDoc(doc(db, "clients", client.id), {
+      status: archive ? "archived" : "active", updatedAt: serverTimestamp()
+    });
+    await loadClients();
+    renderClients();
+    updateCounts();
+    populateClientSelect();
+    setClientActionStatus(archive ? "Client archived. Use Show archived clients to restore or permanently delete." : "Client restored.");
+  } catch (error) {
+    console.error("Client archive update failed:", error?.code || "unknown");
+    setClientActionStatus("Could not update this client. Please try again.", true);
+  }
+}
+
+async function permanentlyDeleteClient(client) {
+  if (!isAdmin || !currentUser || !isArchived(client)) return;
+  const label = `${client.firstName || ""} ${client.lastName || ""}`.trim();
+  // Find linked appointments before confirming. Appointment records contain
+  // copies of client contact data and MUST be removed with the client.
+  setClientActionStatus("Checking associated appointments...");
+  try {
+    const linked = await getDocs(query(collection(db, "appointments"), where("clientId", "==", client.id)));
+    if (linked.size > 450) {
+      setClientActionStatus("This client has too many appointments for a one-step deletion. Contact the site administrator.", true);
+      return;
+    }
+    const confirmation = window.prompt(
+      `Permanently delete ${label} and ${linked.size} associated appointment(s)? This cannot be undone.\n\nType DELETE to confirm:`
+    );
+    if (confirmation !== "DELETE") { setClientActionStatus("Deletion canceled."); return; }
+    const batch = writeBatch(db);
+    linked.docs.forEach((item) => batch.delete(item.ref));
+    batch.delete(doc(db, "clients", client.id));
+    await batch.commit();
+    await Promise.all([loadClients(), loadAppointments()]);
+    renderClients(); renderAppointments(); updateCounts(); populateClientSelect();
+    setClientActionStatus("Client and associated appointment records permanently deleted.");
+  } catch (error) {
+    console.error("Client deletion failed:", error?.code || "unknown");
+    setClientActionStatus("Could not delete the client. No partial batch deletion was applied; please try again.", true);
+  }
 }
 
 function renderAppointments() {
@@ -253,6 +349,7 @@ function renderAppointments() {
 }
 
 clientSearch.addEventListener("input", renderClients);
+showArchived.addEventListener("change", renderClients);
 
 document.querySelectorAll(".admin-tab").forEach((button) => {
   button.addEventListener("click", () => {
@@ -266,25 +363,111 @@ newAppointmentButton.addEventListener("click", () => openAppointmentDialog());
 appointmentCancel.addEventListener("click", () => appointmentDialog.close());
 appointmentClose.addEventListener("click", () => appointmentDialog.close());
 
+/* Searchable appointment client picker. The hidden input stores a verified ID.
+   Free-text input alone never selects a client. Archived clients are omitted. */
 function populateClientSelect() {
-  appointmentClient.innerHTML = '<option value="">Choose a client</option>';
-  clients.forEach((client) => {
-    const option = document.createElement("option");
-    option.value = client.id;
-    option.textContent = `${client.lastName || ""}, ${client.firstName || ""}`;
-    appointmentClient.appendChild(option);
-  });
+  const selectedId = appointmentClient.value;
+  if (selectedId && !activeClients().some((client) => client.id === selectedId)) {
+    clearClientPicker();
+  }
+  renderClientPickerResults();
 }
+
+function clientDisplayName(client) {
+  return `${client.lastName || ""}, ${client.firstName || ""}`.replace(/^, |, $/g, "").trim();
+}
+
+function clearClientPicker() {
+  appointmentClient.value = "";
+  appointmentClientSearch.value = "";
+  appointmentClientSearch.setAttribute("aria-expanded", "false");
+  appointmentClientResults.hidden = true;
+}
+
+function setSelectedClient(client) {
+  appointmentClient.value = client.id;
+  appointmentClientSearch.value = clientDisplayName(client);
+  appointmentClientResults.hidden = true;
+  appointmentClientSearch.setAttribute("aria-expanded", "false");
+  appointmentStatusMessage.textContent = "";
+}
+
+function renderClientPickerResults() {
+  const term = appointmentClientSearch.value.trim().toLowerCase();
+  const options = activeClients().filter((client) =>
+    `${client.firstName || ""} ${client.lastName || ""} ${client.email || ""} ${client.phone || ""}`
+      .toLowerCase().includes(term)
+  ).slice(0, 35);
+  appointmentClientResults.replaceChildren();
+  const info = document.createElement("p");
+  info.className = "picker-result-info";
+  info.textContent = options.length ? "Choose a client" : "No matching active clients.";
+  appointmentClientResults.appendChild(info);
+  options.forEach((client) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "picker-result";
+    button.innerHTML = `<strong>${escapeHtml(clientDisplayName(client))}</strong><span>${escapeHtml(client.email || client.phone || "")}</span>`;
+    button.addEventListener("click", () => setSelectedClient(client));
+    appointmentClientResults.appendChild(button);
+  });
+  appointmentClientResults.hidden = false;
+  appointmentClientSearch.setAttribute("aria-expanded", "true");
+}
+
+appointmentClientSearch.addEventListener("input", () => {
+  appointmentClient.value = ""; // A changed search invalidates any old selection.
+  renderClientPickerResults();
+});
+appointmentClientSearch.addEventListener("focus", renderClientPickerResults);
+appointmentClientSearch.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") {
+    appointmentClientResults.hidden = true;
+    appointmentClientSearch.setAttribute("aria-expanded", "false");
+  }
+  if (event.key === "ArrowDown") {
+    const first = appointmentClientResults.querySelector(".picker-result");
+    if (first) { event.preventDefault(); first.focus(); }
+  }
+  if (event.key === "Enter") {
+    const first = appointmentClientResults.querySelector(".picker-result");
+    if (!appointmentClient.value && first) { event.preventDefault(); first.click(); }
+  }
+});
+appointmentClientResults.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") { appointmentClientResults.hidden = true; appointmentClientSearch.focus(); }
+  if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+    const buttons = [...appointmentClientResults.querySelectorAll(".picker-result")];
+    const index = buttons.indexOf(document.activeElement);
+    const next = event.key === "ArrowDown" ? index + 1 : index - 1;
+    if (buttons[next]) { event.preventDefault(); buttons[next].focus(); }
+    else if (next < 0) { event.preventDefault(); appointmentClientSearch.focus(); }
+  }
+});
+appointmentDialog.addEventListener("click", (event) => {
+  if (!event.target.closest(".admin-client-picker")) {
+    appointmentClientResults.hidden = true;
+    appointmentClientSearch.setAttribute("aria-expanded", "false");
+  }
+});
 
 function openAppointmentDialog(appointment = null, preselectedClientId = "") {
   appointmentForm.reset();
+  clearClientPicker();
   appointmentStatusMessage.textContent = "";
   appointmentId.value = appointment?.id || "";
   appointmentDelete.hidden = !appointment;
   appointmentDialogTitle.textContent = appointment ? "Edit Appointment" : "Add Appointment";
 
   if (appointment) {
-    appointmentClient.value = appointment.clientId || "";
+    const client = activeClients().find((item) => item.id === appointment.clientId);
+    // Archived/deleted clients may be attached to older appointments.
+    // They remain visible for history but cannot be chosen for a new booking.
+    if (client) setSelectedClient(client);
+    else {
+      appointmentClient.value = appointment.clientId || "";
+      appointmentClientSearch.value = `${appointment.clientName || "Archived client"} (not active)`;
+    }
     const date = timestampToLocalDate(appointment.startAt);
     appointmentDate.value = date.date;
     appointmentTime.value = date.time;
@@ -292,7 +475,8 @@ function openAppointmentDialog(appointment = null, preselectedClientId = "") {
     appointmentStatus.value = appointment.status || "scheduled";
     appointmentNotes.value = appointment.notes || "";
   } else {
-    appointmentClient.value = preselectedClientId;
+    const client = activeClients().find((item) => item.id === preselectedClientId);
+    if (client) setSelectedClient(client);
     appointmentStatus.value = "scheduled";
   }
 
@@ -305,7 +489,11 @@ appointmentForm.addEventListener("submit", async (event) => {
 
   const client = clients.find((item) => item.id === appointmentClient.value);
   if (!client) {
-    appointmentStatusMessage.textContent = "Choose a client.";
+    appointmentStatusMessage.textContent = "Choose an active client from the search results.";
+    return;
+  }
+  if (isArchived(client) && !["cancelled", "completed"].includes(appointmentStatus.value)) {
+    appointmentStatusMessage.textContent = "This client is archived. Restore them before scheduling or rescheduling an appointment.";
     return;
   }
 

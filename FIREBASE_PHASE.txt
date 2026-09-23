@@ -1,3 +1,1 @@
-PHASE 2: Firestore + Google Authentication enabled.
-PRIVATE DASHBOARD: admin.html
-NEXT: Publish firestore.rules, authorize your testing domain, sign in at admin.html, and copy your Firebase UID.
+PHASE 3: Client channel preferences, explicit SMS opt-in, optional promotional-email opt-in, archive/restore/permanent delete, searchable appointment client picker, privacy and SMS terms drafts. Actual email/SMS sending NOT active; requires backend/providers/approval.

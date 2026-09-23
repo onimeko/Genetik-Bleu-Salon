@@ -6,9 +6,8 @@
     GENETIK BLEU SALON - CLIENT REGISTRATION PAGE
     ------------------------------------------------------------
     This page is connected to Cloud Firestore through registration.js.
-    It collects only the four requested contact fields plus the required
-    client-list / communications consent checkbox. The public website does
-    not read or display the private client directory.
+    It collects four contact fields plus explicit directory and channel
+    preferences. Public visitors cannot read the private client directory.
   -->
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -152,18 +151,40 @@
 <input autocomplete="off" id="website" name="website" tabindex="-1" type="text"/>
 </div>
 <!-- =========================================================
-     REQUIRED CLIENT LIST + COMMUNICATION CONSENT
-     =========================================================
-     This checkbox is REQUIRED. The browser and registration.js both
-     prevent the form from being submitted until the client checks it.
-     The consent is also recorded in Firestore with a server timestamp.
+     COMMUNICATION PREFERENCES — no channel is preselected.
+     We only save the selected preference. No messages are sent by this form.
+     SMS consent is a separate affirmative, unchecked opt-in and is required
+     ONLY if Text only or Both is chosen. Promotional email is separate.
 -->
-<div class="form-field full-width consent-field">
-<label class="consent-checkbox" for="marketing-consent">
-<input id="marketing-consent" name="marketing_consent" required="" type="checkbox"/>
-<span>By checking this box, I consent to being added to the Genetik Bleu client list and to receiving automated email and/or text messages from Genetik Bleu Salon. Message and data rates may apply. Consent is not a condition of purchase.</span>
-</label>
+<fieldset class="form-field full-width communication-fieldset">
+  <legend>How would you like to receive appointment updates?</legend>
+  <p class="communication-hint">Choose how Genetik Bleu may send appointment confirmations, schedule changes, cancellations, and reminders. You may choose no automated updates.</p>
+  <div class="communication-options">
+    <label class="communication-option"><input type="radio" name="communication_preference" value="email" required/> <span>Email only</span></label>
+    <label class="communication-option"><input type="radio" name="communication_preference" value="sms"/> <span>Text only</span></label>
+    <label class="communication-option"><input type="radio" name="communication_preference" value="both"/> <span>Email + text</span></label>
+    <label class="communication-option"><input type="radio" name="communication_preference" value="none"/> <span>No automated appointment updates</span></label>
+  </div>
+</fieldset>
+<div class="form-field full-width consent-field" id="sms-consent-field" hidden>
+  <label class="consent-checkbox" for="sms-consent">
+    <input id="sms-consent" name="sms_consent" type="checkbox"/>
+    <span>Yes, I agree to receive automated <strong>appointment-related text messages</strong> from Genetik Bleu Salon at the mobile number I provided. Message frequency depends on appointments; message and data rates may apply. Reply STOP to opt out or HELP for help. Consent is not a condition of purchase. Read our <a href="privacy.html">Privacy Policy</a> and <a href="sms-terms.html">Text Messaging Terms</a>.</span>
+  </label>
 </div>
+<div class="form-field full-width consent-field">
+  <label class="consent-checkbox" for="directory-consent">
+    <input id="directory-consent" name="directory_consent" required type="checkbox"/>
+    <span>I agree to be added to the private Genetik Bleu client directory and acknowledge the <a href="privacy.html">Privacy Policy</a>. Choosing no automated updates does not prevent me from registering.</span>
+  </label>
+</div>
+<div class="form-field full-width consent-field">
+  <label class="consent-checkbox" for="email-marketing-consent">
+    <input id="email-marketing-consent" name="email_marketing_consent" type="checkbox"/>
+    <span>Optional: I would like occasional promotional <strong>emails</strong> from Genetik Bleu. This is separate from appointment updates. No promotional texts are included.</span>
+  </label>
+</div>
+<p class="form-field full-width communication-hint">Appointment emails/texts and promotional emails are not active yet. Your preferences will be saved for when messaging is enabled. To change them or request removal later, please <a href="index.html#contact">contact Marni</a></p>
 <div class="form-field full-width">
 <button class="button button-primary" id="registration-submit" type="submit">
               Add Me to the Client List
@@ -215,6 +236,7 @@
 <a href="index.html">Home</a>
 <a href="services.html">Services</a>
 <a href="policies.html">Salon Policies</a>
+<a href="privacy.html">Privacy Policy</a>
 </div>
 </div>
 </footer>
