@@ -1,11 +1,3 @@
-# Current release — Client preferences + directory tools (September 2026)
-
-This version includes the latest site photos, mobile/tablet refinements and Marnstarr star animation **plus** new registration preferences, client archive/restore/permanent deletion, an appointment client search box, and privacy/SMS terms drafts. The existing `genetikbleu.com` custom domain is preserved via `CNAME`.
-
-**Before deploying:** read `FIREBASE_SETUP.md` for the required Firestore rules update and safe publish order. `PHASE3_TEST_CHECKLIST.md` gives step-by-step checks. Automated email and SMS are **not yet active**. The older Phase 1/2 notes below describe the project's history and may refer to the previous registration form.
-
----
-
 # Genetik Bleu Salon Website
 
 This project now uses the real Genetik Bleu Salon logo, the owner photo, and salon hairstyle photography supplied for the site.

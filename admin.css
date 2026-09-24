@@ -103,30 +103,3 @@ h3 { font-size: clamp(1.6rem, 3vw, 2.4rem); }
   .client-row .admin-button, .appointment-row .admin-button { width: 100%; }
   .admin-tabs { display: grid; grid-template-columns: 1fr 1fr; }
 }
-
-
-/* PHASE 3: Archive/restore + searchable, touch-friendly appointment picker. */
-.directory-filters { display: grid; gap: 10px; justify-items: end; width: min(360px,100%); }
-.directory-filters .admin-search { width: 100%; }
-.archive-toggle { display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: .84rem; color: var(--muted); }
-.archive-toggle input { width: 18px; height: 18px; accent-color: var(--blue-deep); }
-#client-action-status:empty { display: none; }
-.client-row-actions { display: grid; gap: 8px; min-width: 126px; }
-.client-row-archived { background: #f6f2ed; }
-.client-preference { margin-top: 8px !important; font-size: .76rem !important; color: var(--blue-deep) !important; }
-.admin-client-picker { position: relative; display: grid; gap: 7px; }
-.admin-client-picker > label { display: block; font-size: .72rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
-.admin-dialog .admin-client-search { min-height: 48px; width: 100%; border: 1px solid var(--line); background: white; padding: 12px; font-size: 1rem; }
-.admin-picker-results { position: relative; max-height: 245px; overflow: auto; border: 1px solid #c6d0db; background: white; box-shadow: 0 6px 20px rgba(0,0,0,.1); }
-.admin-picker-results[hidden] { display: none; }
-.picker-result-info { margin: 0; padding: 8px 12px; background: #f3f6fa; color: var(--muted); font-size: .76rem; }
-.picker-result { display: grid; gap: 4px; width: 100%; border: 0; border-bottom: 1px solid #eee; padding: 12px 14px; text-align: left; background: white; min-height: 55px; cursor: pointer; }
-.picker-result:hover, .picker-result:focus-visible { background: #eaf0f8; outline: 1px solid #315f9c; }
-.picker-result strong { font-size: .96rem; }
-.picker-result span { font-size: .78rem; color: var(--muted); }
-.picker-help { margin: 0; color: var(--muted); font-size: .76rem; line-height: 1.5; }
-@media (max-width: 760px) {
-  .directory-filters { width: 100%; justify-items: start; }
-  .client-row-actions { width: 100%; grid-template-columns: 1fr; }
-  .admin-dialog { max-height: calc(100dvh - 24px); overflow-y: auto; }
-}

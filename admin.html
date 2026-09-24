@@ -71,12 +71,8 @@
             <p class="admin-kicker">Client Directory</p>
             <h3>Registered Clients</h3>
           </div>
-          <div class="directory-filters">
-            <input id="client-search" class="admin-search" type="search" placeholder="Search name, email, or phone" aria-label="Search clients" />
-            <label class="archive-toggle"><input id="show-archived" type="checkbox"/> Show archived clients</label>
-          </div>
+          <input id="client-search" class="admin-search" type="search" placeholder="Search name, email, or phone" />
         </div>
-        <p id="client-action-status" class="admin-status" role="status" aria-live="polite"></p>
         <div id="clients-empty" class="empty-state" hidden>No clients have registered yet.</div>
         <div id="clients-list" class="client-list"></div>
       </section>
@@ -108,18 +104,10 @@
 
       <input id="appointment-id" type="hidden" />
 
-      <!-- Searchable client picker for desktop, iPad, and phones.
-           Hidden ID stores the actual selected client, never freeform text. -->
-      <div class="admin-client-picker">
-        <label for="appointment-client-search">Client</label>
-        <input id="appointment-client" type="hidden"/>
-        <input id="appointment-client-search" class="admin-client-search" type="search"
-               placeholder="Search name, email, or phone" autocomplete="off"
-               role="combobox" aria-autocomplete="list" aria-expanded="false"
-               aria-controls="appointment-client-results" aria-required="true"/>
-        <div id="appointment-client-results" class="admin-picker-results" hidden></div>
-        <p class="picker-help">Type to find a client, then choose a matching name.</p>
-      </div>
+      <label>
+        Client
+        <select id="appointment-client" required></select>
+      </label>
       <label>
         Date
         <input id="appointment-date" type="date" required />
