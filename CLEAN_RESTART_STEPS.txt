@@ -1,0 +1,37 @@
+GENETIK BLEU — CLEAN RESTART
+
+STEP 1 — GITHUB ONLY
+1. Create a brand-new GitHub repository.
+2. Upload the CONTENTS of this folder to the repository root.
+3. Turn on GitHub Pages (Deploy from branch -> main -> /root).
+4. Confirm the normal website pages load.
+5. Do not test admin login yet.
+
+STEP 2 — FIREBASE
+1. Create a brand-new Firebase project.
+2. Create Firestore.
+3. Enable Google Authentication.
+4. Register a Web App.
+5. Replace the placeholders in firebase-config.js with the NEW Web App config.
+6. Publish firestore.rules.
+7. Add your GitHub Pages hostname under Authentication -> Settings -> Authorized domains.
+
+STEP 3 — ADMIN
+1. Open the deployed admin.html page.
+2. Sign in with Google.
+3. Confirm your account appears under Authentication -> Users.
+4. Copy your UID.
+5. Create Firestore collection: admins
+6. Create a document whose ID is exactly your UID.
+7. Add field: role (string) = admin
+
+STEP 4 — TEST
+Test:
+- Client registration
+- Client list
+- Notes autosave
+- Delete client
+- Appointment create/edit/delete
+- iPad Google sign-in
+
+This clean package uses Firebase JS SDK 12.19.0 and signInWithPopup().

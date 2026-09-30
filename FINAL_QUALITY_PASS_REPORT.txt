@@ -1,0 +1,32 @@
+GENETIK BLEU — FINAL QUALITY PASS
+
+Automated structural checks:
+- Missing local file/link references: 0
+- Images missing alt text: 0
+- Images missing width/height: 0
+- target="_blank" links missing noopener: 0
+- Duplicate HTML IDs: 0
+- Active nav links missing aria-current: 0
+
+Improvements made:
+- Social preview image URLs now use genetikbleu.com.
+- Home hero image is preloaded for faster first-screen rendering.
+- Keyboard skip links added to all public pages and the private dashboard.
+- Active public navigation links now expose aria-current.
+- Footer/admin logo dimensions added to reduce layout shift.
+- Lazy-loaded photography now uses asynchronous decoding.
+- Birthday fields are programmatically tied to their helper text.
+- Escape closes the mobile menu and returns focus to the menu button.
+- Photo lightbox now has modal-dialog semantics and restores focus when closed.
+- Review carousel pauses while a keyboard user is interacting with it.
+- Admin tabs now expose tab/tabpanel semantics and aria-selected state.
+- Client search now has an explicit accessible label.
+- Sitemap entries now include lastmod 2026-09-28.
+
+Not changed:
+- Firebase rules or Firestore schema
+- Registration save behavior
+- Appointment logic
+- Birthday Reward logic
+- Email/Brevo backend
+- Approved visual layout/crops

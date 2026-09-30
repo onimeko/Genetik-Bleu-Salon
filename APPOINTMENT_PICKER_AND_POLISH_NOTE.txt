@@ -1,0 +1,8 @@
+Appointment editor update:
+- Search now ignores punctuation and name order.
+- A single matching client is selected automatically.
+- Multiple matches appear as clickable search results.
+- The old redundant visible client dropdown is gone.
+- Upcoming count now includes only future Scheduled or Confirmed appointments.
+- Completed and Cancelled appointments never count as Upcoming.
+- Appointment modal received a full visual polish for desktop, tablet, and mobile.

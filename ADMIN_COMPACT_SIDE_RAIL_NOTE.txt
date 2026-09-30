@@ -1,0 +1,4 @@
+The client action icons are now positioned as a slim vertical rail on the
+right edge of each client card. Because the rail is absolutely positioned,
+the three buttons no longer increase the card's height. The note field and
+card padding were also reduced slightly for a genuinely shorter client row.

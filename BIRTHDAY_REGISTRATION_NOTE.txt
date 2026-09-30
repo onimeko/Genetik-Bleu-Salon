@@ -1,0 +1,32 @@
+GENETIK BLEU — OPTIONAL BIRTHDAY REGISTRATION UPDATE
+
+What changed:
+- Client Registration now has a polished OPTIONAL birthday section.
+- Only month + day are collected. No birth year is requested or stored.
+- Day choices update automatically based on the selected month, including February 29.
+- Birthday is stored as birthdayMonth and birthdayDay only.
+- If birthday is left blank, both stored values are 0.
+- Future birthday automation can query the two numeric fields directly, so no redundant birthday key is stored.
+- Admin client cards show a birthday chip when a birthday is on file.
+- Clients with both a birthday and marketing consent are labeled "Rewards eligible".
+- Client CSV export includes Birthday, a computed Birthday Key, and Birthday Marketing Eligible.
+- Privacy Policy explains the optional birthday field and the marketing-consent boundary.
+- Firestore Rules validate the new birthday fields.
+- No birthday messages or rewards are sent yet. This update only collects and displays the data.
+
+Important Firebase step:
+Upload the changed website files to GitHub, then publish the included firestore.rules
+in Firebase Console -> Firestore Database -> Rules.
+
+For this update, the GitHub files to replace are:
+- registration.html
+- registration.js
+- styles.css
+- admin.js
+- admin.css
+- privacy.html
+
+Firebase:
+- publish firestore.rules
+
+The full checkpoint also preserves the scalable appointment-reminder backend.

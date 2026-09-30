@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<!--
+    GENETIK BLEU SALON - CLIENT REGISTRATION PAGE
+    ------------------------------------------------------------
+    This page is connected to Cloud Firestore through registration.js.
+    It collects the four required contact fields plus:
+      - one OPTIONAL birthday (month + day only; no birth year)
+      - one REQUIRED service-communications consent checkbox
+      - one OPTIONAL promotional-marketing consent checkbox
+    The public website does not read or display the private client directory.
+  -->
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="#1d1a19" name="theme-color"/>
+<title>Client Registration | Genetik Bleu Salon Chicago</title>
+<meta content="Register with Genetik Bleu Salon to keep your contact information current and receive important appointment-related salon communications." name="description"/>
+
+<link rel="canonical" href="https://genetikbleu.com/registration.html"/>
+<link rel="icon" href="favicon.ico" sizes="any"/>
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png"/>
+<meta property="og:site_name" content="Genetik Bleu Salon"/>
+<meta property="og:type" content="website"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:title" content="Client Registration | Genetik Bleu Salon Chicago"/>
+<meta property="og:description" content="Register with Genetik Bleu Salon to keep your contact information current and receive important appointment-related salon communications."/>
+<meta property="og:url" content="https://genetikbleu.com/registration.html"/>
+<meta property="og:image" content="https://genetikbleu.com/images/genetik-bleu-social-preview.jpg"/>
+<meta property="og:image:secure_url" content="https://genetikbleu.com/images/genetik-bleu-social-preview.jpg"/>
+<meta property="og:image:type" content="image/jpeg"/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+<meta property="og:image:alt" content="Genetik Bleu Salon — Styles by Marni in Chicago"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Client Registration | Genetik Bleu Salon Chicago"/>
+<meta name="twitter:description" content="Register with Genetik Bleu Salon to keep your contact information current and receive important appointment-related salon communications."/>
+<meta name="twitter:image" content="https://genetikbleu.com/images/genetik-bleu-social-preview.jpg"/>
+<script>
+  /* Manual theme only: never reads the device/system color preference. */
+  try {
+    if (window.localStorage.getItem("genetikBleuTheme") === "dark") {
+      document.documentElement.dataset.theme = "dark";
+    }
+  } catch (error) {
+    /* If storage is unavailable, the site simply stays in light mode. */
+  }
+</script>
+<link href="styles.css" rel="stylesheet"/>
+</head>
+<body class="page-registration">
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<!-- =========================================================
+       HEADER / NAVIGATION
+       ========================================================= -->
+<header class="site-header">
+<div class="nav-container">
+<a aria-label="Genetik Bleu Salon home" class="brand" href="index.html">
+<img alt="Genetik Bleu Salon logo" class="brand-logo" height="768" src="images/genetik-bleu-logo.jpeg" width="768"/>
+<span class="brand-name">Genetik Bleu Salon</span>
+</a>
+<button aria-controls="main-navigation" aria-expanded="false" aria-label="Open navigation menu" class="menu-toggle" type="button">
+<span></span>
+<span></span>
+<span></span>
+</button>
+<nav aria-label="Primary navigation" class="main-nav" id="main-navigation">
+<a href="index.html">Home</a>
+<a href="services.html">Services</a>
+<a class="active" aria-current="page" href="registration.html">Client Registration</a>
+<!-- CLASSES NAV LINK: jumps to the education/classes section on the Home page. -->
+<a href="index.html#classes">Classes</a>
+<a href="index.html#contact">Contact</a>
+</nav>
+</div>
+</header>
+<main id="main-content">
+<!-- =========================================================
+         CLIENT DIRECTORY REGISTRATION
+         =========================================================
+         PURPOSE OF THIS PAGE:
+         This page exists only to add a client to the salon's private
+         contact directory. It asks for four required contact fields
+         plus an optional birthday month/day for client appreciation.
+    -->
+<section class="inner-hero registration-hero">
+<div class="inner-hero-content">
+<p class="eyebrow">Genetik Bleu Client Directory</p>
+<h1>Client registration.</h1>
+<p>
+          All new and existing clients who have not registered with Genetik Bleu Salon can do so before receiving their service. Registration helps maintain an accurate client directory, keeps contact information current, and sends appointment reminders and other important salon communications.
+        </p>
+
+<p class="sample-price-note registration-booking-note"><strong>Appointments are scheduled directly with the stylist.</strong> Services are not booked through this website. Please call during operating hours or message the stylist via the provided Instagram to schedule an appointment.</p>
+</div>
+</section>
+<section class="section client-registration-section registration-creative-section" data-registration-word="CONNECT">
+<div class="registration-experience">
+<!-- =========================================================
+     SELECTED REVIEW SLIDESHOW
+     =========================================================
+     Curated review excerpts are stored directly in the page to avoid a live
+     reviews API dependency. Additional reviews can reuse a .review-slide article;
+     only one slide should begin with aria-hidden="false".
+-->
+<aside aria-labelledby="reviews-title" class="registration-reviews">
+<p class="eyebrow">Client Reviews</p>
+<h2 id="reviews-title">What Clients Have to Say</h2>
+<div class="review-carousel" data-review-carousel="">
+<div class="review-track">
+<article aria-hidden="false" class="review-slide is-active">
+<div class="review-source">Google Review</div>
+<blockquote>“Owner/stylist, Marnie Newman, is top drawer. Real people too!!!”</blockquote>
+<p class="reviewer">— Lafredta Lusk</p>
+</article>
+<article aria-hidden="true" class="review-slide">
+<div class="review-source">Yelp Review</div>
+<blockquote>“I love this salon it has a great vibe. Grown-up conversations and friendly stylist. Every time I'm there I'm laughing and joking about something. It's reasonable priced for the service and atmosphere that you receive.”</blockquote>
+<p class="reviewer">— Daphana B.</p>
+</article>
+<article aria-hidden="true" class="review-slide">
+<div class="review-source">Yelp Review</div>
+<blockquote>“This is a wonderfully unique salon, beautiful people gather there to get exactly what they want from the stylists, the atmosphere delightfully contagious…”</blockquote>
+<p class="reviewer">— Essie S.</p>
+</article>
+<article aria-hidden="true" class="review-slide">
+<div class="review-source">Google Review</div>
+<blockquote>“Never ever left this shop unhappy!! Love these women!!!”</blockquote>
+<p class="reviewer">— Limonica Tereese</p>
+</article>
+<article aria-hidden="true" class="review-slide">
+<div class="review-source">Google Review</div>
+<blockquote>“Great for hair care.”</blockquote>
+<p class="reviewer">— Cynthia Patrick</p>
+</article>
+<article aria-hidden="true" class="review-slide">
+<div class="review-source">Google Review · ★★★★★</div>
+<blockquote>“Absolutely love coming here! The service is always amazing, and my hair lasts at least 3 weeks every time. My hair is always done beautifully, and I leave feeling confident and satisfied. Definitely recommend this salon! 💕”</blockquote>
+<p class="reviewer">— Joi Jones</p>
+</article>
+</div>
+<div aria-label="Review slideshow controls" class="review-controls">
+<button aria-label="Previous review" class="review-arrow" data-review-prev="" type="button">←</button>
+<div class="review-dots" data-review-dots=""></div>
+<button aria-label="Next review" class="review-arrow" data-review-next="" type="button">→</button>
+</div>
+</div>
+</aside>
+<div class="registration-form-column">
+<p class="form-kicker">Lets grow together</p>
+<!--
+          FIREBASE / FIRESTORE FORM
+          ---------------------------------------------------------
+          registration.js handles submission and writes registrations to the
+          private Firestore client directory. Firebase web configuration lives in
+          firebase-config.js; Firestore Security Rules enforce data privacy.
+        -->
+<form autocomplete="on" class="client-form simple-client-form" id="client-registration-form">
+<div class="form-field">
+<label for="first-name">First Name</label>
+<input autocomplete="given-name" id="first-name" maxlength="60" name="first_name" required="" type="text"/>
+</div>
+<div class="form-field">
+<label for="last-name">Last Name</label>
+<input autocomplete="family-name" id="last-name" maxlength="60" name="last_name" required="" type="text"/>
+</div>
+<div class="form-field">
+<label for="email">Email Address</label>
+<input autocomplete="email" id="email" maxlength="254" name="email" required="" type="email"/>
+</div>
+<div class="form-field">
+<label for="phone">Phone Number</label>
+<input autocomplete="tel" id="phone" inputmode="tel" maxlength="30" name="phone" required="" type="tel"/>
+</div>
+
+<div class="form-field full-width birthday-registration-field">
+  <div class="birthday-field-heading">
+    <div>
+      <label class="birthday-main-label" for="birthday-month">Birthday <span>(optional)</span></label>
+      <p id="birthday-help">Month and day only. Used for client appreciation.</p>
+    </div>
+  </div>
+
+  <div class="birthday-select-grid">
+    <div class="birthday-select-wrap">
+      <label for="birthday-month">Month</label>
+      <select id="birthday-month" name="birthday_month" autocomplete="bday-month" aria-describedby="birthday-help">
+        <option value="">Month</option>
+        <option value="1">January</option>
+        <option value="2">February</option>
+        <option value="3">March</option>
+        <option value="4">April</option>
+        <option value="5">May</option>
+        <option value="6">June</option>
+        <option value="7">July</option>
+        <option value="8">August</option>
+        <option value="9">September</option>
+        <option value="10">October</option>
+        <option value="11">November</option>
+        <option value="12">December</option>
+      </select>
+    </div>
+
+    <div class="birthday-select-wrap">
+      <label for="birthday-day">Day</label>
+      <select id="birthday-day" name="birthday_day" autocomplete="bday-day" aria-describedby="birthday-help" disabled>
+        <option value="">Day</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<!-- Basic spam trap. Real visitors will never see or fill this field. -->
+<div aria-hidden="true" class="website-field">
+<label for="website">Website</label>
+<input autocomplete="off" id="website" name="website" tabindex="-1" type="text"/>
+</div>
+<!-- =========================================================
+     CLIENT LIST + COMMUNICATION CONSENTS
+     =========================================================
+     REQUIRED:
+     This first checkbox covers service-related communications connected to
+     the client's appointments and salon relationship.
+
+     OPTIONAL:
+     The second checkbox is intentionally separate. A client can register and
+     receive appointment-related communication without agreeing to promotional
+     marketing messages.
+-->
+<div class="form-field full-width consent-field consent-disclosure-field">
+  <div class="consent-choice-card">
+    <label class="consent-choice-summary" for="service-communications-consent">
+      <input id="service-communications-consent" name="service_communications_consent" required="" type="checkbox"/>
+      <span class="consent-kind is-required">Required</span>
+      <span class="consent-summary-title">I agree to the client list &amp; appointment messages.</span>
+    </label>
+
+    <details class="consent-terms" id="service-consent-details">
+      <summary>Details</summary>
+      <div class="consent-disclosure-body">
+        <p>I agree to be added to the Genetik Bleu client list and to receive service-related communications about my appointments, including confirmations, reminders, schedule changes, and other important salon messages. Message and data rates may apply.</p>
+      </div>
+    </details>
+  </div>
+</div>
+
+<div class="form-field full-width consent-field consent-disclosure-field optional-consent-field">
+  <div class="consent-choice-card">
+    <label class="consent-choice-summary" for="marketing-consent">
+      <input id="marketing-consent" name="marketing_consent" type="checkbox"/>
+      <span class="consent-kind is-optional">Optional</span>
+      <span class="consent-summary-title">I agree to occasional promotional messages.</span>
+    </label>
+
+    <details class="consent-terms" id="marketing-consent-details">
+      <summary>Details</summary>
+      <div class="consent-disclosure-body">
+        <p>I agree to receive occasional promotional email and/or text messages from Genetik Bleu Salon. Consent is not a condition of purchase, and I can opt out of promotional messages at any time. Message and data rates may apply.</p>
+      </div>
+    </details>
+  </div>
+</div>
+<div class="form-field full-width registration-privacy-note">
+  <p>
+    Learn how your information is handled in our
+    <a href="privacy.html">Privacy Policy</a>.
+  </p>
+</div>
+<div class="form-field full-width">
+<button class="button button-primary" id="registration-submit" type="submit">
+              Add Me to the Client List
+            </button>
+</div>
+<!-- registration.js updates this message after submission. -->
+<p aria-live="polite" class="registration-status" id="registration-status" role="status"></p>
+</form>
+
+<!--
+  SUCCESS CONFIRMATION
+  ---------------------------------------------------------
+  A large, centered confirmation is intentionally used here so clients—
+  especially older clients—do not have to notice a small status line at
+  the bottom of the form to know their registration was received.
+-->
+<dialog aria-labelledby="registration-success-title" class="registration-success-dialog" id="registration-success-dialog">
+  <div class="registration-success-card">
+    <div aria-hidden="true" class="registration-success-icon">
+      <svg viewBox="0 0 48 48">
+        <circle cx="24" cy="24" r="21"></circle>
+        <path d="M14 24.5 21 31l13-15"></path>
+      </svg>
+    </div>
+
+    <p class="registration-success-kicker">Registration Complete</p>
+    <h2 id="registration-success-title">
+      You’re on the Genetik Bleu client list.
+    </h2>
+
+    <p class="registration-success-lead" id="registration-success-message">
+      Your information was received successfully.
+    </p>
+
+    <p class="registration-success-note">
+      Genetik Bleu now has your current contact information for appointment-related communication.
+    </p>
+
+    <button class="button button-primary registration-success-button" id="registration-success-close" type="button">
+      Done
+    </button>
+  </div>
+</dialog>
+</div>
+</div>
+</section>
+</main>
+<!-- =========================================================
+       FOOTER
+       ========================================================= -->
+<footer class="site-footer" id="contact">
+<div class="footer-grid">
+<div class="footer-brand">
+<img alt="Genetik Bleu Salon logo" class="footer-logo" decoding="async" height="768" loading="lazy" src="images/genetik-bleu-logo.jpeg" width="768"/>
+<p>
+          Personalized healthy-hair care, precision cutting, and expressive color by Marni Newman at Genetik Bleu Salon.
+        </p>
+</div>
+<div>
+<h2>Visit</h2>
+<address>
+          8452 S Stony Island Ave<br/>
+          Chicago, IL 60617
+        </address>
+</div>
+<div>
+<h2>Hours</h2>
+<p>Wednesday - Saturday</p>
+<p>10:00 AM - 6:00 PM</p>
+<p class="footer-small">Classes are Monday and Tuesday. Please call during shop hours for more information.</p>
+</div>
+<div>
+<h2>Contact</h2>
+<p><a href="tel:+17733592491">(773) 359-2491</a></p>
+<!-- Marni's current Instagram link. Update only if the account URL changes. -->
+<a class="instagram-button" href="https://www.instagram.com/marnstarr_marni?igsi=MXY0YXpjMGZjZnUxOQ==" rel="noopener noreferrer" target="_blank">
+          Follow on Instagram
+        </a>
+</div>
+</div>
+<div class="footer-bottom">
+<p>© <span id="current-year"></span> Genetik Bleu Salon. All rights reserved.</p>
+<div class="footer-links">
+<a href="index.html">Home</a>
+<a href="services.html">Services</a>
+<a href="policies.html">Salon Policies</a>
+<a href="privacy.html">Privacy Policy</a>
+</div>
+</div>
+<div class="footer-theme-control">
+<button class="theme-toggle" type="button" aria-pressed="false" aria-label="Turn on dark mode">
+<span class="theme-toggle-icon" aria-hidden="true">☾</span>
+<span class="theme-toggle-label">Dark mode</span>
+</button>
+</div>
+
+<!--
+  OPTIONAL WEBSITE CREDIT - intentionally hidden.
+  Removing the surrounding comment markers makes the credit visible.
+
+  <p class="site-credit">Website Created By Jada Anderson</p>
+-->
+</footer>
+<!-- Main site navigation/footer behavior. -->
+<script src="script.js"></script>
+<!-- Firebase configuration + registration submission logic. -->
+<script src="registration.js" type="module"></script>
+</body>
+</html>

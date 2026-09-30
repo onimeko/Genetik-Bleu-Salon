@@ -1,0 +1,14 @@
+Genetik Bleu SEO / sharing polish added:
+- Custom 404.html for GitHub Pages
+- Page-specific titles and descriptions
+- Canonical URLs for genetikbleu.com
+- Open Graph + Twitter large-card metadata
+- 1200x630 social sharing preview image
+- favicon.ico, 32px favicon, Apple touch icon
+- HairSalon JSON-LD structured data on the home page
+- robots.txt (admin page excluded)
+- sitemap.xml for the public pages
+
+The social preview image currently uses the GitHub Pages image URL so it can load
+while the site is still being tested at onimeko.github.io. Canonical URLs already
+point to the intended permanent domain: https://genetikbleu.com/.

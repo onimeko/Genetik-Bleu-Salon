@@ -1,0 +1,6 @@
+Client action update:
+- Removed the manual Save Note button because client notes autosave successfully.
+- Add Appointment now occupies the top action position.
+- Delete remains at the bottom.
+- Added a deliberate blank safety gap between Add Appointment and Delete to reduce accidental taps.
+- Autosave logic remains unchanged.

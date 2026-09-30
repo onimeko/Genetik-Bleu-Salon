@@ -1,0 +1,22 @@
+GENETIK BLEU — NO-CAPTCHA SPAM PROTECTION
+
+Live website file:
+- registration.js
+
+Firebase Console rule file:
+- firestore.rules
+
+Added:
+1. Existing hidden honeypot retained.
+2. Very-fast automated submissions are rejected.
+3. One-minute browser cooldown after a successful registration.
+4. Client-side name/email/phone sanity checks.
+5. Exact duplicate registrations now use a deterministic SHA-256-derived document ID.
+   Because public users may CREATE clients but may not UPDATE them, an exact duplicate
+   cannot keep generating additional client records.
+6. Firestore rules now apply stronger server-side email and phone validation.
+7. No visible CAPTCHA and no change to the registration page design.
+
+IMPORTANT:
+Uploading firestore.rules to GitHub does NOT deploy Firestore Security Rules.
+Publish its contents in Firebase Console -> Firestore Database -> Rules.

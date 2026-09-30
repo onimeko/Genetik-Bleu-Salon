@@ -1,0 +1,17 @@
+GENETIK BLEU — PRE-MARNI FINAL POLISH
+
+Changes:
+1. CONNECT background word on Client Registration has wider letter spacing,
+   specifically preventing the final C and T from visually touching.
+2. Removed the Birthday Rewards "Automation is intentionally off" notice.
+3. Added a manual dark-mode toggle to every public-page footer.
+   - Light mode is always the default.
+   - Device/system dark-mode preferences are NOT used.
+   - Only a visitor's explicit toggle choice is remembered.
+4. Added a ready-to-use footer credit:
+   "Website Created By Jada Anderson"
+   It is fully styled and placed at the very bottom of every public footer,
+   but the HTML remains commented out until you choose to reveal it.
+
+No Firebase rules, Firestore data, registration storage, appointment behavior,
+Birthday Reward logic, or email/Brevo backend logic were changed.

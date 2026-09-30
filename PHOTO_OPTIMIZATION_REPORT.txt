@@ -1,0 +1,65 @@
+GENETIK BLEU — PHOTO OPTIMIZATION REPORT
+
+What changed:
+- The website display size of every photo is unchanged.
+- CSS layout, crop behavior, spacing, and responsive sizing are unchanged.
+- No photograph was resized or downscaled.
+- Active salon/client JPEG photographs were converted to high-quality WebP at quality 88.
+- The small logo and social-sharing preview stay JPEG.
+
+Converted photos: 46
+Before: 21.44 MB
+After:  13.11 MB
+Saved:  8.32 MB (38.8%)
+
+Originals:
+The original JPEGs are preserved in your earlier GitHub commit/history.
+A separate original-photo backup ZIP is also provided with this update.
+
+Per-photo results:
+- gallery-black-waves.jpeg -> gallery-black-waves.webp | 1320x1452 | 500 KB -> 314 KB
+- gallery-blue-curls.jpeg -> gallery-blue-curls.webp | 1320x1802 | 598 KB -> 358 KB
+- gallery-blue-purple-front.jpeg -> gallery-blue-purple-front.webp | 1320x1457 | 569 KB -> 372 KB
+- gallery-burgundy.jpeg -> gallery-burgundy.webp | 1320x2053 | 612 KB -> 351 KB
+- gallery-client-black-curls.jpeg -> gallery-client-black-curls.webp | 1067x1137 | 365 KB -> 252 KB
+- gallery-client-silver-wave.jpeg -> gallery-client-silver-wave.webp | 1416x1536 | 1004 KB -> 837 KB
+- gallery-copper-curls.jpeg -> gallery-copper-curls.webp | 828x1342 | 499 KB -> 267 KB
+- gallery-highlights-natural.jpeg -> gallery-highlights-natural.webp | 1320x1500 | 446 KB -> 267 KB
+- gallery-long-blonde.jpeg -> gallery-long-blonde.webp | 874x1672 | 348 KB -> 221 KB
+- gallery-magenta-front.jpeg -> gallery-magenta-front.webp | 1320x1378 | 432 KB -> 243 KB
+- gallery-red-bob.jpeg -> gallery-red-bob.webp | 1320x1638 | 627 KB -> 381 KB
+- hero-blue-purple-wide.jpeg -> hero-blue-purple-wide.webp | 1800x1000 | 263 KB -> 139 KB
+- marni-hero-portrait.jpeg -> marni-hero-portrait.webp | 1320x1968 | 450 KB -> 252 KB
+- marni-owner-blowdryer.jpeg -> marni-owner-blowdryer.webp | 1024x1536 | 342 KB -> 103 KB
+- owner-marni-newman.jpeg -> owner-marni-newman.webp | 1000x600 | 107 KB -> 86 KB
+- service-black-curls-front.jpeg -> service-black-curls-front.webp | 1320x1635 | 445 KB -> 251 KB
+- service-black-curls.jpeg -> service-black-curls.webp | 1320x1635 | 445 KB -> 251 KB
+- service-blonde-layered-2.jpeg -> service-blonde-layered-2.webp | 1320x1596 | 399 KB -> 207 KB
+- service-blonde-layered.jpeg -> service-blonde-layered.webp | 1320x1596 | 399 KB -> 207 KB
+- service-blonde-natural-2.jpeg -> service-blonde-natural-2.webp | 1320x1500 | 446 KB -> 267 KB
+- service-blonde-natural.jpeg -> service-blonde-natural.webp | 1320x1500 | 446 KB -> 267 KB
+- service-blue-curls.jpeg -> service-blue-curls.webp | 1320x1802 | 598 KB -> 358 KB
+- service-blue-purple-side.jpeg -> service-blue-purple-side.webp | 1320x1444 | 615 KB -> 422 KB
+- service-brown-bob.jpeg -> service-brown-bob.webp | 1320x1449 | 367 KB -> 199 KB
+- service-color-retouch-1.jpeg -> service-color-retouch-1.webp | 916x1024 | 443 KB -> 336 KB
+- service-color-retouch-2.jpeg -> service-color-retouch-2.webp | 958x1060 | 402 KB -> 295 KB
+- service-color-retouch.jpeg -> service-color-retouch.webp | 1320x1750 | 911 KB -> 677 KB
+- service-golden-curls-2.jpeg -> service-golden-curls-2.webp | 1320x1809 | 726 KB -> 426 KB
+- service-golden-curls.jpeg -> service-golden-curls.webp | 1320x1809 | 726 KB -> 426 KB
+- service-highlights-dimension.jpeg -> service-highlights-dimension.webp | 874x1672 | 348 KB -> 221 KB
+- service-magenta-side.jpeg -> service-magenta-side.webp | 1319x1350 | 339 KB -> 181 KB
+- service-natural-short.jpeg -> service-natural-short.webp | 1320x1846 | 506 KB -> 277 KB
+- service-ombre-bob-back.jpeg -> service-ombre-bob-back.webp | 1320x1384 | 366 KB -> 195 KB
+- service-pink-pixie-2.jpeg -> service-pink-pixie-2.webp | 1320x1845 | 499 KB -> 289 KB
+- service-pink-pixie.jpeg -> service-pink-pixie.webp | 1320x1845 | 499 KB -> 289 KB
+- service-platinum-bob.jpeg -> service-platinum-bob.webp | 1320x1389 | 415 KB -> 256 KB
+- service-precision-bob.jpeg -> service-precision-bob.webp | 1320x1384 | 366 KB -> 195 KB
+- service-red-bob.jpeg -> service-red-bob.webp | 1320x1638 | 627 KB -> 381 KB
+- service-sculpted-short-1.jpeg -> service-sculpted-short-1.webp | 1118x1153 | 368 KB -> 254 KB
+- service-sculpted-short-2.jpeg -> service-sculpted-short-2.webp | 1268x1520 | 451 KB -> 278 KB
+- service-silk-press.jpeg -> service-silk-press.webp | 694x814 | 172 KB -> 122 KB
+- service-toner-gloss.jpeg -> service-toner-gloss.webp | 828x1342 | 499 KB -> 267 KB
+- slide-blue-purple.jpeg -> slide-blue-purple.webp | 1320x1457 | 569 KB -> 372 KB
+- slide-burgundy.jpeg -> slide-burgundy.webp | 1320x2053 | 612 KB -> 351 KB
+- slide-long-blonde.jpeg -> slide-long-blonde.webp | 874x1672 | 348 KB -> 221 KB
+- slide-magenta.jpeg -> slide-magenta.webp | 1320x1378 | 432 KB -> 243 KB

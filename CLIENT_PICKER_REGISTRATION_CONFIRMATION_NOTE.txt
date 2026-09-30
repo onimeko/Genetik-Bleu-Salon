@@ -1,0 +1,18 @@
+Latest polish:
+1. Appointment client selection now offers BOTH:
+   - Search by name/email/phone
+   - Browse all registered clients from an alphabetical dropdown
+   The dropdown includes a phone/email clue to help when the name is forgotten.
+
+2. Registration now shows a large centered confirmation dialog after success.
+   It clearly states that registration is complete, personalizes the message
+   with the client's first name, and provides a large Done button.
+   The small inline success status remains as a fallback.
+
+Files changed:
+- admin.html
+- admin.js
+- admin.css
+- registration.html
+- registration.js
+- styles.css

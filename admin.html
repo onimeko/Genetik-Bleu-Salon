@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>Client + Appointment Manager | Genetik Bleu Salon</title>
+  <script>
+    /* Apply an explicitly saved theme before CSS paints to prevent a light-mode flash. */
+    (() => {
+      try {
+        if (window.localStorage.getItem("genetikBleuTheme") === "dark") {
+          document.documentElement.dataset.theme = "dark";
+        }
+      } catch (error) {
+        /* localStorage can be unavailable in strict/private browser contexts. */
+      }
+    })();
+  </script>
+  <link rel="icon" href="favicon.ico" sizes="any" />
+  <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png" />
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+  <a class="admin-skip-link" href="#admin-main-content">Skip to dashboard content</a>
+  <!-- =========================================================
+       PRIVATE CLIENT + APPOINTMENT MANAGER
+       =========================================================
+       This page is intentionally NOT linked from the public website.
+       Security does NOT depend on hiding this URL. Firebase Authentication
+       and Firestore Security Rules protect the private data.
+       ========================================================= -->
+  <header class="admin-header">
+    <div class="admin-brand">
+      <img src="images/genetik-bleu-logo.jpeg" alt="Genetik Bleu Salon logo" decoding="async" height="768" width="768" />
+      <div>
+        <p class="admin-kicker">Private Salon Dashboard</p>
+        <h1>Client + Appointment Manager</h1>
+      </div>
+    </div>
+    <div class="admin-header-actions">
+      <button id="admin-theme-toggle" class="admin-theme-toggle" type="button" aria-pressed="false" aria-label="Turn on dark mode">
+        <span class="admin-theme-toggle-icon" aria-hidden="true">☾</span>
+        <span class="admin-theme-toggle-label">Dark mode</span>
+      </button>
+      <button id="sign-out-button" class="admin-button admin-button-ghost" type="button" hidden>Sign Out</button>
+    </div>
+  </header>
+
+  <main class="admin-main" id="admin-main-content">
+    <section id="signed-out-view" class="admin-card auth-card">
+      <p class="admin-kicker">Authorized Access Only</p>
+      <h2>Genetik Bleu Client Registry</h2>
+      <p>Sign in with the Google account that has been approved for the salon dashboard.</p>
+      <button id="google-sign-in" class="admin-button" type="button">Sign in with Google</button>
+      <p id="auth-status" class="admin-status" aria-live="polite"></p>
+    </section>
+
+    <section id="pending-view" class="admin-card auth-card" hidden>
+      <p class="admin-kicker">One-Time Setup</p>
+      <h2>Google sign-in worked.</h2>
+      <p>Your account is authenticated, but it has not been added to the salon administrator list yet.</p>
+      <div class="uid-box">
+        <span>Your Firebase UID</span>
+        <code id="current-user-uid"></code>
+        <button id="copy-uid" class="admin-button admin-button-small" type="button">Copy UID</button>
+      </div>
+      <p class="admin-help">Send this UID back to ChatGPT. You will then create one administrator document in Firestore. After that, this same page will unlock the client and appointment tools.</p>
+      <p id="pending-status" class="admin-status" aria-live="polite"></p>
+    </section>
+
+    <section id="dashboard-view" hidden>
+      <div class="dashboard-topline">
+        <div>
+          <p class="admin-kicker">Welcome back</p>
+          <h2 id="admin-welcome">Salon Dashboard</h2>
+        </div>
+        <div class="dashboard-counts">
+          <div><strong id="client-count">0</strong><span>Clients</span></div>
+          <div><strong id="upcoming-count">0</strong><span>Upcoming</span></div>
+        </div>
+      </div>
+
+      <nav class="admin-tabs" aria-label="Dashboard sections" role="tablist">
+        <button class="admin-tab is-active" id="clients-tab" type="button" role="tab" aria-selected="true" aria-controls="clients-panel" data-tab="clients">Clients</button>
+        <button class="admin-tab" id="appointments-tab" type="button" role="tab" aria-selected="false" aria-controls="appointments-panel" data-tab="appointments">Appointments</button>
+        <button class="admin-tab" id="birthday-rewards-tab" type="button" role="tab" aria-selected="false" aria-controls="birthday-rewards-panel" data-tab="birthday-rewards">Birthday Rewards</button>
+      </nav>
+
+      <section id="clients-panel" class="admin-panel is-active" role="tabpanel" aria-labelledby="clients-tab">
+        <div class="panel-heading">
+          <div>
+            <p class="admin-kicker">Client Directory</p>
+            <h3>Registered Clients</h3>
+          </div>
+
+          <div class="client-directory-tools">
+            <input id="client-search" class="admin-search" type="search" aria-label="Search clients" placeholder="Search name, email, phone, birthday, or note" />
+
+            <select id="client-filter" class="admin-compact-select" aria-label="Filter clients">
+              <option value="all">All clients</option>
+              <option value="birthday">Birthday on file</option>
+              <option value="reward-enabled">Birthday reward enabled</option>
+              <option value="marketing">Marketing opted in</option>
+            </select>
+
+            <select id="client-sort" class="admin-compact-select" aria-label="Sort clients">
+              <option value="name">Name A–Z</option>
+              <option value="birthday">Next birthday</option>
+              <option value="newest">Newest registration</option>
+            </select>
+
+            <details class="client-export-menu" id="client-export-menu">
+              <summary class="admin-button admin-button-ghost client-export-trigger">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 3v12"></path>
+                  <path d="m7 10 5 5 5-5"></path>
+                  <path d="M5 20h14"></path>
+                </svg>
+                <span>Export</span>
+                <span class="client-export-chevron" aria-hidden="true">⌄</span>
+              </summary>
+
+              <div class="client-export-popover" role="group" aria-label="Choose client export format">
+                <button id="export-clients-pdf-button" class="client-export-option" type="button">
+                  <span class="client-export-option-title">PDF</span>
+                  <span class="client-export-option-copy">Easy-to-read client directory</span>
+                </button>
+
+                <button id="export-clients-button" class="client-export-option" type="button">
+                  <span class="client-export-option-title">CSV</span>
+                  <span class="client-export-option-copy">Spreadsheet / data backup</span>
+                </button>
+              </div>
+            </details>
+          </div>
+        </div>
+        <div id="clients-empty" class="empty-state" hidden>No clients match this view.</div>
+        <div id="clients-list" class="client-list"></div>
+        <div class="admin-list-footer">
+          <p id="clients-showing-status" class="admin-list-status" aria-live="polite"></p>
+          <button id="clients-load-more" class="admin-button admin-button-small admin-button-ghost" type="button" hidden>Show More Clients</button>
+        </div>
+      </section>
+
+      <section id="appointments-panel" class="admin-panel" role="tabpanel" aria-labelledby="appointments-tab">
+        <div class="panel-heading appointments-panel-heading">
+          <div>
+            <p class="admin-kicker">Schedule</p>
+            <h3>Appointments</h3>
+            <p class="panel-supporting-copy">Upcoming appointments load separately from history so years of past records never slow down the dashboard.</p>
+          </div>
+          <div class="appointment-heading-actions">
+            <button id="export-appointments-button" class="admin-button admin-button-ghost" type="button">Export Appointments</button>
+            <button id="new-appointment-button" class="admin-button" type="button">Add Appointment</button>
+          </div>
+        </div>
+
+        <div class="appointment-view-toolbar" role="group" aria-label="Appointment view">
+          <button class="appointment-view-button is-active" type="button" data-appointment-view="upcoming">Upcoming</button>
+          <button class="appointment-view-button" type="button" data-appointment-view="history">History</button>
+          <span id="appointment-view-status" class="appointment-view-status" aria-live="polite"></span>
+        </div>
+
+        <div id="appointments-empty" class="empty-state" hidden>No appointments in this view.</div>
+        <div id="appointments-list" class="appointment-list"></div>
+        <div class="admin-list-footer">
+          <p id="appointments-showing-status" class="admin-list-status" aria-live="polite"></p>
+          <button id="appointments-load-more" class="admin-button admin-button-small admin-button-ghost" type="button" hidden>Load More</button>
+        </div>
+      </section>
+
+      <section id="birthday-rewards-panel" class="admin-panel birthday-rewards-panel">
+        <div class="panel-heading birthday-panel-heading">
+          <div>
+            <p class="admin-kicker">Client Appreciation</p>
+            <h3>Birthday Rewards</h3>
+            <p class="panel-supporting-copy">Choose exactly which clients receive a birthday reward. Saving a reward here does not send anything yet.</p>
+          </div>
+          <div class="birthday-summary-cards" aria-label="Birthday reward summary">
+            <div><strong id="birthday-next-30-count">0</strong><span>Next 30 Days</span></div>
+            <div><strong id="birthday-enabled-count">0</strong><span>Rewards Enabled</span></div>
+          </div>
+        </div>
+
+        <div class="birthday-toolbar">
+          <input id="birthday-search" class="admin-search" type="search" placeholder="Search birthday clients" />
+          <select id="birthday-filter" class="admin-compact-select" aria-label="Filter birthday rewards">
+            <option value="upcoming">Next 90 days</option>
+            <option value="all">All birthdays</option>
+            <option value="enabled">Rewards enabled</option>
+            <option value="needs-setup">Not selected</option>
+          </select>
+        </div>
+
+        <div id="birthday-rewards-empty" class="empty-state" hidden>No birthday clients match this view.</div>
+        <div id="birthday-rewards-list" class="birthday-rewards-list"></div>
+      </section>
+    </section>
+  </main>
+
+  <!-- Appointment editor dialog. Email/SMS sending is NOT active yet. -->
+  <dialog id="appointment-dialog" class="admin-dialog appointment-dialog-polished">
+    <form id="appointment-form" method="dialog">
+      <div class="dialog-heading appointment-dialog-heading">
+        <div>
+          <p class="admin-kicker">Appointment</p>
+          <h3 id="appointment-dialog-title">Add Appointment</h3>
+          <p class="appointment-dialog-subtitle">Client, timing, service, and salon notes in one place.</p>
+        </div>
+        <button id="appointment-close" class="icon-button appointment-close-button" type="button" aria-label="Close">×</button>
+      </div>
+
+      <input id="appointment-id" type="hidden" />
+
+      <section class="appointment-form-section">
+        <div class="appointment-section-heading">
+          <span class="appointment-section-number">01</span>
+          <div>
+            <span class="appointment-section-title">Client</span>
+            <p>Search by name, email, or phone. A single match is selected automatically.</p>
+          </div>
+        </div>
+
+        <div class="appointment-client-picker">
+          <label class="appointment-field">
+            <span>Find client</span>
+            <input
+              id="appointment-client-search"
+              type="search"
+              placeholder="Start typing a name, email, or phone"
+              autocomplete="off"
+            />
+          </label>
+
+          <div class="appointment-client-divider" aria-hidden="true">
+            <span>or</span>
+          </div>
+
+          <label class="appointment-field appointment-browse-field">
+            <span>Browse client list</span>
+            <select id="appointment-client-browse">
+              <option value="">Browse all registered clients</option>
+            </select>
+          </label>
+
+          <!-- Hidden selection value used by the appointment code. -->
+          <select id="appointment-client" class="appointment-client-hidden" aria-hidden="true" tabindex="-1"></select>
+
+          <div id="appointment-client-matches" class="appointment-client-matches" hidden></div>
+
+          <div id="appointment-selected-client" class="appointment-selected-client" hidden>
+            <div>
+              <span class="selected-client-label">Selected client</span>
+              <strong id="appointment-selected-client-name"></strong>
+              <span id="appointment-selected-client-meta"></span>
+            </div>
+            <button id="appointment-clear-client" class="selected-client-change" type="button">Change</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="appointment-form-section">
+        <div class="appointment-section-heading">
+          <span class="appointment-section-number">02</span>
+          <div>
+            <span class="appointment-section-title">Appointment details</span>
+            <p>Set the timing, service, and current appointment status.</p>
+          </div>
+        </div>
+
+        <div class="appointment-form-grid">
+          <label class="appointment-field">
+            <span>Date</span>
+            <input id="appointment-date" type="date" required />
+          </label>
+
+          <label class="appointment-field">
+            <span>Time</span>
+            <input id="appointment-time" type="time" required />
+          </label>
+
+          <label class="appointment-field appointment-field-wide">
+            <span>Service</span>
+            <input id="appointment-service" type="text" maxlength="120" placeholder="e.g. Silk Press" required />
+          </label>
+
+          <label class="appointment-field">
+            <span>Status</span>
+            <select id="appointment-status" required>
+              <option value="scheduled">Scheduled</option>
+              <option value="confirmed">Confirmed</option>
+              <option value="completed">Completed</option>
+              <option value="cancelled">Cancelled</option>
+            </select>
+          </label>
+        </div>
+      </section>
+
+      <section class="appointment-form-section appointment-notes-section">
+        <div class="appointment-section-heading">
+          <span class="appointment-section-number">03</span>
+          <div>
+            <span class="appointment-section-title">Internal note</span>
+            <p>Optional information for Marni only.</p>
+          </div>
+        </div>
+
+        <label class="appointment-field appointment-notes-field">
+          <span class="sr-only">Notes</span>
+          <textarea id="appointment-notes" rows="3" maxlength="500" placeholder="Add an internal appointment note…"></textarea>
+        </label>
+      </section>
+
+      <div class="dialog-actions appointment-dialog-actions">
+        <button id="appointment-delete" class="admin-button admin-button-danger" type="button" hidden>Delete</button>
+        <span class="dialog-spacer"></span>
+        <button id="appointment-cancel" class="admin-button admin-button-ghost" type="button">Cancel</button>
+        <button class="admin-button" type="submit">Save Appointment</button>
+      </div>
+
+      <p id="appointment-status-message" class="admin-status appointment-status-message" aria-live="polite"></p>
+    </form>
+  </dialog>
+  <!-- Birthday reward preferences only. No automated message is sent from this dialog yet. -->
+  <dialog id="birthday-reward-dialog" class="admin-dialog birthday-reward-dialog">
+    <form id="birthday-reward-form" method="dialog">
+      <div class="dialog-heading birthday-reward-dialog-heading">
+        <div>
+          <p class="admin-kicker">Birthday Reward</p>
+          <h3 id="birthday-reward-client-name">Client</h3>
+          <p id="birthday-reward-client-meta" class="birthday-reward-client-meta"></p>
+        </div>
+        <button id="birthday-reward-close" class="icon-button appointment-close-button" type="button" aria-label="Close">×</button>
+      </div>
+
+      <input id="birthday-reward-client-id" type="hidden" />
+
+      <div id="birthday-reward-consent-warning" class="birthday-reward-consent-warning" hidden>
+        Automatic birthday delivery cannot be enabled because this client did not opt in to promotional messages. Their birthday can still remain on file for personal client appreciation.
+      </div>
+
+      <label class="birthday-reward-enable-row" for="birthday-reward-enabled">
+        <span>
+          <strong>Include this client in birthday rewards</strong>
+          <small>Off by default. Marni chooses each person individually.</small>
+        </span>
+        <input id="birthday-reward-enabled" type="checkbox" />
+      </label>
+
+      <div class="birthday-reward-form-grid">
+        <label>
+          <span>Reward amount</span>
+          <div class="money-input-wrap"><span>$</span><input id="birthday-reward-amount" type="number" min="1" max="500" step="1" value="25" /></div>
+        </label>
+
+        <label>
+          <span>Minimum service total</span>
+          <div class="money-input-wrap"><span>$</span><input id="birthday-reward-minimum" type="number" min="0" max="2000" step="1" value="75" /></div>
+        </label>
+
+        <label>
+          <span>Valid for</span>
+          <select id="birthday-reward-valid-days">
+            <option value="14">14 days</option>
+            <option value="30" selected>30 days</option>
+            <option value="45">45 days</option>
+            <option value="60">60 days</option>
+            <option value="90">90 days</option>
+          </select>
+        </label>
+
+        <label>
+          <span>Preferred delivery</span>
+          <select id="birthday-reward-delivery">
+            <option value="email">Email</option>
+            <option value="sms">Text message</option>
+            <option value="both">Email + text</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="birthday-reward-preview">
+        <span class="row-label">Planned reward</span>
+        <p id="birthday-reward-preview-text">$25 toward a service of $75 or more, valid for 30 days.</p>
+      </div>
+
+      <p class="birthday-reward-footnote">These settings only prepare the client for future birthday automation. No birthday email or text is sent by saving this form.</p>
+
+      <div class="dialog-actions">
+        <span class="dialog-spacer"></span>
+        <button id="birthday-reward-cancel" class="admin-button admin-button-ghost" type="button">Cancel</button>
+        <button class="admin-button" type="submit">Save Reward Settings</button>
+      </div>
+      <p id="birthday-reward-status" class="admin-status" aria-live="polite"></p>
+    </form>
+  </dialog>
+<!-- Cache-busting query helps GitHub Pages/iPad Safari load the newest admin code. -->
+  <script type="module" src="admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,1 @@
+Updated the client directory so the save, add-appointment, and delete controls are stacked vertically in a slim right-side column. This keeps each client card shorter and cleaner.

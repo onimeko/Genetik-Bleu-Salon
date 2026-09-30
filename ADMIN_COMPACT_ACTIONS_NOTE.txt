@@ -1,0 +1,11 @@
+GENETIK BLEU — CLIENT DIRECTORY POLISH
+
+Updated client cards:
+- Notes still autosave after typing.
+- Manual save is now a small checkmark icon.
+- Add Appointment is now a compact calendar-plus icon.
+- Delete Client is now a compact trash icon.
+- Delete confirmation behavior is unchanged.
+- Icon buttons have hover/focus states and accessible labels/tooltips.
+- The three large stacked buttons were removed so each client card stays much shorter.
+- Mobile/iPad layouts keep the actions in one horizontal row.

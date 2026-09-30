@@ -1,0 +1,14 @@
+GENETIK BLEU — REGISTRATION CONSOLIDATION UPDATE
+
+Changed:
+- Birthday copy now says: "Used for client appreciation."
+- Removed the "No birth year collected" badge.
+- Removed the extra birthday marketing paragraph from the form.
+- Required service consent is now a compact collapsed disclosure.
+- Optional promotional consent is now a compact collapsed disclosure.
+- Clients tap "Details" to read the full consent text and select the checkbox.
+- If the required consent is missed, its disclosure automatically opens.
+- Privacy Policy wording no longer implies that everyone receives a birthday reward.
+
+No Firebase rules, admin dashboard logic, appointment logic, or email backend
+were changed in this update.

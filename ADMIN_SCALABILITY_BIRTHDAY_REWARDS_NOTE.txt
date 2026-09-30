@@ -1,0 +1,33 @@
+GENETIK BLEU — ADMIN SCALABILITY + BIRTHDAY REWARDS FOUNDATION
+
+ADMIN SCALABILITY
+- Upcoming appointments and appointment history are now separate views.
+- Dashboard no longer downloads the entire appointment history on every login.
+- Upcoming appointments load 100 at a time; history loads 50 at a time.
+- Load More fetches the next page only when requested.
+- Full appointment CSV export is still available as an explicit backup action.
+- Client cards render 60 at a time, with Show More for large client lists.
+- Client filtering/sorting now includes birthday, reward status, marketing opt-in, next birthday, and newest registration.
+
+BIRTHDAY REWARDS
+- New private Birthday Rewards dashboard tab.
+- Clients with birthdays are sorted by upcoming birthday.
+- Marni chooses each reward recipient individually; rewards are OFF by default.
+- Default reward planning values: $25 toward a $75+ service, valid 30 days, delivery by email.
+- Amount, minimum service total, validity window, and future delivery channel are adjustable per client.
+- Automatic delivery cannot be enabled for clients who did not opt into promotional messages.
+- Saving reward settings DOES NOT send any email or text yet.
+- Existing/recent sender and redemption fields will be displayed automatically later when automation begins writing them.
+
+BACKUPS
+- Client CSV now includes birthday reward configuration.
+- New Export Appointments button fetches the complete appointment collection only when explicitly requested.
+
+FIREBASE
+- No Firestore rule change is required. Client reward settings are written only by authenticated approved administrators, which existing rules already allow.
+- The scalable 24-hour email reminder function remains preserved in the full checkpoint.
+
+QA
+- JavaScript syntax validated for admin.js, registration.js, script.js, and functions/index.js.
+- Duplicate HTML IDs checked on admin.html.
+- Full appointment collection scan is absent from the scheduled reminder function.

@@ -1,0 +1,13 @@
+GENETIK BLEU — CLIENT PDF EXPORT
+
+Changed:
+- Existing client export is now clearly labeled "Export CSV".
+- Added a separate "Export PDF" button.
+- PDF is generated directly in the browser; client data is not sent to a PDF service.
+- PDF is formatted as an easy-to-read client directory with:
+  name, phone, email, birthday, marketing status, registration date,
+  birthday reward details (when enabled), and client notes.
+- PDF automatically paginates for large client lists.
+
+No Firebase rules, Firestore data, registration logic, appointment logic,
+or email automation were changed.

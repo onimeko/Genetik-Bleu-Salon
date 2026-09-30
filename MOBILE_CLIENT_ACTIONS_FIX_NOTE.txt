@@ -1,0 +1,8 @@
+Mobile/tablet client action improvements:
+- Calendar button is larger and pinned to the upper-right corner.
+- Delete button is larger and pinned to the lower-right corner.
+- A large empty safety gap separates the two touch targets.
+- Delete now uses one Firestore batch for the client + linked appointments.
+- Pending note autosave is cancelled before deletion.
+- The client card visibly fades while deletion is processing, so a slower
+  mobile connection no longer makes the button seem unresponsive.

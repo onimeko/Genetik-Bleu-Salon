@@ -1,0 +1,14 @@
+GENETIK BLEU — DARK MODE + ADMIN FINAL POLISH
+
+Updated from the pre-Marni final-polish checkpoint:
+- Public dark mode now fully covers the Marnstarr feature, gallery treatment,
+  registration review panel, consent surfaces, birthday chip, and related text.
+- Services dark mode now darkens the service-card wording areas and the full
+  What to Expect cards instead of leaving white/light lower panels.
+- Added a manual dark/light toggle to the private Client + Appointment Manager.
+  It uses the same explicit preference as the public site and does not follow
+  the device/system theme.
+- Added an early admin theme initializer to avoid a light flash on load.
+- Removed the Birthday Rewards sentence: “Marni can choose this client at any time.”
+- Existing Firebase, registration, appointment, birthday-reward storage, and
+  email/Brevo logic were not changed.

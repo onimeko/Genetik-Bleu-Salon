@@ -1,0 +1,11 @@
+Added:
+- privacy.html matching the Genetik Bleu visual system
+- Privacy Policy links in all public footers
+- Privacy Policy link immediately below the registration consent choices
+- Export Clients button in the private admin dashboard
+- CSV export includes client IDs, names, phone, email, registration/consent dates,
+  service consent, marketing consent, and client notes
+- CSV output includes spreadsheet-formula protection and UTF-8 support
+
+Privacy copy is a plain-language description of the website's current workflow.
+It should be reviewed by Marni before the public launch of automated email/SMS.

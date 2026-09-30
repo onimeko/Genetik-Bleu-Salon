@@ -1,0 +1,14 @@
+GENETIK BLEU — UI CLEANUP
+
+Changed:
+- Removed the redundant "Birthday on file" badge beside the visible birthday.
+- Kept "Reward enabled" only when a birthday reward is actually enabled.
+- Registration consent checkboxes are now visible immediately, to the left of
+  Required / Optional. Clients can check them without expanding Details.
+- Full consent wording remains available under Details.
+- The required checkbox is still required before registration can submit.
+- Client export is now one Export button with a choice between PDF and CSV.
+- Existing PDF export logic is unchanged.
+
+No Firebase rules, Firestore data, appointment logic, birthday reward logic,
+or email automation were changed.
